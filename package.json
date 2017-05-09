@@ -1,0 +1,93 @@
+{
+  "name": "express-typescript-starter",
+  "version": "0.1.0",
+  "description": "A starting point for Node.js express apps with TypeScript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sahat/hackathon-starter.git"
+  },
+  "author": "Bowden Kelly",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run build && npm run watch",
+    "build": "npm run build-sass && npm run build-ts && npm run tslint && npm run copy-static-assets",
+    "serve": "node dist/server.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"nodemon dist/server.js\"",
+    "test": "jest --forceExit",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "build-sass": "node-sass src/public/css/main.scss dist/public/css/main.css",
+    "watch-sass": "node-sass -w src/public/css/main.scss dist/public/css/main.css",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "copy-static-assets": "node copyStaticAssets.js"
+  },
+  "jest": {
+    "globals": {
+      "__TS_CONFIG__": "tsconfig.json"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "**/test/**/*.test.(ts|js)"
+    ],
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "async": "^2.1.2",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "connect-mongo": "^1.3.2",
+    "dotenv": "^2.0.0",
+    "errorhandler": "^1.4.3",
+    "express": "^4.14.0",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.14.2",
+    "express-validator": "^3.1.3",
+    "fbgraph": "^1.3.0",
+    "lodash": "^4.17.4",
+    "lusca": "^1.4.1",
+    "mongoose": "^4.6.6",
+    "morgan": "^1.7.0",
+    "nodemailer": "^2.6.4",
+    "passport": "0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.0-beta6",
+    "request": "^2.78.0"
+  },
+  "devDependencies": {
+    "@types/async": "^2.0.40",
+    "@types/body-parser": "^1.16.2",
+    "@types/connect-mongo": "0.0.32",
+    "@types/dotenv": "^2.0.20",
+    "@types/errorhandler": "0.0.30",
+    "@types/express": "^4.0.35",
+    "@types/express-session": "0.0.32",
+    "@types/jest": "^19.2.2",
+    "@types/jquery": "^2.0.41",
+    "@types/lodash": "^4.14.63",
+    "@types/mongodb": "^2.1.43",
+    "@types/mongoose": "^4.7.9",
+    "@types/morgan": "^1.7.32",
+    "@types/node": "^7.0.12",
+    "@types/nodemailer": "^1.3.32",
+    "@types/passport": "^0.3.3",
+    "@types/passport-facebook": "^2.1.3",
+    "@types/request": "0.0.42",
+    "@types/supertest": "^2.0.0",
+    "concurrently": "^3.4.0",
+    "jest": "^19.0.2",
+    "node-sass": "^4.5.2",
+    "shelljs": "^0.7.7",
+    "supertest": "^2.0.1",
+    "ts-jest": "^19.0.8",
+    "tslint": "^5.0.0",
+    "typescript": "^2.2.2"
+  }
+}
