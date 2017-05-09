@@ -1,4 +1,4 @@
-Express TypeScript Starter
+TypeScript Node Starter
 =======================
 
 [![Dependency Status](https://david-dm.org/bowdenk7/express-typescript-starter.svg)](https://david-dm.org/bowdenk7/express-typescript-starter) [![Build Status](https://travis-ci.org/bowdenk7/express-typescript-starter.svg?branch=master)](https://travis-ci.org/bowdenk7/express-typescript-starter) 
