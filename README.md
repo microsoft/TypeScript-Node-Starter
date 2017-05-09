@@ -345,20 +345,6 @@ This all happens in memory when you run the tests, so there are no output `.js` 
 Writing tests for web apps has entire books dedicated to it and best practices are strongly influenced by personal style, so I'm deliberately avoiding discussing how or when to write tests in this guide.
 However, if prescriptive guidance on testing is something that you're interested in, [let me know](TODO-survey-link), I'll do some homework and get back to you.
 
-## Using ES6 Modules
-
-## Adding types
-
-## Configuring your VS Code environment
-
-### Project settings
-
-### Extensions
-
-#### TSLint
-
-#### Spellcheck
-
 ## TSLint
 TSLint is a code linter which mainly helps catch minor code quality and style issues.
 TSLint is very similar to ESLint or JSLint but is built with TypeScript in mind.
