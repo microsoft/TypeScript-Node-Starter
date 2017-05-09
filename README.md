@@ -412,15 +412,5 @@ To install or update these dependencies you can use either `npm` or `yarn`.
 # Other
 Here is a section of miscellaneous tips. 
 
-## Yarn vs NPM
-
-[Yarn](https://yarnpkg.com/en/) is a new JavaScript package manager that builds off of npm. 
-It is not a replacement for npm, however it does provide a few advantages over npm in some cases.
-
-Yarn is generally faster and has a few extra features like `yarn why <package>` which will tell you which package required a specific dependency.
-Yarn also doesn't clutter your command prompt when your npm scripts return with status 1.
-For these reasons I would personally recommend downloading and giving Yarn a shot.
-That said, everything in this template can be used with npm as well.
-
 # Hackathon Start Project
 A majority of this quick start's content was inspired or adapted from Sahat's excellent [Hackathon Starter project](https://github.com/sahat/hackathon-starter).
