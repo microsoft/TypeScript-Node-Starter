@@ -1,7 +1,7 @@
 TypeScript Node Starter
 =======================
 
-[![Dependency Status](https://david-dm.org/bowdenk7/express-typescript-starter.svg)](https://david-dm.org/bowdenk7/express-typescript-starter) [![Build Status](https://travis-ci.org/bowdenk7/express-typescript-starter.svg?branch=master)](https://travis-ci.org/bowdenk7/express-typescript-starter) 
+[![Dependency Status](https://david-dm.org/Microsoft/TypeScript-Node-Starter.svg)](https://david-dm.org/Microsoft/TypeScript-Node-Starter) [![Build Status](https://travis-ci.org/Microsoft/TypeScript-Node-Starter.svg?branch=master)](https://travis-ci.org/Microsoft/TypeScript-Node-Starter) 
 
 **Live Demo**: TODO
 
@@ -13,7 +13,7 @@ TypeScript Node Starter
 # Getting started
 - Clone the repository
 ```
-git clone --depth=1 https://github.com/bowdenk7/express-typescript-starter.git <project_name>
+git clone --depth=1 https://github.com/Microsoft/TypeScript-Node-Starter.git <project_name>
 ```
 - Install dependencies
 ```
