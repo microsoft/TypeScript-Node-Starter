@@ -41,7 +41,7 @@ export let postLogin = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("local", (err: Error, user: UserModel, info: LocalStrategyInfo) => {
     if (err) { return next(err); }
     if (!user) {
-      req.flash("errors", info);
+      req.flash("errors", info.message);
       return res.redirect("/login");
     }
     req.logIn(user, (err) => {
