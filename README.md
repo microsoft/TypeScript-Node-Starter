@@ -815,10 +815,10 @@ In that file you'll find two sections:
 | Package                         | Description                                                           |
 | ------------------------------- | --------------------------------------------------------------------- |
 | concurrently                    | Utility that manages multiple concurrent tasks. Used with npm scripts |
-| jest                            | Reports real-time server metrics for Express.                         |
-| node-sass                       | GitHub API library.                                                   |
+| jest                            | Testing library for JavaScript                                        |
+| node-sass                       | Allows to compile .scss files to .css                                 |
 | supertest                       | HTTP assertion library.                                               |
-| ts-test                         | Instagram API library.                                                |
+| ts-test                         | A preprocessor with sourcemap support to help use Typescript with Jest.                                                |
 | tslint                          | Linter (similar to ESLint) for TypeScript files                       |
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
 
