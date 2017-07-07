@@ -1,0 +1,11 @@
+'use strict';require('ts-jest').install();"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const supertest = require("supertest");
+const request = supertest("http://localhost:8000");
+describe("GET /contact", () => {
+    it("should return 200 OK", (done) => {
+        request.get("/contact")
+            .expect(200, done);
+    });
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29udGFjdC50ZXN0LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiZmlsZTovLy8vVXNlcnMva2V2bGFpMS9EZXNrdG9wL1R5cGVTY3JpcHQtTm9kZS1TdGFydGVyL3Rlc3QvY29udGFjdC50ZXN0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsdUNBQXVDO0FBQ3ZDLE1BQU0sT0FBTyxHQUFHLFNBQVMsQ0FBQyx1QkFBdUIsQ0FBQyxDQUFDO0FBRW5ELFFBQVEsQ0FBQyxjQUFjLEVBQUU7SUFDdkIsRUFBRSxDQUFDLHNCQUFzQixFQUFFLENBQUMsSUFBSTtRQUM5QixPQUFPLENBQUMsR0FBRyxDQUFDLFVBQVUsQ0FBQzthQUNwQixNQUFNLENBQUMsR0FBRyxFQUFFLElBQUksQ0FBQyxDQUFDO0lBQ3ZCLENBQUMsQ0FBQyxDQUFDO0FBQ0wsQ0FBQyxDQUFDLENBQUMifQ==

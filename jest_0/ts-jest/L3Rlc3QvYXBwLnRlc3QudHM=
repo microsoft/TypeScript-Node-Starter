@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const supertest = require("supertest");
+const request = supertest("http://localhost:8000");
+describe("GET /random-url", () => {
+    it("should return 404", (done) => {
+        request.get("/reset")
+            .expect(404, done);
+    });
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXBwLnRlc3QuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJmaWxlOi8vLy9Vc2Vycy9rZXZsYWkxL0Rlc2t0b3AvVHlwZVNjcmlwdC1Ob2RlLVN0YXJ0ZXIvdGVzdC9hcHAudGVzdC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLHVDQUF1QztBQUN2QyxNQUFNLE9BQU8sR0FBRyxTQUFTLENBQUMsdUJBQXVCLENBQUMsQ0FBQztBQUVuRCxRQUFRLENBQUMsaUJBQWlCLEVBQUU7SUFDMUIsRUFBRSxDQUFDLG1CQUFtQixFQUFFLENBQUMsSUFBSTtRQUMzQixPQUFPLENBQUMsR0FBRyxDQUFDLFFBQVEsQ0FBQzthQUNsQixNQUFNLENBQUMsR0FBRyxFQUFFLElBQUksQ0FBQyxDQUFDO0lBQ3ZCLENBQUMsQ0FBQyxDQUFDO0FBQ0wsQ0FBQyxDQUFDLENBQUMifQ==
