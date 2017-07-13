@@ -1,12 +1,15 @@
-import {Request, Response} from "express";
-
+import { Request, Response } from "express";
 /**
  * GET /
  * Home page.
  */
-export let index = (req: Request, res: Response) => {
-  res.render("home", {
-    title: "Home"
-  });
-};
+class Home {
+  public index(req: Request, res: Response) {
+    res.render("home", {
+      title: "Home"
+    });
+  }
+}
 
+const home = new Home();
+export default home;
