@@ -29,7 +29,7 @@ Navigate to `http://localhost:3000`
 
 # TypeScript + Node 
 The main purpose of this repository is to show a good end-to-end project setup and workflow for writing Node code in TypeScript.
-I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encourage and will be most welcome. 
+I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. 
 
 In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
 Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js project to TypeScript.
