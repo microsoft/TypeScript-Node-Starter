@@ -34,6 +34,6 @@ class API {
     });
   }
 }
-const api = new API();
-export default api;
+const apiController = new API();
+export default apiController;
 

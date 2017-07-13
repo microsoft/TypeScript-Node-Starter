@@ -28,11 +28,10 @@ dotenv.config({ path: ".env.example" });
 /**
  * Controllers (route handlers).
  */
-import * as homeController from "./controllers/home";
-import * as userController from "./controllers/user";
-import * as apiController from "./controllers/api";
-import * as contactController from "./controllers/contact";
-
+import homeController from  "./controllers/home";
+import userController from "./controllers/user";
+import apiController from "./controllers/api";
+import contactController from "./controllers/contact";
 /**
  * API keys and Passport configuration.
  */

@@ -52,5 +52,5 @@ class Contact {
   }
 }
 
-const contact = new Contact();
-export default contact;
+const contactController = new Contact();
+export default contactController;
