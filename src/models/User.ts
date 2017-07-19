@@ -64,8 +64,8 @@ userSchema.pre("save", function save(next) {
   });
 });
 
-userSchema.methods.comparePassword = function(candidatePassword: string, cb: (err: any, isMatch: any) => {}) {
-  bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error , isMatch: boolean) => {
+userSchema.methods.comparePassword = function (candidatePassword: string, cb: (err: any, isMatch: any) => {}) {
+  bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error, isMatch: boolean) => {
     cb(err, isMatch);
   });
 };
@@ -74,7 +74,7 @@ userSchema.methods.comparePassword = function(candidatePassword: string, cb: (er
 /**
  * Helper method for getting user's gravatar.
  */
-userSchema.methods.gravatar = function(size: number) {
+userSchema.methods.gravatar = function (size: number) {
   if (!size) {
     size = 200;
   }
