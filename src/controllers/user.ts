@@ -2,9 +2,9 @@ import * as async from "async";
 import * as crypto from "crypto";
 import * as nodemailer from "nodemailer";
 import * as passport from "passport";
-import {default as User, UserModel, AuthToken} from "../models/User";
-import {Request, Response, NextFunction} from "express";
-import {LocalStrategyInfo} from "passport-local";
+import { default as User, UserModel, AuthToken } from "../models/User";
+import { Request, Response, NextFunction } from "express";
+import { LocalStrategyInfo } from "passport-local";
 import { WriteError } from "mongodb";
 const request = require("express-validator");
 
@@ -80,7 +80,7 @@ export let getSignup = (req: Request, res: Response) => {
  */
 export let postSignup = (req: Request, res: Response, next: NextFunction) => {
   req.assert("email", "Email is not valid").isEmail();
-  req.assert("password", "Password must be at least 4 characters long").len(4);
+  req.assert("password", "Password must be at least 4 characters long").len({ max: 4 });
   req.assert("confirmPassword", "Passwords do not match").equals(req.body.password);
   req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
 
@@ -165,7 +165,7 @@ export let postUpdateProfile = (req: Request, res: Response, next: NextFunction)
  * Update current password.
  */
 export let postUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("password", "Password must be at least 4 characters long").len(4);
+  req.assert("password", "Password must be at least 4 characters long").len({ max: 4 });
   req.assert("confirmPassword", "Passwords do not match").equals(req.body.password);
 
   const errors = req.validationErrors();
@@ -245,7 +245,7 @@ export let getReset = (req: Request, res: Response, next: NextFunction) => {
  * Process the reset password request.
  */
 export let postReset = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("password", "Password must be at least 4 characters long.").len(4);
+  req.assert("password", "Password must be at least 4 characters long.").len({ max: 4 });
   req.assert("confirm", "Passwords must match.").equals(req.body.password);
 
   const errors = req.validationErrors();
