@@ -1,5 +1,5 @@
 import * as nodemailer from "nodemailer";
-import {Request, Response} from "express";
+import { Request, Response } from "express";
 
 const transporter = nodemailer.createTransport({
   service: "SendGrid",
