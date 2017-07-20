@@ -6,7 +6,7 @@ import * as _ from "lodash";
 
 // import { User, UserType } from '../models/User';
 import { default as User } from "../models/User";
-import {Request, Response, NextFunction} from "express";
+import { Request, Response, NextFunction } from "express";
 
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;

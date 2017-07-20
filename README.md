@@ -48,7 +48,7 @@ For other editors, make sure you have the corresponding [TypeScript plugin](http
 
 ## Project Structure
 The most obvious difference in a TypeScript + Node project is the folder structure.
-In a TypeScript project, you it's best to have separate _source_  and _distributable_ files.
+In a TypeScript project, it's best to have separate _source_  and _distributable_ files.
 TypeScript (`.ts`) files live in your `src` folder and after compilation are output as JavaScript (`.js`) in the `dist` folder.
 The `test` and `views` folders remain top level as expected. 
 
@@ -66,7 +66,7 @@ The full folder structure of this app is explained below:
 | **src/controllers**      | Controllers define functions that respond to various http requests                            |
 | **src/models**           | Models define Mongoose schemas that will be used in storing and retrieving data from MongoDB  |
 | **src/public**           | Static assets that will be used client side                                                   |
-| **src/types**            | Holds .d.ts files not found on DefinitelyTyped. Covered more in this [section](#)          |
+| **src/types**            | Holds .d.ts files not found on DefinitelyTyped. Covered more in this [section](#type-definition-dts-files)          |
 | **src**/server.ts        | Entry point to your express app                                                               |
 | **test**                 | Contains your tests. Seperate from source because there is a different build process.         |
 | **views**                | Views define how your app renders on the client. In this case we're using pug                 |
@@ -291,7 +291,7 @@ This is mostly identical to the "Node.js: Launch Program" template with a couple
 | `"program": "${workspaceRoot}/dist/server.js",` | Modified to point to our entry point in `dist`                  |
 | `"smartStep": true,`                            | Won't step into code that doesn't have a source map             |
 | `"outFiles": [...]`                             | Specify where output files are dropped. Use with source maps    |
-| `"protocol": inspector,`                        | Use the new Node debug protocal because we're on the latest node|
+| `"protocol": inspector,`                        | Use the new Node debug protocol because we're on the latest node|
 
 With this file in place, you can hit `F5` to serve the project with the debugger already attached.
 Now just set your breakpoints and go!
@@ -397,10 +397,10 @@ In that file you'll find two sections:
 | Package                         | Description                                                           |
 | ------------------------------- | --------------------------------------------------------------------- |
 | concurrently                    | Utility that manages multiple concurrent tasks. Used with npm scripts |
-| jest                            | Reports real-time server metrics for Express.                         |
-| node-sass                       | GitHub API library.                                                   |
+| jest                            | Testing library for JavaScript.                                       |
+| node-sass                       | Allows to compile .scss files to .css                                 |
 | supertest                       | HTTP assertion library.                                               |
-| ts-test                         | Instagram API library.                                                |
+| ts-test                         | A preprocessor with sourcemap support to help use TypeScript wit Jest.|
 | tslint                          | Linter (similar to ESLint) for TypeScript files                       |
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
 
@@ -409,5 +409,6 @@ To install or update these dependencies you can use either `npm` or `yarn`.
 # Other
 Here is a section of miscellaneous tips. 
 
-# Hackathon Start Project
+
+# Hackathon Starter Project
 A majority of this quick start's content was inspired or adapted from Sahat's excellent [Hackathon Starter project](https://github.com/sahat/hackathon-starter).
