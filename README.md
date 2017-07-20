@@ -205,7 +205,7 @@ The [README](https://github.com/Microsoft/dts-gen#dts-gen-a-typescript-definitio
 In this project, `bcrypt-nodejs.d.ts`, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`. 
 
 #### Writing a `.d.ts` file
-If generating a `.d.ts` using `dts-gen` isn't working, [you should tell me about it first](TODO-survey-link), but then you can create your own `.d.ts` file.
+If generating a `.d.ts` using `dts-gen` isn't working, [you should tell me about it first](https://www.surveymonkey.com/r/LN2CV82), but then you can create your own `.d.ts` file.
 
 If you just want to silence the compiler for the time being, create a file called `<some-library>.d.ts` in your `types` folder and then add this line of code:
 ```ts
@@ -219,7 +219,7 @@ The reason it's so easy to get great `.d.ts` files for most libraries is that de
 Contributing `.d.ts` files is a great way to get into the open source community if it's something you've never tried before, and as soon as your changes are accepted, every other developer in the world has access to your work.
 
 If you're interested in giving it a shot, check out the [guidance on DefinitelyTyped](https://github.com/definitelyTyped/DefinitelyTyped/#how-can-i-contribute).
-If you're not interested, [you should tell me why](TODO-survey-link) so we can help make it easier in the future!
+If you're not interested, [you should tell me why](https://www.surveymonkey.com/r/LN2CV82) so we can help make it easier in the future!
 
 ### Summary of `.d.ts` management
 In general if you stick to the following steps you should have minimal `.d.ts` issues;
@@ -340,7 +340,7 @@ This all happens in memory when you run the tests, so there are no output `.js` 
 
 ### Writing tests
 Writing tests for web apps has entire books dedicated to it and best practices are strongly influenced by personal style, so I'm deliberately avoiding discussing how or when to write tests in this guide.
-However, if prescriptive guidance on testing is something that you're interested in, [let me know](TODO-survey-link), I'll do some homework and get back to you.
+However, if prescriptive guidance on testing is something that you're interested in, [let me know](https://www.surveymonkey.com/r/LN2CV82), I'll do some homework and get back to you.
 
 ## TSLint
 TSLint is a code linter which mainly helps catch minor code quality and style issues.
