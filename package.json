@@ -89,6 +89,10 @@
     "supertest": "^2.0.1",
     "ts-jest": "^19.0.8",
     "tslint": "^5.0.0",
-    "typescript": "^2.2.2"
+    "typescript": "^2.2.2",
+    "is-buffer": "^1.1.5",
+    "concat-map": "0.0.1",
+    "lodash._baseassign": "^3.2.0",
+    "lodash._createassigner": "^3.1.1"
   }
 }
