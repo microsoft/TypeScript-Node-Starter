@@ -1,5 +1,5 @@
+import {} from 'jest';
 import * as supertest from "supertest";
-import {default as app} from "../src/server";
 
 const request = supertest("http://localhost:8000");
 
