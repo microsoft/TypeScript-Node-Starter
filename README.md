@@ -54,7 +54,7 @@ The `test` and `views` folders remain top level as expected.
 
 The full folder structure of this app is explained below:
 
-> **Note!** Make sure you have already built the app using `npm run build` or `yarn run build` 
+> **Note!** Make sure you have already built the app using `npm run build`
 
 | Name | Description |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
@@ -77,7 +77,6 @@ The full folder structure of this app is explained below:
 | tsconfig.json            | Config settings for compiling server code written in TypeScript                               |
 | tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
 | tslint.json              | Config settings for TSLint code style checking                                                |
-| yarn.lock                | Contains same dependency version info as package.json, but used with yarn                     |
 
 ## Building the project
 It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount build configuration. 
@@ -138,7 +137,7 @@ All the different build steps are orchestrated via [npm scripts](https://docs.np
 Npm scripts basically allow us to call (and chain) terminal commands via npm.
 This is nice because most JavaScript tools have easy to use command line utilities allowing us to not need grunt or gulp to manage our builds.
 If you open `package.json`, you will see a `scripts` section with all the different scripts you can call.
-To call a script, simply run `npm run <script-name>` (or `yarn run <script-name` if using yarn) from the command line.
+To call a script, simply run `npm run <script-name>` from the command line.
 You'll notice that npm scripts can call each other which makes it easy to compose complex builds out of simple individual build scripts.
 Below is a list of all the scripts this template has available:
 
@@ -404,7 +403,7 @@ In that file you'll find two sections:
 | tslint                          | Linter (similar to ESLint) for TypeScript files                       |
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
 
-To install or update these dependencies you can use either `npm` or `yarn`.
+To install or update these dependencies you can use `npm install` or `npm update`.
 
 # Other
 Here is a section of miscellaneous tips. 
