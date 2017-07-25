@@ -63,7 +63,9 @@
   },
   "devDependencies": {
     "@types/async": "^2.0.40",
+    "@types/bcrypt-nodejs": "0.0.30",
     "@types/body-parser": "^1.16.2",
+    "@types/compression": "0.0.33",
     "@types/connect-mongo": "0.0.32",
     "@types/dotenv": "^2.0.20",
     "@types/errorhandler": "0.0.30",
@@ -89,6 +91,6 @@
     "supertest": "^2.0.1",
     "ts-jest": "^19.0.8",
     "tslint": "^5.0.0",
-    "typescript": "^2.2.2"
+    "typescript": "^2.4.0"
   }
 }

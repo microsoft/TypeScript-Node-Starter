@@ -9,7 +9,7 @@ import * as logger from "morgan";
 import * as errorHandler from "errorhandler";
 import * as lusca from "lusca";
 import * as dotenv from "dotenv";
-import * as mongo from "connect-mongo"; // (session)
+import * as mongo from "connect-mongo";
 import * as flash from "express-flash";
 import * as path from "path";
 import * as mongoose from "mongoose";
