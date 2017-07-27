@@ -6,6 +6,12 @@
     "configurations": [        
         {
             "type": "node",
+            "request": "attach",
+            "name": "Attach",
+            "port": 9229
+        },
+        {
+            "type": "node",
             "request": "launch",
             "name": "Debug",
             "program": "${workspaceRoot}/dist/server.js",
