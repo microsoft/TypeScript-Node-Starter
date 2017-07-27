@@ -302,7 +302,7 @@ Likewise be sure to stop the debugger before returning to your normal `npm start
 #### Using attach debug configuration
 VS Code debuggers also support attaching to an already running program. The `Attach` configuration has already configured, everything you need to do is change `Debug Configuration` to `Attach` and hit `F5`.
 
-> Tip! Instead of running `npm start`, using `npm run debug` and `Attach Configuration` that make you don't need to stop running project.
+> Tips! Instead of running `npm start`, using `npm run debug` and `Attach Configuration` that make you don't need to stop running project.
 
 ## Testing
 For this project, I chose [Jest](https://facebook.github.io/jest/) as our test framework.
