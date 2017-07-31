@@ -299,6 +299,11 @@ Now just set your breakpoints and go!
 VS Code will try to launch on the same port and error out.
 Likewise be sure to stop the debugger before returning to your normal `npm start` process.
 
+#### Using attach debug configuration
+VS Code debuggers also support attaching to an already running program. The `Attach` configuration has already configured, everything you need to do is change `Debug Configuration` to `Attach` and hit `F5`.
+
+> Tips! Instead of running `npm start`, using `npm run debug` and `Attach Configuration` that make you don't need to stop running project to debug.
+
 ## Testing
 For this project, I chose [Jest](https://facebook.github.io/jest/) as our test framework.
 While Mocha is probably more common, Mocha seems to be looking for a new maintainer and setting up TypeScript testing in Jest is wicked simple.
