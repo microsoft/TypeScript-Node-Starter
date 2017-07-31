@@ -19,7 +19,7 @@
             "outFiles": [
                 "../dist/**/*.js"
             ],
-            "preLaunchTask": "build",
+            "preLaunchTask": "npm: build",
             "protocol": "inspector"
         }
     ]

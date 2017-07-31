@@ -4,7 +4,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "taskName": "Run Build",
             "type": "npm",
             "script": "build",
             "group": {
