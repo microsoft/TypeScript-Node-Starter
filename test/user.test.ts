@@ -1,7 +1,5 @@
 import * as supertest from "supertest";
-import * as app from "../src/server";
-
-const request = supertest(app);
+const request = supertest("http://localhost:3000");
 
 describe("GET /login", () => {
   it("should return 200 OK", () => {
