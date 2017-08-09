@@ -1,11 +1,9 @@
 import * as supertest from "supertest";
-import * as app from "../src/server";
+const request = supertest("http://localhost:3000");
 
 describe("GET /random-url", () => {
-  const request = supertest(app);
-
-  it("should return 404", (done) => {
-    request.get("/reset")
-      .expect(404, done);
+  it("should return 404", () => {
+    return request.get("/reset")
+      .expect(404);
   });
 });
