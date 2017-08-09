@@ -1,17 +1,17 @@
-import {} from 'jest';
+import {} from "jest";
 import * as supertest from "supertest";
-const request = supertest("http://localhost:8000");
+const request = supertest("http://localhost:3000");
 
 describe("GET /login", () => {
-  it("should return 200 OK", (done) => {
-    request.get("/login")
-      .expect(200, done);
+  it("should return 200 OK", () => {
+    return request.get("/login")
+      .expect(200);
   });
 });
 
 describe("GET /signup", () => {
-  it("should return 200 OK", (done) => {
-    request.get("/signup")
-      .expect(200, done);
+  it("should return 200 OK", () => {
+    return request.get("/signup")
+      .expect(200);
   });
 });
