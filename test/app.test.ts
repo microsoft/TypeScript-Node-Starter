@@ -1,5 +1,6 @@
 import * as supertest from "supertest";
-const request = supertest("http://localhost:3000");
+const app = require("../src/app");
+const request = supertest(app);
 
 describe("GET /random-url", () => {
   it("should return 404", () => {
