@@ -15,7 +15,6 @@ import * as mongoose from "mongoose";
 import * as passport from "passport";
 import expressValidator = require("express-validator");
 
-
 const MongoStore = mongo(session);
 
 /**
