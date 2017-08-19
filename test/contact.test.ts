@@ -1,6 +1,7 @@
 import {} from "jest";
 import * as supertest from "supertest";
-const request = supertest("http://localhost:3000");
+const app = require("../src/app");
+const request = supertest(app);
 
 describe("GET /contact", () => {
   it("should return 200 OK", () => {
