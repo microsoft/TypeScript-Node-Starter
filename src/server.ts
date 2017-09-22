@@ -14,6 +14,8 @@ import * as flash from "express-flash";
 import * as path from "path";
 import * as mongoose from "mongoose";
 import * as passport from "passport";
+import * as validator from "validator";
+import * as lodash from "lodash";
 import expressValidator = require("express-validator");
 
 
@@ -28,10 +30,7 @@ dotenv.config({ path: ".env.example" });
 /**
  * Controllers (route handlers).
  */
-import * as homeController from "./controllers/home";
 import * as userController from "./controllers/user";
-import * as apiController from "./controllers/api";
-import * as contactController from "./controllers/contact";
 
 /**
  * API keys and Passport configuration.
@@ -66,7 +65,31 @@ app.use(compression());
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expressValidator());
+app.use(expressValidator({
+  /*
+  customValidators: {
+    isDegreeCorrect: function (values, prop) {
+      const erAr = [];
+      console.log(values);
+      console.log(prop);
+      return lodash.forEach(values, function (val) {
+        const e = {};
+        const levelRegex = /([Bb]achelors)/;
+        if (!levelRegex.test(val.level)) {
+          console.log("here");
+          e.level = "Invalid asdf";
+        }
+        console.log("e is: ");
+        console.log(e);
+        return false;
+      });
+
+      return values.every(function(val) {
+        console.log(val);
+         return validator.isEmpty(val.level);
+      });
+      */
+}));
 app.use(session({
   resave: true,
   saveUninitialized: true,
@@ -104,29 +127,15 @@ app.use(express.static(path.join(__dirname, "public"), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-app.get("/", homeController.index);
-app.get("/login", userController.getLogin);
 app.post("/login", userController.postLogin);
-app.get("/logout", userController.logout);
-app.get("/forgot", userController.getForgot);
 app.post("/forgot", userController.postForgot);
 app.get("/reset/:token", userController.getReset);
 app.post("/reset/:token", userController.postReset);
-app.get("/signup", userController.getSignup);
 app.post("/signup", userController.postSignup);
-app.get("/contact", contactController.getContact);
-app.post("/contact", contactController.postContact);
-app.get("/account", passportConfig.isAuthenticated, userController.getAccount);
 app.post("/account/profile", passportConfig.isAuthenticated, userController.postUpdateProfile);
 app.post("/account/password", passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post("/account/delete", passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userController.getOauthUnlink);
-
-/**
- * API examples routes.
- */
-app.get("/api", apiController.getApi);
-app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
 
 /**
  * OAuth authentication routes. (Sign in)

@@ -3,21 +3,17 @@ import * as crypto from "crypto";
 import * as mongoose from "mongoose";
 
 export type UserModel = mongoose.Document & {
+  fName: string,
+  lName: string,
   email: string,
+  username: string,
+  school: string,
   password: string,
+  pNumber: string,
+  degrees: Degree[],
+  courses: Course[],
   passwordResetToken: string,
   passwordResetExpires: Date,
-
-  facebook: string,
-  tokens: AuthToken[],
-
-  profile: {
-    name: string,
-    gender: string,
-    location: string,
-    website: string,
-    picture: string
-  },
 
   comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
   gravatar: (size: number) => string
@@ -28,24 +24,34 @@ export type AuthToken = {
   kind: string
 };
 
+export type Degree = {
+  level: string,
+  name: string
+};
+
+export type Course = {
+  number: number,
+  name: string,
+  crnNumber: number,
+  section: string,
+  startTime: number,
+  endTime: number,
+  professor: string[]
+};
+
 const userSchema = new mongoose.Schema({
+  fName: String,
+  lName: String,
   email: { type: String, unique: true },
+  username: { type: String, unique: true },
+  school: String,
   password: String,
+  pNumber: String,
+  year: String,
+  degrees: Array,
+  courses: Array,
   passwordResetToken: String,
   passwordResetExpires: Date,
-
-  facebook: String,
-  twitter: String,
-  google: String,
-  tokens: Array,
-
-  profile: {
-    name: String,
-    gender: String,
-    location: String,
-    website: String,
-    picture: String
-  }
 }, { timestamps: true });
 
 /**
