@@ -2,76 +2,72 @@ import * as async from "async";
 import * as crypto from "crypto";
 import * as nodemailer from "nodemailer";
 import * as passport from "passport";
-import { default as User, UserModel, AuthToken } from "../models/User";
+import * as validator from "validator";
+import * as lodash from "lodash";
+const typeCheck = require("type-check").typeCheck;
+// import { ErrorMessage, ErrorArray } from "errors";
+import { default as User, UserModel, AuthToken, Degree, Course } from "../models/User";
 import { Request, Response, NextFunction } from "express";
 import { LocalStrategyInfo } from "passport-local";
 import { WriteError } from "mongodb";
 const request = require("express-validator");
-
-
-/**
- * GET /login
- * Login page.
- */
-export let getLogin = (req: Request, res: Response) => {
-  if (req.user) {
-    return res.redirect("/");
+// Custom classes
+class ErrorMessage {
+  constructor(msg: string, param: string, value: any) {
+    this.param = param;
+    this.msg = msg;
+    this.value = value;
   }
-  res.render("account/login", {
-    title: "Login"
-  });
-};
+  msg: string;
+  param: string;
+  value: any;
+  location: string;
+  nestedErrors: Array<ErrorMessage>;
+}
+class ErrorArray {
+  constructor() {
+    this.errors = new Array<ErrorMessage>();
+  }
+  errors: Array<ErrorMessage>;
+}
+// Custom validator for degrees
 
 /**
  * POST /login
- * Sign in using email and password.
+ * Sign in using username and password.
  */
 export let postLogin = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("email", "Email is not valid").isEmail();
+  // Check the incoming request
+  req.assert("username", "Email is not valid").notEmpty();
   req.assert("password", "Password cannot be blank").notEmpty();
-  req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
 
+  // Create error array
   const errors = req.validationErrors();
 
+  // If we have errors handle them
   if (errors) {
     req.flash("errors", errors);
-    return res.redirect("/login");
+    res.status(401).json({msg: "Not all data was present to login.  Please try again.", errors: errors});
   }
 
+  // No errors proceed and try to login
   passport.authenticate("local", (err: Error, user: UserModel, info: LocalStrategyInfo) => {
+    // Handle error
     if (err) { return next(err); }
+    // If we do not get a user
+    console.log(user);
     if (!user) {
       req.flash("errors", info.message);
-      return res.redirect("/login");
+      res.status(401).json({msg: info.message});
+    } else {
+      req.logIn(user, (err) => {
+        if (err) { return next(err); }
+        req.flash("success", { msg: "Success! You are logged in." });
+        res.status(200).json({msg: "Successful login", user: user});
+      });
     }
-    req.logIn(user, (err) => {
-      if (err) { return next(err); }
-      req.flash("success", { msg: "Success! You are logged in." });
-      res.redirect(req.session.returnTo || "/");
-    });
+  // Forward request
   })(req, res, next);
-};
-
-/**
- * GET /logout
- * Log out.
- */
-export let logout = (req: Request, res: Response) => {
-  req.logout();
-  res.redirect("/");
-};
-
-/**
- * GET /signup
- * Signup page.
- */
-export let getSignup = (req: Request, res: Response) => {
-  if (req.user) {
-    return res.redirect("/");
-  }
-  res.render("account/signup", {
-    title: "Create Account"
-  });
 };
 
 /**
@@ -79,48 +75,153 @@ export let getSignup = (req: Request, res: Response) => {
  * Create a new local account.
  */
 export let postSignup = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("email", "Email is not valid").isEmail();
-  req.assert("password", "Password must be at least 4 characters long").len({ min: 4 });
-  req.assert("confirmPassword", "Passwords do not match").equals(req.body.password);
-  req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
-
-  const errors = req.validationErrors();
-
-  if (errors) {
-    req.flash("errors", errors);
-    return res.redirect("/signup");
-  }
-
-  const user = new User({
-    email: req.body.email,
-    password: req.body.password
+  // log request body
+  console.log(req.body);
+  // Validate as much of the schema as we can with checkbody
+  req.checkBody({
+    fName: {
+      isAlpha: true,
+      errorMessage: "First name must contain only letters"
+    },
+    lName: {
+      isAlpha: true,
+      errorMessage: "Last name must contain only letters"
+    },
+    email: {
+      isEmail: true,
+      notEmpty: true,
+      errorMessage: "Please enter a valid email in order to register"
+    },
+    username: {
+      isAlphanumeric: true,
+      notEmpty: true,
+      errorMessage: "Please enter a valid username in order to register"
+    },
+    pNumber: {
+      matches: {
+        options: /\d{10,12}/
+      },
+      errorMessage: "Please enter a valid phone number"
+    },
+    school: {
+      isAlpha: true,
+      errorMessage: "Please use only letters and spaces for the school name"
+    }
   });
 
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
-    if (err) { return next(err); }
-    if (existingUser) {
-      req.flash("errors", { msg: "Account with that email address already exists." });
-      return res.redirect("/signup");
+  // Create array object we can push on for custom error messages
+  const erArray: ErrorArray = new ErrorArray();
+
+  // Get errors generated by express-validator
+  const errors = req.validationErrors();
+
+  // push them onto our error array
+  lodash.forEach(errors, function(value) {
+    erArray.errors.push(value);
+  });
+
+  // Create counter for our array
+  let x: number = 0;
+
+  // Loop through the degrees and add error message onto our array
+  lodash.forEach(req.body.degrees, function (value: Degree) {
+    console.log(value);
+
+    // If the level is not characters error out
+    if (!validator.isAlpha(value.level)) {
+      const erObj: ErrorMessage = new ErrorMessage("Please use only letters and spaces for level", "degrees.level[" + x + "]", value.level);
+      erArray.errors.push(erObj);
     }
+
+    // If the name is not characters error out
+    if (!validator.isAlpha(value.name)) {
+      const erObj: ErrorMessage = new ErrorMessage("Please use only letters and spaces for name", "degrees.name[" + x + "]", value.name);
+      erArray.errors.push(erObj);
+    }
+    // Increase our array counter
+    x++;
+  });
+
+  // Reset array counter
+  x = 0;
+
+  // Loop through courses and validate them
+  lodash.forEach(req.body.courses, function (value: Course) {
+    if (!typeCheck("Number", value.number)) {
+      const erObj: ErrorMessage = new ErrorMessage("Please use only numbers for course number", "courses.number[" + x + "]", value.number);
+      erArray.errors.push(erObj);
+    }
+    const nameRegex = /[A-Za-z ]*/;
+    if (!nameRegex.test(value.name)) {
+      const erObj: ErrorMessage = new ErrorMessage("Please use only letters and spaces for course name", "courses.name[" + x + "]", value.name);
+      erArray.errors.push(erObj);
+    }
+    if (!typeCheck("Number", value.crnNumber)) {
+      const erObj: ErrorMessage = new ErrorMessage("Please use only numbers for crnNumber", "courses.crnNumber[" + x + "]", value.crnNumber);
+      erArray.errors.push(erObj);
+    }
+    // This needs to be stricter regex
+    if (!validator.isAlphanumeric(value.section)) {
+      const erObj: ErrorMessage = new ErrorMessage("Please use only numbers and letters for section", "courses.section[" + x + "]", value.section);
+      erArray.errors.push(erObj);
+    }
+    if (!typeCheck("Number", value.startTime)) {
+      const erObj: ErrorMessage = new ErrorMessage("Please use only numbers for start time", "courses.startTime[" + x + "]", value.startTime);
+      erArray.errors.push(erObj);
+    }
+    if (!typeCheck("Number", value.endTime)) {
+      const erObj: ErrorMessage = new ErrorMessage("Please use only numbers for end time", "courses.endTime[" + x + "]", value.endTime);
+      erArray.errors.push(erObj);
+    }
+    let y = 0;
+    lodash.forEach(value.professor, function (val: string){
+      // Needs stricter regex
+      if (!validator.isAlpha(val)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only letters professor", "courses.professor[" + x + "][" + y + "]", val);
+        erArray.errors.push(erObj);
+      }
+      y++;
+    });
+  });
+
+  // If we got errors error out and return to client
+  if (!lodash.isEmpty(erArray.errors)) {
+    req.flash("errors", erArray);
+    return res.status(400).json({msg: "Data did not pass validation", err: erArray.errors, data: req.body});
+  }
+
+  // We passed validation create new user
+  const user = new User({
+    fName: req.body.fName || "",
+    lName: req.body.lName || "",
+    school: req.body.school,
+    pNumber: req.body.pNumber || "",
+    degrees: req.body.degrees || [],
+    courses: req.body.courses || [],
+    email: req.body.email,
+    password: req.body.password,
+    username: req.body.username
+  });
+
+  // Make sure that the username does not exist in the db already
+  User.findOne({ username: req.body.username }, (err, existingUser) => {
+    // Handle error
+    if (err) { return next(err); }
+    // If we found a user error out and return to client
+    if (existingUser) {
+      req.flash("errors", { msg: "Account with that username address already exists." });
+      return res.status(400).json({msg: "Account with that username address already exists."});
+    }
+    // Did not find user, save to db and return object to client
     user.save((err) => {
       if (err) { return next(err); }
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
         }
-        res.redirect("/");
+        res.json({user: user});
       });
     });
-  });
-};
-
-/**
- * GET /account
- * Profile page.
- */
-export let getAccount = (req: Request, res: Response) => {
-  res.render("account/profile", {
-    title: "Account Management"
   });
 };
 
@@ -129,23 +230,133 @@ export let getAccount = (req: Request, res: Response) => {
  * Update profile information.
  */
 export let postUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("email", "Please enter a valid email address.").isEmail();
-  req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+  // Create array object we can push on for custom error messages
+  const erArray: ErrorArray = new ErrorArray();
 
-  const errors = req.validationErrors();
-
-  if (errors) {
-    req.flash("errors", errors);
-    return res.redirect("/account");
+  // Validation of inputs
+  if (req.body.fName && !validator.isAlpha(req.body.fName)) {
+    const erObj: ErrorMessage = new ErrorMessage("Please use only letters for first name", "fName", req.body.fName);
+    erArray.errors.push(erObj);
+  }
+  if (req.body.lName && !validator.isAlpha(req.body.lName)) {
+    const erObj: ErrorMessage = new ErrorMessage("Please use only letters for last name", "fName", req.body.lName);
+    erArray.errors.push(erObj);
+  }
+  if (req.body.email && !validator.isEmail(req.body.email)) {
+    const erObj: ErrorMessage = new ErrorMessage("Please use a valid email address", "eamil", req.body.email);
+    erArray.errors.push(erObj);
+  }
+  const schoolRegex = /[A-Za-z ]*/;
+  if (req.body.school && !schoolRegex.test(req.body.school)) {
+    const erObj: ErrorMessage = new ErrorMessage("Please enter a valid school name", "school", req.body.school);
+    erArray.errors.push(erObj);
+  }
+  const phoneRegex = /\d{10,12}/;
+  if (req.body.pNumber && !phoneRegex.test(req.body.pNumber)) {
+    const erObj: ErrorMessage = new ErrorMessage("Please enter a valid phone number", "pNumber", req.body.pNumber);
+    erArray.errors.push(erObj);
   }
 
-  User.findById(req.user.id, (err, user: UserModel) => {
+  // Create counter for our array
+  let x: number = 0;
+
+  // Loop through the degrees and add error message onto our array if degrees are present
+  if (req.body.degrees) {
+    lodash.forEach(req.body.degrees, function (value: Degree) {
+      console.log(value);
+
+      // If the level is not characters error out
+      if (!validator.isAlpha(value.level)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only letters and spaces for level", "degrees.level[" + x + "]", value.level);
+        erArray.errors.push(erObj);
+      }
+
+      // If the name is not characters error out
+      if (!validator.isAlpha(value.name)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only letters and spaces for name", "degrees.name[" + x + "]", value.name);
+        erArray.errors.push(erObj);
+      }
+      // Increase our array counter
+      x++;
+    });
+  }
+
+
+  // Reset array counter
+  x = 0;
+
+  // Loop through courses and validate them if present
+  if (req.body.courses) {
+    lodash.forEach(req.body.courses, function (value: Course) {
+      if (!typeCheck("Number", value.number)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only numbers for course number", "courses.number[" + x + "]", value.number);
+        erArray.errors.push(erObj);
+      }
+      const nameRegex = /[A-Za-z ]*/;
+      if (!nameRegex.test(value.name)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only letters and spaces for course name", "courses.name[" + x + "]", value.name);
+        erArray.errors.push(erObj);
+      }
+      if (!typeCheck("Number", value.crnNumber)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only numbers for crnNumber", "courses.crnNumber[" + x + "]", value.crnNumber);
+        erArray.errors.push(erObj);
+      }
+      // This needs to be stricter regex
+      if (!validator.isAlphanumeric(value.section)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only numbers and letters for section", "courses.section[" + x + "]", value.section);
+        erArray.errors.push(erObj);
+      }
+      if (!typeCheck("Number", value.startTime)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only numbers for start time", "courses.startTime[" + x + "]", value.startTime);
+        erArray.errors.push(erObj);
+      }
+      if (!typeCheck("Number", value.endTime)) {
+        const erObj: ErrorMessage = new ErrorMessage("Please use only numbers for end time", "courses.endTime[" + x + "]", value.endTime);
+        erArray.errors.push(erObj);
+      }
+      let y = 0;
+      lodash.forEach(value.professor, function (val: string){
+        // Needs stricter regex
+        if (!validator.isAlpha(val)) {
+          const erObj: ErrorMessage = new ErrorMessage("Please use only letters professor", "courses.professor[" + x + "][" + y + "]", val);
+          erArray.errors.push(erObj);
+        }
+        y++;
+      });
+    });
+  }
+
+  console.log(erArray.errors);
+  // If we got errors error out and return to client
+  if (!lodash.isEmpty(erArray.errors)) {
+    req.flash("errors", erArray);
+    return res.status(400).json({msg: "Data did not pass validation", err: erArray.errors, data: req.body});
+  }
+
+  User.findById(req.body.id, (err, user: UserModel) => {
     if (err) { return next(err); }
-    user.email = req.body.email || "";
-    user.profile.name = req.body.name || "";
-    user.profile.gender = req.body.gender || "";
-    user.profile.location = req.body.location || "";
-    user.profile.website = req.body.website || "";
+    // Set objects that are present
+    if (req.body.email) {
+      user.email = req.body.email;
+    }
+    if (req.body.fName) {
+      user.fName = req.body.fName;
+    }
+    if (req.body.lName) {
+      user.lName = req.body.lName;
+    }
+    if (req.body.school) {
+      user.school = req.body.school;
+    }
+    if (req.body.pNumber) {
+      user.pNumber = req.body.pNumber;
+    }
+    if (req.body.degrees) {
+      user.degrees = req.body.degrees;
+    }
+    if (req.body.courses) {
+      user.courses = req.body.courses;
+    }
     user.save((err: WriteError) => {
       if (err) {
         if (err.code === 11000) {
@@ -155,7 +366,7 @@ export let postUpdateProfile = (req: Request, res: Response, next: NextFunction)
         return next(err);
       }
       req.flash("success", { msg: "Profile information has been updated." });
-      res.redirect("/account");
+      res.json({user: user});
     });
   });
 };
@@ -299,19 +510,6 @@ export let postReset = (req: Request, res: Response, next: NextFunction) => {
   ], (err) => {
     if (err) { return next(err); }
     res.redirect("/");
-  });
-};
-
-/**
- * GET /forgot
- * Forgot Password page.
- */
-export let getForgot = (req: Request, res: Response) => {
-  if (req.isAuthenticated()) {
-    return res.redirect("/");
-  }
-  res.render("account/forgot", {
-    title: "Forgot Password"
   });
 };
 
