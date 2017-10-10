@@ -1,0 +1,17 @@
+version: '2'
+services:
+  starter:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo/typescript-node-starter
+  mongo:
+    image: mongo
+    volumes:
+      - /tmp/mongo/db:/data/db
+    ports:
+      - "27017:27017"
+    command: "--smallfiles -logpath=/dev/null"

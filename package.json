@@ -22,7 +22,8 @@
     "copy-static-assets": "node copyStaticAssets.js",
     "debug": "npm run build && npm run watch-debug",
     "serve-debug": "nodemon --inspect dist/server.js",
-    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\""
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\"",
+    "docker": "docker-compose up --build"
   },
   "jest": {
     "globals": {
@@ -45,7 +46,7 @@
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
-    "connect-mongo": "^1.3.2",
+    "connect-mongo": "^2.0.0",
     "dotenv": "^2.0.0",
     "errorhandler": "^1.4.3",
     "express": "^4.14.0",
