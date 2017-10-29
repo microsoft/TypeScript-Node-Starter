@@ -1,6 +1,6 @@
-import {} from "jest";
 import * as supertest from "supertest";
-const app = require("../src/app");
+import * as app from "../src/server";
+
 const request = supertest(app);
 
 describe("GET /login", () => {
