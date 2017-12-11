@@ -252,7 +252,7 @@ The best part of source maps is when configured correctly, you don't even know t
 First you need to make sure your `tsconfig.json` has source map generation enabled:
 ```json
 "compilerOptions" {
-    "sourceMaps": true
+    "sourceMap": true
 } 
 ```
 With this option enabled, next to every `.js` file that the TypeScript compiler outputs there will be a `.map.js` file as well.
