@@ -187,6 +187,7 @@ In the `tsconfig.json` for this project you'll see the following:
 "baseUrl": ".",
 "paths": {
     "*": [
+        "node_modules/*",
         "src/types/*"
     ]
 }
