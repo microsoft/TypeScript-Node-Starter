@@ -1,9 +1,9 @@
-import {} from 'jest';
 import * as supertest from "supertest";
-
-const request = supertest("http://localhost:8000");
+import * as app from "../src/server";
 
 describe("GET /api", () => {
+  const request = supertest(app);
+
   it("should return 200 OK", () => {
     request
       .get("/api")
