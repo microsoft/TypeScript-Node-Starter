@@ -4,6 +4,7 @@
 import * as express from "express";
 import * as compression from "compression";  // compresses requests
 import * as session from "express-session";
+import * as expressValidator from "express-validator";
 import * as bodyParser from "body-parser";
 import * as logger from "morgan";
 import * as errorHandler from "errorhandler";
@@ -14,7 +15,6 @@ import * as flash from "express-flash";
 import * as path from "path";
 import * as mongoose from "mongoose";
 import * as passport from "passport";
-import expressValidator = require("express-validator");
 
 
 const MongoStore = mongo(session);
@@ -47,8 +47,9 @@ const app = express();
  * Connect to MongoDB.
  */
 // mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI);
-
+mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI, {
+  useMongoClient: true
+});
 mongoose.connection.on("error", () => {
   console.log("MongoDB connection error. Please make sure MongoDB is running.");
   process.exit();
@@ -88,13 +89,13 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   // After successful login, redirect back to the intended page
   if (!req.user &&
-      req.path !== "/login" &&
-      req.path !== "/signup" &&
-      !req.path.match(/^\/auth/) &&
-      !req.path.match(/\./)) {
+    req.path !== "/login" &&
+    req.path !== "/signup" &&
+    !req.path.match(/^\/auth/) &&
+    !req.path.match(/\./)) {
     req.session.returnTo = req.path;
   } else if (req.user &&
-      req.path == "/account") {
+    req.path == "/account") {
     req.session.returnTo = req.path;
   }
   next();
