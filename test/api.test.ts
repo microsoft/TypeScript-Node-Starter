@@ -1,7 +1,5 @@
 import * as supertest from "supertest";
-
-const app = require("../src/app");
-const request = supertest(app);
+import * as app from "../src/server";
 
 describe("GET /api", () => {
   const request = supertest(app);
