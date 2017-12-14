@@ -1,11 +1,9 @@
-import * as supertest from "supertest";
-import * as app from "../src/server";
+import * as request from "supertest";
+import * as app from "../src/app";
 
 describe("GET /random-url", () => {
-  const request = supertest(app);
-
   it("should return 404", (done) => {
-    request.get("/reset")
+    request(app).get("/reset")
       .expect(404, done);
   });
 });
