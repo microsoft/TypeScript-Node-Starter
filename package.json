@@ -4,7 +4,7 @@
   "description": "A starting point for Node.js express apps with TypeScript",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
+    "url": "https://github.com/Microsoft/TypeScript-Node-Starter"
   },
   "author": "Bowden Kelly",
   "license": "MIT",
