@@ -1,11 +1,9 @@
-import * as supertest from "supertest";
-import * as app from "../src/server";
+import * as request from "supertest";
+import * as app from "../src/app";
 
 describe("GET /contact", () => {
-  const request = supertest(app);
-
   it("should return 200 OK", (done) => {
-    request.get("/contact")
+    request(app).get("/contact")
       .expect(200, done);
   });
 });
