@@ -73,6 +73,7 @@ The full folder structure of this app is explained below:
 | .env.example             | API keys, tokens, passwords, database URI. Clone this, but don't check it in to public repos. |
 | .travis.yml              | Used to configure Travis CI build                                                             |
 | .copyStaticAssets.js     | Build script that copies images, fonts, and JS libs to the dist folder                        |
+| jest.config.js           | Used to configure Jest                                                                        |
 | package.json             | File that contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)                          |
 | tsconfig.json            | Config settings for compiling server code written in TypeScript                               |
 | tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
