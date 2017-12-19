@@ -9,20 +9,18 @@
   "author": "Bowden Kelly",
   "license": "MIT",
   "scripts": {
-    "start": "npm run build && npm run watch",
+    "start": "npm run serve",
     "build": "npm run build-sass && npm run build-ts && npm run tslint && npm run copy-static-assets",
-    "serve": "nodemon dist/server.js",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve\"",
+    "serve": "node dist/server.js",
+    "watch-node": "nodemon dist/server.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
     "test": "jest --forceExit",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "build-sass": "node-sass src/public/css/main.scss dist/public/css/main.css",
     "watch-sass": "node-sass -w src/public/css/main.scss dist/public/css/main.css",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "copy-static-assets": "node copyStaticAssets.js",
-    "debug": "npm run build && npm run watch-debug",
-    "serve-debug": "nodemon --inspect dist/server.js",
-    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\""
+    "copy-static-assets": "node copyStaticAssets.js"
   },
   "jest": {
     "globals": {
@@ -45,6 +43,7 @@
   "dependencies": {
     "async": "^2.5.0",
     "bcrypt-nodejs": "^0.0.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
     "connect-mongo": "^1.3.2",
@@ -57,7 +56,7 @@
     "fbgraph": "^1.4.1",
     "lodash": "^4.17.4",
     "lusca": "^1.5.2",
-    "mongoose": "^4.12.4",
+    "mongoose": "^4.13.7",
     "morgan": "^1.9.0",
     "nodemailer": "^2.7.2",
     "passport": "^0.4.0",
@@ -69,6 +68,7 @@
   "devDependencies": {
     "@types/async": "^2.0.40",
     "@types/bcrypt-nodejs": "0.0.30",
+    "@types/bluebird": "^3.5.18",
     "@types/body-parser": "^1.16.2",
     "@types/compression": "0.0.33",
     "@types/connect-mongo": "0.0.34",
