@@ -29,7 +29,7 @@ Navigate to `http://localhost:3000`
 
 # TypeScript + Node 
 The main purpose of this repository is to show a good end-to-end project setup and workflow for writing Node code in TypeScript.
-I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encourage and will be most welcome. 
+I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. 
 
 In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
 Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js project to TypeScript.
@@ -48,13 +48,13 @@ For other editors, make sure you have the corresponding [TypeScript plugin](http
 
 ## Project Structure
 The most obvious difference in a TypeScript + Node project is the folder structure.
-In a TypeScript project, you it's best to have separate _source_  and _distributable_ files.
+In a TypeScript project, it's best to have separate _source_  and _distributable_ files.
 TypeScript (`.ts`) files live in your `src` folder and after compilation are output as JavaScript (`.js`) in the `dist` folder.
 The `test` and `views` folders remain top level as expected. 
 
 The full folder structure of this app is explained below:
 
-> **Note!** Make sure you have already built the app using `npm run build` or `yarn run build` 
+> **Note!** Make sure you have already built the app using `npm run build`
 
 | Name | Description |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
@@ -66,7 +66,7 @@ The full folder structure of this app is explained below:
 | **src/controllers**      | Controllers define functions that respond to various http requests                            |
 | **src/models**           | Models define Mongoose schemas that will be used in storing and retrieving data from MongoDB  |
 | **src/public**           | Static assets that will be used client side                                                   |
-| **src/types**            | Holds .d.ts files not found on DefinitelyTyped. Covered more in this [section](#)          |
+| **src/types**            | Holds .d.ts files not found on DefinitelyTyped. Covered more in this [section](#type-definition-dts-files)          |
 | **src**/server.ts        | Entry point to your express app                                                               |
 | **test**                 | Contains your tests. Seperate from source because there is a different build process.         |
 | **views**                | Views define how your app renders on the client. In this case we're using pug                 |
@@ -77,7 +77,6 @@ The full folder structure of this app is explained below:
 | tsconfig.json            | Config settings for compiling server code written in TypeScript                               |
 | tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
 | tslint.json              | Config settings for TSLint code style checking                                                |
-| yarn.lock                | Contains same dependency version info as package.json, but used with yarn                     |
 
 ## Building the project
 It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount build configuration. 
@@ -138,7 +137,7 @@ All the different build steps are orchestrated via [npm scripts](https://docs.np
 Npm scripts basically allow us to call (and chain) terminal commands via npm.
 This is nice because most JavaScript tools have easy to use command line utilities allowing us to not need grunt or gulp to manage our builds.
 If you open `package.json`, you will see a `scripts` section with all the different scripts you can call.
-To call a script, simply run `npm run <script-name>` (or `yarn run <script-name` if using yarn) from the command line.
+To call a script, simply run `npm run <script-name>` from the command line.
 You'll notice that npm scripts can call each other which makes it easy to compose complex builds out of simple individual build scripts.
 Below is a list of all the scripts this template has available:
 
@@ -188,6 +187,7 @@ In the `tsconfig.json` for this project you'll see the following:
 "baseUrl": ".",
 "paths": {
     "*": [
+        "node_modules/*",
         "src/types/*"
     ]
 }
@@ -205,7 +205,7 @@ The [README](https://github.com/Microsoft/dts-gen#dts-gen-a-typescript-definitio
 In this project, `bcrypt-nodejs.d.ts`, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`. 
 
 #### Writing a `.d.ts` file
-If generating a `.d.ts` using `dts-gen` isn't working, [you should tell me about it first](TODO-survey-link), but then you can create your own `.d.ts` file.
+If generating a `.d.ts` using `dts-gen` isn't working, [you should tell me about it first](https://www.surveymonkey.com/r/LN2CV82), but then you can create your own `.d.ts` file.
 
 If you just want to silence the compiler for the time being, create a file called `<some-library>.d.ts` in your `types` folder and then add this line of code:
 ```ts
@@ -219,7 +219,7 @@ The reason it's so easy to get great `.d.ts` files for most libraries is that de
 Contributing `.d.ts` files is a great way to get into the open source community if it's something you've never tried before, and as soon as your changes are accepted, every other developer in the world has access to your work.
 
 If you're interested in giving it a shot, check out the [guidance on DefinitelyTyped](https://github.com/definitelyTyped/DefinitelyTyped/#how-can-i-contribute).
-If you're not interested, [you should tell me why](TODO-survey-link) so we can help make it easier in the future!
+If you're not interested, [you should tell me why](https://www.surveymonkey.com/r/LN2CV82) so we can help make it easier in the future!
 
 ### Summary of `.d.ts` management
 In general if you stick to the following steps you should have minimal `.d.ts` issues;
@@ -253,7 +253,7 @@ The best part of source maps is when configured correctly, you don't even know t
 First you need to make sure your `tsconfig.json` has source map generation enabled:
 ```json
 "compilerOptions" {
-    "sourceMaps": true
+    "sourceMap": true
 } 
 ```
 With this option enabled, next to every `.js` file that the TypeScript compiler outputs there will be a `.map.js` file as well.
@@ -291,7 +291,7 @@ This is mostly identical to the "Node.js: Launch Program" template with a couple
 | `"program": "${workspaceRoot}/dist/server.js",` | Modified to point to our entry point in `dist`                  |
 | `"smartStep": true,`                            | Won't step into code that doesn't have a source map             |
 | `"outFiles": [...]`                             | Specify where output files are dropped. Use with source maps    |
-| `"protocol": inspector,`                        | Use the new Node debug protocal because we're on the latest node|
+| `"protocol": inspector,`                        | Use the new Node debug protocol because we're on the latest node|
 
 With this file in place, you can hit `F5` to serve the project with the debugger already attached.
 Now just set your breakpoints and go!
@@ -299,6 +299,11 @@ Now just set your breakpoints and go!
 > Warning! Make sure you don't have the project already running from another command line. 
 VS Code will try to launch on the same port and error out.
 Likewise be sure to stop the debugger before returning to your normal `npm start` process.
+
+#### Using attach debug configuration
+VS Code debuggers also support attaching to an already running program. The `Attach` configuration has already configured, everything you need to do is change `Debug Configuration` to `Attach` and hit `F5`.
+
+> Tips! Instead of running `npm start`, using `npm run debug` and `Attach Configuration` that make you don't need to stop running project to debug.
 
 ## Testing
 For this project, I chose [Jest](https://facebook.github.io/jest/) as our test framework.
@@ -340,7 +345,7 @@ This all happens in memory when you run the tests, so there are no output `.js` 
 
 ### Writing tests
 Writing tests for web apps has entire books dedicated to it and best practices are strongly influenced by personal style, so I'm deliberately avoiding discussing how or when to write tests in this guide.
-However, if prescriptive guidance on testing is something that you're interested in, [let me know](TODO-survey-link), I'll do some homework and get back to you.
+However, if prescriptive guidance on testing is something that you're interested in, [let me know](https://www.surveymonkey.com/r/LN2CV82), I'll do some homework and get back to you.
 
 ## TSLint
 TSLint is a code linter which mainly helps catch minor code quality and style issues.
@@ -397,14 +402,14 @@ In that file you'll find two sections:
 | Package                         | Description                                                           |
 | ------------------------------- | --------------------------------------------------------------------- |
 | concurrently                    | Utility that manages multiple concurrent tasks. Used with npm scripts |
-| jest                            | Reports real-time server metrics for Express.                         |
-| node-sass                       | GitHub API library.                                                   |
+| jest                            | Testing library for JavaScript.                                       |
+| node-sass                       | Allows to compile .scss files to .css                                 |
 | supertest                       | HTTP assertion library.                                               |
-| ts-test                         | Instagram API library.                                                |
+| ts-test                         | A preprocessor with sourcemap support to help use TypeScript wit Jest.|
 | tslint                          | Linter (similar to ESLint) for TypeScript files                       |
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
 
-To install or update these dependencies you can use either `npm` or `yarn`.
+To install or update these dependencies you can use `npm install` or `npm update`.
 
 # Other
 Here is a section of miscellaneous tips. 
