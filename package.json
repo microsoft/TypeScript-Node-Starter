@@ -14,7 +14,7 @@
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "test": "jest --forceExit",
+    "test": "jest --forceExit --coverage --verbose",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "build-sass": "node-sass src/public/css/main.scss dist/public/css/main.css",
@@ -38,7 +38,8 @@
     "testMatch": [
       "**/test/**/*.test.(ts|js)"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "verbose": true
   },
   "dependencies": {
     "async": "^2.5.0",
@@ -96,6 +97,7 @@
     "supertest": "^2.0.1",
     "ts-jest": "^21.1.4",
     "tslint": "^5.8.0",
-    "typescript": "^2.4.0"
+    "typescript": "^2.4.0",
+    "chai": "^4.1.2"
   }
 }
