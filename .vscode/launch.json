@@ -7,21 +7,9 @@
         {
             "type": "node",
             "request": "attach",
-            "name": "Attach",
-            "port": 9229
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug",
-            "program": "${workspaceRoot}/dist/server.js",
-            "smartStep": true,
-            "outFiles": [
-                "../dist/**/*.js"
-            ],
-            "preLaunchTask": "npm: build",
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}",
             "protocol": "inspector"
         }
     ]
 }
-
