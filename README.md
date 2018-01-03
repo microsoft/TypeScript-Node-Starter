@@ -146,7 +146,7 @@ Below is a list of all the scripts this template has available:
 
 | Npm Script | Description |
 | ------------------------- | ------------------------------------------------------------------------------------------------- |
-| `start`                   | Runs full build before starting all watch tasks. Can be invoked with `npm start`                  |
+| `start`                   | Does the same as 'npm run serve'. Can be invoked with `npm start`                                      |
 | `build`                   | Full build. Runs ALL build tasks (`build-sass`, `build-ts`, `tslint`, `copy-static-assets`)       |
 | `serve`                   | Runs node on `dist/server.js` which is the apps entry point                                       |
 | `watch`                   | Runs all watch tasks (TypeScript, Sass, Node). Use this if you're not touching static assets.     |
