@@ -23,6 +23,7 @@ mongod
 ```
 - Build and run the project
 ```
+npm run build
 npm start
 ```
 Navigate to `http://localhost:3000`
@@ -72,7 +73,8 @@ The full folder structure of this app is explained below:
 | **views**                | Views define how your app renders on the client. In this case we're using pug                 |
 | .env.example             | API keys, tokens, passwords, database URI. Clone this, but don't check it in to public repos. |
 | .travis.yml              | Used to configure Travis CI build                                                             |
-| .copyStaticAssets.js     | Build script that copies images, fonts, and JS libs to the dist folder                        |
+| .copyStaticAssets.ts     | Build script that copies images, fonts, and JS libs to the dist folder                        |
+| jest.config.js           | Used to configure Jest                                                                        |
 | package.json             | File that contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)                          |
 | tsconfig.json            | Config settings for compiling server code written in TypeScript                               |
 | tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
@@ -274,36 +276,18 @@ In this file, you can tell VS Code exactly what you want to do:
 ```json
 {
     "type": "node",
-    "request": "launch",
-    "name": "Debug",
-    "program": "${workspaceRoot}/dist/server.js",
-    "smartStep": true,
-    "outFiles": [
-        "../dist/**/*.js"
-    ],
+    "request": "attach",
+    "name": "Attach by Process ID",
+    "processId": "${command:PickProcess}",
     "protocol": "inspector"
 }
 ```
-This is mostly identical to the "Node.js: Launch Program" template with a couple minor changes:
+This is mostly identical to the "Node.js: Attach by Process ID" template with one minor change.
+We added `"protocol": "inspector"` which tells VS Code that we're using the latest version of Node which uses a new debug protocol.
 
-| `launch.json` Options | Description |
-| ----------------------------------------------- | --------------------------------------------------------------- |
-| `"program": "${workspaceRoot}/dist/server.js",` | Modified to point to our entry point in `dist`                  |
-| `"smartStep": true,`                            | Won't step into code that doesn't have a source map             |
-| `"outFiles": [...]`                             | Specify where output files are dropped. Use with source maps    |
-| `"protocol": inspector,`                        | Use the new Node debug protocol because we're on the latest node|
-
-With this file in place, you can hit `F5` to serve the project with the debugger already attached.
+With this file in place, you can hit `F5` to attach a debugger.
+You will probably have multiple node processes running, so you need to find the one that shows `node dist/server.js`.
 Now just set your breakpoints and go!
-
-> Warning! Make sure you don't have the project already running from another command line. 
-VS Code will try to launch on the same port and error out.
-Likewise be sure to stop the debugger before returning to your normal `npm start` process.
-
-#### Using attach debug configuration
-VS Code debuggers also support attaching to an already running program. The `Attach` configuration has already configured, everything you need to do is change `Debug Configuration` to `Attach` and hit `F5`.
-
-> Tips! Instead of running `npm start`, using `npm run debug` and `Attach Configuration` that make you don't need to stop running project to debug.
 
 ## Testing
 For this project, I chose [Jest](https://facebook.github.io/jest/) as our test framework.
@@ -317,24 +301,26 @@ npm install -D jest ts-jest
 `jest` is the testing framework itself, and `ts-jest` is just a simple function to make running TypeScript tests a little easier.
 
 ### Configure Jest
-Jest's configuration lives in `package.json`, so let's open it up and add the following code:
-```json
-"jest": {
-    "globals": {
-      "__TS_CONFIG__": "tsconfig.json"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.(ts)$": "./node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "**/test/**/*.test.(ts|js)"
-    ],
-    "testEnvironment": "node"
-  },
+Jest's configuration lives in `jest.config.js`, so let's open it up and add the following code:
+```js
+module.exports = {
+	globals: {
+		'ts-jest': {
+			tsConfigFile: 'tsconfig.json'
+		}
+	},
+	moduleFileExtensions: [
+		'ts',
+		'js'
+	],
+	transform: {
+		'^.+\\.(ts|tsx)$': './node_modules/ts-jest/preprocessor.js'
+	},
+	testMatch: [
+		'**/test/**/*.test.(ts|js)'
+	],
+	testEnvironment: 'node'
+};
 ```
 Basically we are telling Jest that we want it to consume all files that match the pattern `"**/test/**/*.test.(ts|js)"` (all `.test.ts`/`.test.js` files in the `test` folder), but we want to preprocess the `.ts` files first. 
 This preprocess step is very flexible, but in our case, we just want to compile our TypeScript to JavaScript using our `tsconfig.json`.
