@@ -276,36 +276,18 @@ In this file, you can tell VS Code exactly what you want to do:
 ```json
 {
     "type": "node",
-    "request": "launch",
-    "name": "Debug",
-    "program": "${workspaceRoot}/dist/server.js",
-    "smartStep": true,
-    "outFiles": [
-        "../dist/**/*.js"
-    ],
+    "request": "attach",
+    "name": "Attach by Process ID",
+    "processId": "${command:PickProcess}",
     "protocol": "inspector"
 }
 ```
-This is mostly identical to the "Node.js: Launch Program" template with a couple minor changes:
+This is mostly identical to the "Node.js: Attach by Process ID" template with one minor change.
+We added `"protocol": "inspector"` which tells VS Code that we're using the latest version of Node which uses a new debug protocol.
 
-| `launch.json` Options | Description |
-| ----------------------------------------------- | --------------------------------------------------------------- |
-| `"program": "${workspaceRoot}/dist/server.js",` | Modified to point to our entry point in `dist`                  |
-| `"smartStep": true,`                            | Won't step into code that doesn't have a source map             |
-| `"outFiles": [...]`                             | Specify where output files are dropped. Use with source maps    |
-| `"protocol": inspector,`                        | Use the new Node debug protocol because we're on the latest node|
-
-With this file in place, you can hit `F5` to serve the project with the debugger already attached.
+With this file in place, you can hit `F5` to attach a debugger.
+You will probably have multiple node processes running, so you need to find the one that shows `node dist/server.js`.
 Now just set your breakpoints and go!
-
-> Warning! Make sure you don't have the project already running from another command line. 
-VS Code will try to launch on the same port and error out.
-Likewise be sure to stop the debugger before returning to your normal `npm start` process.
-
-#### Using attach debug configuration
-VS Code debuggers also support attaching to an already running program. The `Attach` configuration has already configured, everything you need to do is change `Debug Configuration` to `Attach` and hit `F5`.
-
-> Tips! Instead of running `npm start`, using `npm run debug` and `Attach Configuration` that make you don't need to stop running project to debug.
 
 ## Testing
 For this project, I chose [Jest](https://facebook.github.io/jest/) as our test framework.
