@@ -383,16 +383,14 @@ In that file you'll find two sections:
 | dotenv                          | Loads environment variables from .env file.                           |
 | errorhandler                    | Express 4 middleware.                                                 |
 | express                         | Node.js web framework.                                                |
-| express-flash                   | Provides flash messages for Express.                                  |
+| express-flash                    | Provides flash messages for Express.                                  |
 | express-session                 | Express 4 middleware.                                                 |
 | express-validator               | Easy form validation for Express.                                     |
-| fbgraph                         | Facebook Graph API library.                                           |
 | lusca                           | CSRF middleware.                                                      |
 | mongoose                        | MongoDB ODM.                                                          |
 | morgan                          | Express 4 middleware.                                                 |
 | nodemailer                      | Node.js library for sending emails.                                   |
 | passport                        | Simple and elegant authentication library for node.js                 |
-| passport-facebook               | Sign-in with Facebook plugin.                                         |
 | passport-local                  | Sign-in with Username and Password plugin.                            |
 | pug (jade)				      | Template engine for Express.                                          |
 | request                         | Simplified HTTP request library.                                      |
