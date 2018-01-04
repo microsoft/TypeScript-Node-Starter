@@ -354,6 +354,16 @@ Notice that TSLint is not a part of the main watch task.
 It can be annoying for TSLint to clutter the output window while in the middle of writing a function, so I elected to only run it only during the full build.
 If you are interesting in seeing TSLint feedback as soon as possible, I strongly recommend the [TSLint extension in VS Code]().
 
+### VSCode Extensions
+
+To enhance your development experience while working in VSCode we also provide you a list of the suggested extensions for working with this project:
+
+![Suggested Extensions In VSCode](https://user-images.githubusercontent.com/14539/34583539-6f290a30-f198-11e7-8804-30f40d418e20.png)
+
+- [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+- [Azure Cosmos DB](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb)
+
 # Dependencies
 Dependencies are managed through `package.json`.
 In that file you'll find two sections:
