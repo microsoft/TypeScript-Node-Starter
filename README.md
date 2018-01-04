@@ -197,9 +197,9 @@ In the `tsconfig.json` for this project you'll see the following:
 This tells the TypeScript compiler that in addition to looking in `node_modules/@types` for every import (`*`) also look in our own `.d.ts` file location `<baseUrl>` + `src/types/*`.
 So when we write something like: 
 ```ts
-import * as lusca from "lusca";
+import * as flash from "express-flash";
 ```
-First the compiler will look for a `d.ts` file in `node_modules/@types` and then when it doesn't find one look in `src/types` and find our file `lusca.d.ts`.
+First the compiler will look for a `d.ts` file in `node_modules/@types` and then when it doesn't find one look in `src/types` and find our file `express-flash.d.ts`.
 
 #### Using `dts-gen`
 Unless you are familiar with `.d.ts` files, I strongly recommend trying to use the tool [dts-gen](https://github.com/Microsoft/dts-gen) first.
