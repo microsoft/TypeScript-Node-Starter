@@ -14,9 +14,6 @@ import * as expressValidator from "express-validator";
 import * as bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/loadSecrets";
 
-console.log(MONGODB_URI);
-console.log(SESSION_SECRET);
-
 const MongoStore = mongo(session);
 
 // Controllers (route handlers)
