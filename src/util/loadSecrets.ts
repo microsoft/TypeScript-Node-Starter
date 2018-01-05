@@ -1,7 +1,10 @@
 // import log from './logger'; TODO
+import * as dotenv from "dotenv";
 
 export const ENVIRONMENT = process.env.NODE_ENV;
-const prod = ENVIRONMENT === "production";
+const prod = ENVIRONMENT === "production"; // Anything else is treated as 'dev'
+
+dotenv.config({ path: ".env.example" });
 
 export const SESSION_SECRET = process.env["SESSION_SECRET"];
 export const MONGODB_URI = prod ? process.env["MONGODB_URI"] : process.env["MONGODB_URI_LOCAL"];

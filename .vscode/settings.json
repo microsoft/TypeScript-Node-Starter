@@ -3,7 +3,8 @@
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
-        "**/dist": true
+        "**/dist": true,
+        "**/coverge": true
     },
     "typescript.referencesCodeLens.enabled": true,
     "tslint.ignoreDefinitionFiles": false,
