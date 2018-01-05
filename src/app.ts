@@ -12,6 +12,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import expressValidator from "express-validator";
 import bluebird from "bluebird";
+import { MONGODB_URI, SESSION_SECRET } from "./util/loadSecrets";
 
 const MongoStore = mongo(session);
 
