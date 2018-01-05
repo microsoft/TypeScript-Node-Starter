@@ -2,7 +2,7 @@ import * as express from "express";
 import * as compression from "compression";  // compresses requests
 import * as session from "express-session";
 import * as bodyParser from "body-parser";
-import * as logger from "morgan";
+import * as logger from "winston";
 import * as lusca from "lusca";
 import * as dotenv from "dotenv";
 import * as mongo from "connect-mongo";
@@ -12,7 +12,7 @@ import * as mongoose from "mongoose";
 import * as passport from "passport";
 import * as expressValidator from "express-validator";
 import * as bluebird from "bluebird";
-import { MONGODB_URI, SESSION_SECRET } from "./util/loadSecrets";
+import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 
 const MongoStore = mongo(session);
 
@@ -43,7 +43,6 @@ app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
 app.use(compression());
-app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());

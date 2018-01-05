@@ -40,3 +40,6 @@ env.cmd
 
 # coverage reports
 coverage/**/*
+
+# logs
+debug.log
