@@ -33,3 +33,10 @@ Thumbs.db
 
 # Ignore built ts files
 dist/**/*
+
+# Ignore scripts that contains secrets
+env.sh
+env.cmd
+
+# coverage reports
+coverage/**/*

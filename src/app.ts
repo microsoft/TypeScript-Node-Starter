@@ -12,18 +12,18 @@ import * as mongoose from "mongoose";
 import * as passport from "passport";
 import * as expressValidator from "express-validator";
 import * as bluebird from "bluebird";
+import { MONGODB_URI, SESSION_SECRET } from "./util/loadSecrets";
+
+console.log(MONGODB_URI);
+console.log(SESSION_SECRET);
 
 const MongoStore = mongo(session);
-
-// Load environment variables from .env file, where API keys and passwords are configured
-dotenv.config({ path: ".env.example" });
 
 // Controllers (route handlers)
 import * as homeController from "./controllers/home";
 import * as userController from "./controllers/user";
 import * as apiController from "./controllers/api";
 import * as contactController from "./controllers/contact";
-
 
 // API keys and Passport configuration
 import * as passportConfig from "./config/passport";
@@ -32,7 +32,7 @@ import * as passportConfig from "./config/passport";
 const app = express();
 
 // Connect to MongoDB
-const mongoUrl = process.env.MONGOLAB_URI;
+const mongoUrl = MONGODB_URI;
 (<any>mongoose).Promise = bluebird;
 mongoose.connect(mongoUrl, {useMongoClient: true}).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
@@ -53,7 +53,7 @@ app.use(expressValidator());
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: process.env.SESSION_SECRET,
+  secret: SESSION_SECRET,
   store: new MongoStore({
     url: mongoUrl,
     autoReconnect: true
