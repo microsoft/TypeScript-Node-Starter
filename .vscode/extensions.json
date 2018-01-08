@@ -2,6 +2,7 @@
     "recommendations": [
         "eg2.tslint",
         "ms-azuretools.vscode-cosmosdb",
-        "streetsidesoftware.code-spell-checker"
+        "streetsidesoftware.code-spell-checker",
+        "ms-azuretools.vscode-azureappservice"
     ]
 }

@@ -59,26 +59,28 @@ The full folder structure of this app is explained below:
 
 | Name | Description |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
-| **.vscode**              | Contains VS Code specific settings                                                            |
+| **.vscode**              | Contains VS Code specific settings                                                             |
+| **coverage**             | Contains files associated with your testing coverage report.                                   |
 | **dist**                 | Contains the distributable (or output) from your TypeScript build. This is the code you ship  |
 | **node_modules**         | Contains all your npm dependencies                                                            |
 | **src**                  | Contains your source code that will be compiled to the dist dir                               |
-| **src/config**           | Passport authentication strategies and login middleware. Add other complex config code here   |
-| **src/controllers**      | Controllers define functions that respond to various http requests                            |
-| **src/models**           | Models define Mongoose schemas that will be used in storing and retrieving data from MongoDB  |
+| **src/config**            | Passport authentication strategies and login middleware. Add other complex config code here    |
+| **src/controllers**      | Controllers define functions that respond to various http requests                             |
+| **src/models**           | Models define Mongoose schemas that will be used in storing and retrieving data from MongoDB   |
 | **src/public**           | Static assets that will be used client side                                                   |
-| **src/types**            | Holds .d.ts files not found on DefinitelyTyped. Covered more in this [section](#type-definition-dts-files)          |
-| **src**/server.ts        | Entry point to your express app                                                               |
-| **test**                 | Contains your tests. Seperate from source because there is a different build process.         |
-| **views**                | Views define how your app renders on the client. In this case we're using pug                 |
-| .env.example             | API keys, tokens, passwords, database URI. Clone this, but don't check it in to public repos. |
-| .travis.yml              | Used to configure Travis CI build                                                             |
+| **src/types**            | Holds .d.ts files not found on DefinitelyTyped. Covered more in this [section](#type-definition-dts-files) |
+| **src/util**             | Contains files to setup helpful things like environment vars or loggers                        |
+| **src/app.ts**           | Configuration of your express app                                                              |
+| **src/server.ts**        | Entry point to your express app                                                               |
+| **test**                 | Contains your tests. Separate from source because there is a different build process.         |
+| **views**                | Views define how your app renders on the client. In this case we're using pug                  |
+| .env.example             | API keys, tokens, passwords, database URI. Copy this, but **don't** check it in to public repos. |
+| .travis.yml              | Used to configure Travis CI build                                                              |
 | .copyStaticAssets.ts     | Build script that copies images, fonts, and JS libs to the dist folder                        |
-| jest.config.js           | Used to configure Jest                                                                        |
-| package.json             | File that contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)                          |
-| tsconfig.json            | Config settings for compiling server code written in TypeScript                               |
-| tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
-| tslint.json              | Config settings for TSLint code style checking                                                |
+| jest.config.js            | Used to configure Jest                                                                         |
+| package.json             | File that contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped) |
+| tsconfig.json             | Config settings for compiling server code written in TypeScript                                |
+| tslint.json              | Config settings for TSLint code style checking                                                 |
 
 ## Building the project
 It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount build configuration. 
@@ -146,17 +148,32 @@ Below is a list of all the scripts this template has available:
 
 | Npm Script | Description |
 | ------------------------- | ------------------------------------------------------------------------------------------------- |
-| `start`                   | Does the same as 'npm run serve'. Can be invoked with `npm start`                                      |
+| `start`                   | Does the same as 'npm run serve'. Can be invoked with `npm start`                                 |
 | `build`                   | Full build. Runs ALL build tasks (`build-sass`, `build-ts`, `tslint`, `copy-static-assets`)       |
 | `serve`                   | Runs node on `dist/server.js` which is the apps entry point                                       |
+| `watch-node`              | Launches the app using `nodemon` which continually relaunches if the node process crashes         |
 | `watch`                   | Runs all watch tasks (TypeScript, Sass, Node). Use this if you're not touching static assets.     |
 | `test`                    | Runs tests using Jest test runner                                                                 |
-| `build-ts`                | Compiles all source `.ts` files to `.js` files in the `dist` folder                               |
+| `build-ts`                | Compiles all source `.ts` files to `.js` files in the `dist` folder                                 |
 | `watch-ts`                | Same as `build-ts` but continuously watches `.ts` files and re-compiles when needed                |
-| `build-sass`              | Compiles all `.scss` files to `.css` files                                                        |
-| `watch-sass`              | Same as `build-sass` but continuously watches `.scss` files and re-compiles when needed             |
-| `tslint`                  | Runs TSLint on project files                                                                      |
+| `build-sass`              | Compiles all `.scss` files to `.css` files                                                          |
+| `watch-sass`              | Same as `build-sass` but continuously watches `.scss` files and re-compiles when needed            |
+| `tslint`                  | Runs TSLint on project files                                                                       |
 | `copy-static-assets`      | Calls script that copies JS libs, fonts, and images to dist directory                             |
+
+## Deploying the app
+
+Inevitably you will want to deploy your app to some kind of cloud environment so that other people can see it. 
+There are several ways to deploy a node app, but in this section, I'll show you the simplest method. Deploying to [Azure's Linux App Service] (https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro) using VS Code's.
+
+### Pre-reqs
+
+- Free Azure account. Quick and easy, sign up [here](https://azure.microsoft.com/en-us/free/)
+- VS Code Azure App Service extension. This is included in `extensions.json` so if you already installed the recommended extensions you are good to go!
+
+### First Deploy
+
+
 
 ## Type Definition (`.d.ts`) Files
 TypeScript uses `.d.ts` files to provide types for JavaScript libraries that were not written in TypeScript.
@@ -204,7 +221,7 @@ First the compiler will look for a `d.ts` file in `node_modules/@types` and then
 #### Using `dts-gen`
 Unless you are familiar with `.d.ts` files, I strongly recommend trying to use the tool [dts-gen](https://github.com/Microsoft/dts-gen) first.
 The [README](https://github.com/Microsoft/dts-gen#dts-gen-a-typescript-definition-file-generator) does a great job explaining how to use the tool, and for most cases, you'll get an excellent scaffold of a `.d.ts` file to start with.
-In this project, `bcrypt-nodejs.d.ts`, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`. 
+In this project, `bcrypt-nodejs.d.ts`, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`.
 
 #### Writing a `.d.ts` file
 If generating a `.d.ts` using `dts-gen` isn't working, [you should tell me about it first](https://www.surveymonkey.com/r/LN2CV82), but then you can create your own `.d.ts` file.
