@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{e9b89e72-fce3-4d0e-b4eb-b799440a91e1}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>dist\server.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <StartWebBrowser>True</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="tsconfig.json" />
+    <Content Include="tslint.json" />
+    <Content Include="README.md" />
+    <TypeScriptCompile Include="copyStaticAssets.ts" />
+    <Compile Include="jest.config.js" />
+    <TypeScriptCompile Include="src\app.ts" />
+    <TypeScriptCompile Include="src\server.ts" />
+    <TypeScriptCompile Include="test\api.test.ts" />
+    <TypeScriptCompile Include="test\app.test.ts" />
+    <TypeScriptCompile Include="test\contact.test.ts" />
+    <TypeScriptCompile Include="test\home.test.ts" />
+    <TypeScriptCompile Include="test\user.test.ts" />
+    <Content Include="views\contact.pug" />
+    <Content Include="views\home.pug" />
+    <Content Include="views\layout.pug" />
+    <TypeScriptCompile Include="src\config\passport.ts" />
+    <TypeScriptCompile Include="src\controllers\api.ts" />
+    <TypeScriptCompile Include="src\controllers\contact.ts" />
+    <TypeScriptCompile Include="src\controllers\home.ts" />
+    <TypeScriptCompile Include="src\controllers\user.ts" />
+    <TypeScriptCompile Include="src\models\User.ts" />
+    <TypeScriptCompile Include="src\types\express-flash.d.ts" />
+    <TypeScriptCompile Include="src\types\lusca.d.ts" />
+    <TypeScriptCompile Include="src\types\passport-local.d.ts" />
+    <TypeScriptCompile Include="src\util\logger.ts" />
+    <TypeScriptCompile Include="src\util\secrets.ts" />
+    <Content Include="src\public\fonts\fontawesome-webfont.svg" />
+    <Content Include="src\public\images\favicon.png" />
+    <TypeScriptCompile Include="src\public\js\main.ts" />
+    <Compile Include="src\public\js\lib\bootstrap.min.js" />
+    <Compile Include="src\public\js\lib\jquery-3.1.1.min.js" />
+    <Content Include="views\account\forgot.pug" />
+    <Content Include="views\account\login.pug" />
+    <Content Include="views\account\profile.pug" />
+    <Content Include="views\account\reset.pug" />
+    <Content Include="views\account\signup.pug" />
+    <Content Include="views\api\index.pug" />
+    <Content Include="views\partials\flash.pug" />
+    <Content Include="views\partials\footer.pug" />
+    <Content Include="views\partials\header.pug" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src" />
+    <Folder Include="src\config" />
+    <Folder Include="src\controllers" />
+    <Folder Include="src\models" />
+    <Folder Include="src\public" />
+    <Folder Include="src\public\css" />
+    <Folder Include="src\public\css\lib" />
+    <Folder Include="src\public\css\lib\bootstrap" />
+    <Folder Include="src\public\css\lib\bootstrap\mixins" />
+    <Folder Include="src\public\css\lib\font-awesome" />
+    <Folder Include="src\public\css\themes" />
+    <Folder Include="src\public\css\themes\default" />
+    <Folder Include="src\public\css\themes\flatly" />
+    <Folder Include="src\public\css\themes\gsdk" />
+    <Folder Include="src\public\css\themes\gsdk\gsdk" />
+    <Folder Include="src\public\css\themes\gsdk\gsdk\mixins" />
+    <Folder Include="src\public\css\themes\modern" />
+    <Folder Include="src\public\fonts" />
+    <Folder Include="src\public\images" />
+    <Folder Include="src\public\js" />
+    <Folder Include="src\public\js\lib" />
+    <Folder Include="src\types" />
+    <Folder Include="src\util" />
+    <Folder Include="test" />
+    <Folder Include="views" />
+    <Folder Include="views\account" />
+    <Folder Include="views\api" />
+    <Folder Include="views\partials" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+
+  <Target Name="RunNpmScript">
+    
+  </Target>
+</Project>
