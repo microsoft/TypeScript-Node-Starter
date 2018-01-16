@@ -302,27 +302,29 @@ npm install -D jest ts-jest
 
 ### Configure Jest
 Jest's configuration lives in `jest.config.js`, so let's open it up and add the following code:
+
 ```js
 module.exports = {
-	globals: {
-		'ts-jest': {
-			tsConfigFile: 'tsconfig.json'
-		}
-	},
-	moduleFileExtensions: [
-		'ts',
-		'js'
-	],
-	transform: {
-		'^.+\\.(ts|tsx)$': './node_modules/ts-jest/preprocessor.js'
-	},
-	testMatch: [
-		'**/test/**/*.test.(ts|js)'
-	],
-	testEnvironment: 'node'
+    globals: {
+        'ts-jest': {
+            tsConfigFile: 'tsconfig.json'
+        }
+    },
+    moduleFileExtensions: [
+        'ts',
+        'js'
+    ],
+    transform: {
+        '^.+\\.tsx?$': 'ts-jest'
+    },
+    testMatch: [
+        '**/test/**/*.test.(ts|js)'
+    ],
+    testEnvironment: 'node'
 };
 ```
-Basically we are telling Jest that we want it to consume all files that match the pattern `"**/test/**/*.test.(ts|js)"` (all `.test.ts`/`.test.js` files in the `test` folder), but we want to preprocess the `.ts` files first. 
+
+Basically we are telling Jest that we want it to consume all files that match the pattern `"**/test/**/*.test.(ts|js)"` (all `.test.ts`/`.test.js` files in the `test` folder), but we want to preprocess the `.ts` files first using [`ts-jest` preprocessor](https://github.com/kulshekhar/ts-jest).
 This preprocess step is very flexible, but in our case, we just want to compile our TypeScript to JavaScript using our `tsconfig.json`.
 This all happens in memory when you run the tests, so there are no output `.js` test files for you to manage.   
 
