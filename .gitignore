@@ -31,5 +31,8 @@ bower_components
 .DS_Store
 Thumbs.db
 
+# Test results
+coverage/
+
 # Ignore built ts files
 dist/**/*
