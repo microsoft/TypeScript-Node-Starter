@@ -1,8 +1,8 @@
-import * as request from "supertest";
-import * as app from "../src/app";
+import request from "supertest";
+import app from "../src/app";
 
-var chai = require('chai');
-var expect = chai.expect;
+const chai = require("chai");
+const expect = chai.expect;
 
 describe("GET /login", () => {
   it("should return 200 OK", () => {
@@ -29,6 +29,6 @@ describe("POST /login", () => {
         expect(res.error).not.to.be.undefined;
         done();
       });
-   
+
   });
 });

@@ -1,17 +1,17 @@
-import * as express from "express";
-import * as compression from "compression";  // compresses requests
-import * as session from "express-session";
-import * as bodyParser from "body-parser";
-import * as logger from "morgan";
-import * as lusca from "lusca";
-import * as dotenv from "dotenv";
-import * as mongo from "connect-mongo";
-import * as flash from "express-flash";
-import * as path from "path";
-import * as mongoose from "mongoose";
-import * as passport from "passport";
-import * as expressValidator from "express-validator";
-import * as bluebird from "bluebird";
+import express from "express";
+import compression from "compression";  // compresses requests
+import session from "express-session";
+import bodyParser from "body-parser";
+import logger from "morgan";
+import lusca from "lusca";
+import dotenv from "dotenv";
+import mongo from "connect-mongo";
+import flash from "express-flash";
+import path from "path";
+import mongoose from "mongoose";
+import passport from "passport";
+import expressValidator from "express-validator";
+import bluebird from "bluebird";
 
 const MongoStore = mongo(session);
 
@@ -82,7 +82,10 @@ app.use((req, res, next) => {
   }
   next();
 });
-app.use(express.static(path.join(__dirname, "public"), { maxAge: 31557600000 }));
+
+app.use(
+  express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
+);
 
 /**
  * Primary app routes.
@@ -119,4 +122,4 @@ app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRe
   res.redirect(req.session.returnTo || "/");
 });
 
-module.exports = app;
+export default app;
