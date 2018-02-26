@@ -19,8 +19,12 @@
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
     <StartWebBrowser>True</StartWebBrowser>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <NODE_ENV>development</NODE_ENV>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <NODE_ENV>production</NODE_ENV>
+  </PropertyGroup>
   <ItemGroup>
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
@@ -137,8 +141,9 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-
-  <Target Name="RunNpmScript">
-    
+  <Target Name="BeforeBuild">
+    <Exec Command="(SET NODE_ENV=$(NODE_ENV)) &amp; npm run build" WorkingDirectory="$(MSBuildProjectDirectory)" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="OutputOfExec" />
+    </Exec>
   </Target>
 </Project>

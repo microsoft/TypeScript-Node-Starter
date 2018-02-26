@@ -43,3 +43,9 @@ coverage/**/*
 
 # logs
 debug.log
+
+
+# VS specific files
+.vs
+bin
+obj
