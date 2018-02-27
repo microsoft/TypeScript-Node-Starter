@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{e9b89e72-fce3-4d0e-b4eb-b799440a91e1}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>dist\server.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -26,6 +26,9 @@
     <NODE_ENV>production</NODE_ENV>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".env.example" />
+    <Content Include=".gitignore" />
+    <Content Include=".travis.yml" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />

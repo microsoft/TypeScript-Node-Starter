@@ -1,3 +1,0 @@
-C:\Users\wilkelly\Documents\dev\TypeScript-Node-Starter\obj\Debug\TypeScriptNodeStarterTemplate.njsprojResolveAssemblyReference.cache
-C:\Users\wilkelly\Documents\dev\TypeScript-Node-Starter\obj\Debug\TypeScriptNodeStarterTemplate.njsproj.CoreCompileInputs.cache
-C:\Users\wilkelly\Documents\dev\TypeScript-Node-Starter\bin\Microsoft.NodejsTools.WebRole.dll
