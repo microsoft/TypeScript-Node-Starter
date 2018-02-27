@@ -33,7 +33,73 @@ mongod
 npm run build
 npm start
 ```
-Navigate to `http://localhost:3000`
+Or, if you're using VS Code, you can use `cmd + shift + b` to run the default build task (which is mapped to `npm run build`), and then you can use the command palette (`cmd + shift + p`) and select `Tasks: Run Task` > `npm: start` to run `npm start` for you.
+
+> **Note on editors!** - TypeScript has great support in [every editor](http://www.typescriptlang.org/index.html#download-links), but this project has been pre-configured for use with [VS Code](https://code.visualstudio.com/). 
+Throughout the README I'll try to call out specific places where VS Code really shines or where this project has been setup to take advantage of specific features.
+
+Finally, navigate to `http://localhost:3000` and you should see the template being served and rendered locally!
+
+# Deploying the app
+There are many ways to deploy an Node app, and in general, nothing about the deployment process changes because you're using TypeScript.
+In this section, I'll walk you through how to deploy this app to Azure App Service using the extensions available in VS Code because I think it is the easiest and fastest way to get started, as well as the most friendly workflow from a developer's perspective.
+
+## Pre-reqs
+- [**Azure account**](https://azure.microsoft.com/en-us/free/) - If you don't have one, you can sign up for free.
+The Azure free tier gives you plenty of resources to play around with including up to 10 App Service instances, which is what we will be using.
+- [**VS Code**](https://code.visualstudio.com/) - We'll be using the interface provided by VS Code to quickly deploy our app.
+- **Azure App Service VS Code extension** - In VS Code, search for `Azure App Service` in the extension marketplace (5th button down on the far left menu bar), install the extension, and then reload VS Code.
+
+## Deploying to Azure App Service
+Deploying from VS Code can be broken into the following steps:
+1. Authenticate your Azure account in VS Code
+2. Build your app
+3. Zip deploy using the Azure App Service extension
+
+### Sign in to your Azure account
+1. Open VS Code
+2. Expand the Azure App Service menu in the explorer menu
+    - If you don't see this, you might not have the `Azure App Service` extension installed.
+    See the pre-reqs section.
+3. Click `Sign in to Azure...`
+4. Choose `Copy & Open` from the resulting dialog
+    - This will open `aka.ms/devicelogin` in a browser window.
+    If it doesn't, just navigate there manually.
+5. Paste in the code that is on your clipboard.
+6. Go back to VS Code, you should now be signed in.
+You can confirm that everything worked by seeing your Azure subscription listed in the Azure App Service section of the explorer window.
+Additionally you should see the email associated with your account listed in the status bar at the bottom of VS Code. 
+
+### Build the app
+Building the app locally is required for this specific deployment method, so build the app however you normally do:
+    - `ctrl + shift + b` - kicks off default build in VS Code
+    - `npm run build` from a terminal window
+
+### Zip deploy from VS Code
+1. Make sure your app is built, whatever is currently in your `dist` and `node_modules` folders will be the app that is deployed.
+2. Click the blue up arrow (Deploy to Web App) on the Azure App Service section of the explorer window.
+3. Choose the entire project directory.
+If you haven't changed the name, this will be `TypeScript-Node-Starter`.
+4. Choose the subscription you want this app to be billed to (don't worry, it will be free).
+5. Choose `Create New Web App`
+6. Enter a globally unique name -
+This will be part of the URL that azure generates so it has to be unique, but if you're planning on adding a custom domain later, it's not that important. I usually just add random numbers to the end of the app name, ie. typescript-node-starter-15121214.
+7. Choose a resource group - 
+If you don't know what this is, just create a new one. 
+If you have lots of cloud resources that should be logically grouped together (think an app service and a database that supports that app) then you would want to put them in the same resource group. 
+This can always be updated later though.
+If you create a new resource group, you'll also be prompted to pick a location for that group.
+Pick something geographically close to where your users are.
+8. Choose `Create new App Service Plan` -
+An app service plan mainly is what determines the size and cost of the hardware your app will run on, but it also manages some other settings which we can ignore for now.
+9. Choose `B1 - Basic` - This one is free.
+If you know what you're doing, feel free to select a stronger pricing tier.
+10. Choose your target node runtime version - We are deploying to Linux machines, and in addition we can choose the exact node runtime we want.
+If you don't know what you want, choose whatever the current LTS build is.
+11. Grab a cup of coffee - You'll see everything you just selected getting created in the output window.
+All of this is powered by the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/overview?view=azure-cli-latest) and can be easily replicated if you decide you want to customize this process.
+This deployment is not the fastest option (but it is the easiest!). We are literally bundling everything in your project (including the massive node_modules folder) and uploading it to our Azure app service. Times will vary, but as a baseline, my deployment took roughly 6 minutes.
+
 
 # TypeScript + Node 
 The main purpose of this repository is to show a good end-to-end project setup and workflow for writing Node code in TypeScript.
@@ -41,9 +107,6 @@ I will try to keep this as up-to-date as possible, but community contributions a
 
 In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
 Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js project to TypeScript.
-
-> **Note on editors!** - TypeScript has great support in [every editor](http://www.typescriptlang.org/index.html#download-links), but this project has been pre-configured for use with [VS Code](https://code.visualstudio.com/). 
-Throughout the README I'll try to call out specific places where VS code really shines or where this project has been setup to take advantage of specific features.
 
 ## Getting TypeScript
 TypeScript itself is simple to add to any project with `npm`.
