@@ -254,7 +254,7 @@ Debugging TypeScript is exactly like debugging JavaScript with one caveat, you n
 Source maps allow you to drop break points in your TypeScript source code and have that break point be hit by the JavaScript that is being executed at runtime. 
 
 > **Note!** - Source maps aren't specific to TypeScript.
-Anytime JavaScript is transformed (transpiled, compiled, optimized, minified, etc) you need source maps so that the code that is executed at runtime can be _mapped_ back to the source that generated it.
+Any time JavaScript is transformed (transpiled, compiled, optimized, minified, etc) you need source maps so that the code that is executed at runtime can be _mapped_ back to the source that generated it.
 
 The best part of source maps is when configured correctly, you don't even know they exist! So let's take a look at how we do that in this project.
 
