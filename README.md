@@ -11,6 +11,7 @@ I will try to keep this as up-to-date as possible, but community contributions a
 
 
 # Pre-reqs
+To build and run this app locally you will need a few things:
 - Install [Node.js](https://nodejs.org/en/)
 - Install [MongoDB](https://docs.mongodb.com/manual/installation/)
 - Install [VS Code](https://code.visualstudio.com/)
@@ -196,6 +197,7 @@ Let's dissect this project's `tsconfig.json`, starting with the `compilerOptions
 ```json
     "compilerOptions": {
         "module": "commonjs",
+        "esModuleInterop": true,
         "target": "es6",
         "noImplicitAny": true,
         "moduleResolution": "node",
@@ -213,12 +215,13 @@ Let's dissect this project's `tsconfig.json`, starting with the `compilerOptions
 
 | `compilerOptions` | Description |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `"module": "commonjs"`             | The **output** module type (in your `.js` files). Node uses commonjs, so that is what we use           |
+| `"module": "commonjs"`             | The **output** module type (in your `.js` files). Node uses commonjs, so that is what we use            |
+| `"esModuleInterop": true,`         | Allows usage of an alternate module import syntax: `import foo from 'foo';`                            |
 | `"target": "es6"`                  | The output language level. Node supports ES6, so we can target that here                               |
 | `"noImplicitAny": true`            | Enables a stricter setting which throws errors when something has a default `any` value                |
 | `"moduleResolution": "node"`       | TypeScript attempts to mimic Node's module resolution strategy. Read more [here](https://www.typescriptlang.org/docs/handbook/module-resolution.html#node)                                                                    |
-| `"sourceMap": true`                | We want source maps to be output along side our JavaScript. See the [debugging](#debugging) section          |
-| `"outDir": "dist"`                 | Location to output `.js` files after compilation                                                       |
+| `"sourceMap": true`                | We want source maps to be output along side our JavaScript. See the [debugging](#debugging) section    |
+| `"outDir": "dist"`                 | Location to output `.js` files after compilation                                                        |
 | `"baseUrl": "."`                   | Part of configuring module resolution. See [path mapping section](#installing-dts-files-from-definitelytyped) |
 | `paths: {...}`                     | Part of configuring module resolution. See [path mapping section](#installing-dts-files-from-definitelytyped) |
 
@@ -250,17 +253,21 @@ Below is a list of all the scripts this template has available:
 
 | Npm Script | Description |
 | ------------------------- | ------------------------------------------------------------------------------------------------- |
-| `start`                   | Does the same as 'npm run serve'. Can be invoked with `npm start`                                      |
+| `start`                   | Does the same as 'npm run serve'. Can be invoked with `npm start`                                 |
 | `build`                   | Full build. Runs ALL build tasks (`build-sass`, `build-ts`, `tslint`, `copy-static-assets`)       |
 | `serve`                   | Runs node on `dist/server.js` which is the apps entry point                                       |
+| `watch-node`              | Runs node with nodemon so the process restarts if it crashes. Used in the main watch task         |
 | `watch`                   | Runs all watch tasks (TypeScript, Sass, Node). Use this if you're not touching static assets.     |
 | `test`                    | Runs tests using Jest test runner                                                                 |
-| `build-ts`                | Compiles all source `.ts` files to `.js` files in the `dist` folder                               |
+| `build-ts`                | Compiles all source `.ts` files to `.js` files in the `dist` folder                                 |
 | `watch-ts`                | Same as `build-ts` but continuously watches `.ts` files and re-compiles when needed                |
-| `build-sass`              | Compiles all `.scss` files to `.css` files                                                        |
-| `watch-sass`              | Same as `build-sass` but continuously watches `.scss` files and re-compiles when needed             |
-| `tslint`                  | Runs TSLint on project files                                                                      |
+| `build-sass`              | Compiles all `.scss` files to `.css` files                                                          |
+| `watch-sass`              | Same as `build-sass` but continuously watches `.scss` files and re-compiles when needed            |
+| `tslint`                  | Runs TSLint on project files                                                                       |
 | `copy-static-assets`      | Calls script that copies JS libs, fonts, and images to dist directory                             |
+| `debug`                   | Performs a full build and then serves the app in watch mode                                       |
+| `serve-debug`             | Runs the app with the --inspect flag                                                               |
+| `watch-debug`             | The same as `watch` but includes the --inspect flag so you can attach a debugger                   |
 
 ## Type Definition (`.d.ts`) Files
 TypeScript uses `.d.ts` files to provide types for JavaScript libraries that were not written in TypeScript.
@@ -431,7 +438,8 @@ This preprocess step is very flexible, but in our case, we just want to compile 
 This all happens in memory when you run the tests, so there are no output `.js` test files for you to manage.   
 
 ### Running tests
-
+Simply run `npm run test`.
+Note this will also generate a coverage report.
 
 ### Writing tests
 Writing tests for web apps has entire books dedicated to it and best practices are strongly influenced by personal style, so I'm deliberately avoiding discussing how or when to write tests in this guide.
@@ -467,6 +475,7 @@ To enhance your development experience while working in VSCode we also provide y
 - [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 - [Azure Cosmos DB](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb)
+- [Azure App Service](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice)
 
 # Dependencies
 Dependencies are managed through `package.json`.
@@ -517,9 +526,6 @@ In that file you'll find two sections:
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
 
 To install or update these dependencies you can use `npm install` or `npm update`.
-
-# Other
-Here is a section of miscellaneous tips. 
 
 # Hackathon Starter Project
 A majority of this quick start's content was inspired or adapted from Sahat's excellent [Hackathon Starter project](https://github.com/sahat/hackathon-starter).
