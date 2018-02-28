@@ -49,6 +49,30 @@ In this section, I'll walk you through how to deploy this app to Azure App Servi
 The Azure free tier gives you plenty of resources to play around with including up to 10 App Service instances, which is what we will be using.
 - [**VS Code**](https://code.visualstudio.com/) - We'll be using the interface provided by VS Code to quickly deploy our app.
 - **Azure App Service VS Code extension** - In VS Code, search for `Azure App Service` in the extension marketplace (5th button down on the far left menu bar), install the extension, and then reload VS Code.
+- **Create a cloud database** - 
+For local development, running MongoDB on localhost is fine, however once we deploy we need a database with high availability.
+The easiest way to achieve this is by using a managed cloud database.
+There are many different providers, but the easiest one to get started with is [MongoLab](https://mlab.com/).
+
+### <a name="mlab"></a> Create a managed MongoDB with MongoLab
+1. Navigate to [MongoLab's Website](https://mlab.com/), sign up for a free account, and then log in.
+2. In the **MongoDB Deployments** section, click the **Create New** button.
+3. Select any provider (I recommend **Microsoft Azure** as it provides an easier path to upgrading to globally distributed instances later).
+4. Select **Sandbox** to keep it free unless you know what you're doing, and hit **Continue**.
+5. Select a region (I recommend the region geographically closest to your app's users).
+6. Add a name, click **Continue** again, and finally **Submit Order**.
+7. Once your new database is created, select it from the **MongoDB Deployments** section.
+8. Create a user by selecting the **User** tab, clicking the **Add database user** button, adding a username and password, and then clicking **Create**. 
+A user account is required to connect to the database, so remember these values because you will need them as part of your connection string.
+9. Copy the connection string from the top of the page, it should look like this: `mongodb://<dbuser>:<dbpassword>@ds036069.mlab.com:36069/test-asdf`
+and replace `<dbUser>` and `<dbpassword>` with the credentials you just created. 
+Back in your project, open your `.env` file and update `MONGODB_URI` with your new connection string.
+    > NOTE! - If you don't have an `.env` file yet, rename `.env.example` to `.env` and follow the comments to update the values in that file.
+10. **Success!**
+You can test that it works locally by updating `MONGODB_URI_LOCAL` to the same connection string you just updated in `MONGO_URI`.
+After rebuilding/serving, the app should work, but users that were previously created in local testing will not exist in the new database!
+Don't forget to return the `MONGO_URI_LOCAL` to your local test database (if you so desire).
+
 
 ## Deploying to Azure App Service
 Deploying from VS Code can be broken into the following steps:
@@ -71,9 +95,10 @@ You can confirm that everything worked by seeing your Azure subscription listed 
 Additionally you should see the email associated with your account listed in the status bar at the bottom of VS Code. 
 
 ### Build the app
-Building the app locally is required for this specific deployment method, so build the app however you normally do:
-    - `ctrl + shift + b` - kicks off default build in VS Code
-    - `npm run build` from a terminal window
+Building the app locally is required for before a zip deploy because the App Service won't execute build tasks. 
+Build the app however you normally would:
+- `ctrl + shift + b` - kicks off default build in VS Code
+- execute `npm run build` from a terminal window
 
 ### Zip deploy from VS Code
 1. Make sure your app is built, whatever is currently in your `dist` and `node_modules` folders will be the app that is deployed.
@@ -99,6 +124,10 @@ If you don't know what you want, choose whatever the current LTS build is.
 11. Grab a cup of coffee - You'll see everything you just selected getting created in the output window.
 All of this is powered by the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/overview?view=azure-cli-latest) and can be easily replicated if you decide you want to customize this process.
 This deployment is not the fastest option (but it is the easiest!). We are literally bundling everything in your project (including the massive node_modules folder) and uploading it to our Azure app service. Times will vary, but as a baseline, my deployment took roughly 6 minutes.
+12. Add `NODE_ENV` environment variable - In the App Service section of the explorer window, expand the newly created service, right click on **Application Settings**, select **Add New Settings...**, and add `NODE_ENV` as the key and `production` as the value.
+This setting determines which database to point to. 
+If you haven't created a cloud database yet, see [the setup instructions](#mlab).
+13. Profit! If everything worked you should see a page that looks like this: [TypeScript Node Starter Demo Site](https://typescript-node-starter.azurewebsites.net/)
 
 
 # TypeScript + Node 
