@@ -2,6 +2,14 @@
 
 [![Dependency Status](https://david-dm.org/Microsoft/TypeScript-Node-Starter.svg)](https://david-dm.org/Microsoft/TypeScript-Node-Starter) [![Build Status](https://travis-ci.org/Microsoft/TypeScript-Node-Starter.svg?branch=master)](https://travis-ci.org/Microsoft/TypeScript-Node-Starter) 
 
+**Live Demo**: [https://typescript-node-starter.azurewebsites.net/](https://typescript-node-starter.azurewebsites.net/)
+
+![image](https://user-images.githubusercontent.com/820883/36764267-abbdb7f8-1be0-11e8-9678-2a9ea448d7f8.png)
+
+The main purpose of this repository is to show a good end-to-end project setup and workflow for writing Node code in TypeScript.
+I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. 
+
+
 # Pre-reqs
 - Install [Node.js](https://nodejs.org/en/)
 - Install [MongoDB](https://docs.mongodb.com/manual/installation/)
@@ -131,9 +139,6 @@ If you haven't created a cloud database yet, see [the setup instructions](#mlab)
 
 
 # TypeScript + Node 
-The main purpose of this repository is to show a good end-to-end project setup and workflow for writing Node code in TypeScript.
-I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. 
-
 In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
 Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js project to TypeScript.
 
