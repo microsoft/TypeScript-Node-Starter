@@ -42,7 +42,6 @@
     "lodash": "^4.17.4",
     "lusca": "^1.5.2",
     "mongoose": "^4.13.11",
-    "morgan": "^1.9.0",
     "nodemailer": "^4.4.1",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
