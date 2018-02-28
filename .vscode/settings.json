@@ -11,6 +11,8 @@
     "tslint.autoFixOnSave": true,
     "tslint.exclude": "**/node_modules/**/*",
     "cSpell.words": [
-        "definitelytyped"
+        "csrf",
+        "definitelytyped",
+        "promisified"
     ]
 }
