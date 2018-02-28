@@ -57,11 +57,11 @@ In this section, I'll walk you through how to deploy this app to Azure App Servi
 - [**Azure account**](https://azure.microsoft.com/en-us/free/) - If you don't have one, you can sign up for free.
 The Azure free tier gives you plenty of resources to play around with including up to 10 App Service instances, which is what we will be using.
 - [**VS Code**](https://code.visualstudio.com/) - We'll be using the interface provided by VS Code to quickly deploy our app.
-- **Azure App Service VS Code extension** - In VS Code, search for `Azure App Service` in the extension marketplace (5th button down on the far left menu bar), install the extension, and then reload VS Code.
+- [**Azure App Service VS Code extension**](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice) - In VS Code, search for `Azure App Service` in the extension marketplace (5th button down on the far left menu bar), install the extension, and then reload VS Code.
 - **Create a cloud database** - 
 For local development, running MongoDB on localhost is fine, however once we deploy we need a database with high availability.
 The easiest way to achieve this is by using a managed cloud database.
-There are many different providers, but the easiest one to get started with is [MongoLab](https://mlab.com/).
+There are many different providers, but the easiest one to get started with is [MongoLab](#mlab).
 
 ### <a name="mlab"></a> Create a managed MongoDB with MongoLab
 1. Navigate to [MongoLab's Website](https://mlab.com/), sign up for a free account, and then log in.
@@ -138,6 +138,8 @@ This setting determines which database to point to.
 If you haven't created a cloud database yet, see [the setup instructions](#mlab).
 13. Profit! If everything worked you should see a page that looks like this: [TypeScript Node Starter Demo Site](https://typescript-node-starter.azurewebsites.net/)
 
+### Troubleshooting failed deployments
+Deployment can fail for various reasons, if you get stuck with a page that says *Service Unavailable* or some other error, [open an issue](https://github.com/Microsoft/TypeScript-Node-Starter/issues/new) and I'll try to help you resolve the problems.
 
 # TypeScript + Node 
 In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
