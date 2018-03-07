@@ -404,13 +404,13 @@ In that file you'll find two sections:
 
 | Package                         | Description                                                           |
 | ------------------------------- | --------------------------------------------------------------------- |
-| concurrently                    | Utility that manages multiple concurrent tasks. Used with npm scripts |
+| concurrently                    | Utility that manages multiple concurrent tasks. Used with npm scripts. |
 | jest                            | Testing library for JavaScript.                                       |
 | node-sass                       | Allows to compile .scss files to .css                                 |
 | supertest                       | HTTP assertion library.                                               |
-| ts-test                         | A preprocessor with sourcemap support to help use TypeScript wit Jest.|
-| tslint                          | Linter (similar to ESLint) for TypeScript files                       |
-| typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
+| ts-test                         | A preprocessor with sourcemap support to help use TypeScript with Jest.|
+| tslint                          | Linter (similar to ESLint) for TypeScript files                  .     |
+| typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity.  |
 
 To install or update these dependencies you can use `npm install` or `npm update`.
 
