@@ -522,7 +522,7 @@ In that file you'll find two sections:
 | node-sass                       | Allows to compile .scss files to .css                                  |
 | nodemon                         | Utility that automatically restarts node process when it crashes      |
 | supertest                       | HTTP assertion library.                                               |
-| ts-test                         | A preprocessor with sourcemap support to help use TypeScript wit Jest.|
+| ts-jest                         | A preprocessor with sourcemap support to help use TypeScript wit Jest.|
 | ts-node                         | Enables directly running TS files. Used to run `copy-static-assets.ts` |
 | tslint                          | Linter (similar to ESLint) for TypeScript files                        |
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
