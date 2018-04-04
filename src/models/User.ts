@@ -19,9 +19,11 @@ export type UserModel = mongoose.Document & {
     picture: string
   },
 
-  comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
+  comparePassword: comparePasswordFunction,
   gravatar: (size: number) => string
 };
+
+type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
 
 export type AuthToken = {
   accessToken: string,
@@ -64,12 +66,13 @@ userSchema.pre("save", function save(next) {
   });
 });
 
-userSchema.methods.comparePassword = function (candidatePassword: string, cb: (err: any, isMatch: any) => {}) {
+const comparePassword: comparePasswordFunction = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error, isMatch: boolean) => {
     cb(err, isMatch);
   });
 };
 
+userSchema.methods.comparePassword = comparePassword;
 
 /**
  * Helper method for getting user's gravatar.
