@@ -261,6 +261,7 @@ Below is a list of all the scripts this template has available:
 | `watch-node`              | Runs node with nodemon so the process restarts if it crashes. Used in the main watch task         |
 | `watch`                   | Runs all watch tasks (TypeScript, Sass, Node). Use this if you're not touching static assets.     |
 | `test`                    | Runs tests using Jest test runner                                                                 |
+| `watch-test`              | Runs tests in watch mode                                                                          |
 | `build-ts`                | Compiles all source `.ts` files to `.js` files in the `dist` folder                                 |
 | `watch-ts`                | Same as `build-ts` but continuously watches `.ts` files and re-compiles when needed                |
 | `build-sass`              | Compiles all `.scss` files to `.css` files                                                          |
