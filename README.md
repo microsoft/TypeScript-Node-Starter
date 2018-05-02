@@ -27,7 +27,7 @@ cd <project_name>
 npm install
 ```
 - Configure your mongoDB server
-```
+```bash
 # create the db directory
 sudo mkdir -p /data/db
 # give the db correct read/write permissions
