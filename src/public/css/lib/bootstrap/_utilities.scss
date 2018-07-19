@@ -1,55 +1,15 @@
-//
-// Utility classes
-// --------------------------------------------------
-
-
-// Floats
-// -------------------------
-
-.clearfix {
-  @include clearfix;
-}
-.center-block {
-  @include center-block;
-}
-.pull-right {
-  float: right !important;
-}
-.pull-left {
-  float: left !important;
-}
-
-
-// Toggling content
-// -------------------------
-
-// Note: Deprecated .hide in favor of .hidden or .sr-only (as appropriate) in v3.0.1
-.hide {
-  display: none !important;
-}
-.show {
-  display: block !important;
-}
-.invisible {
-  visibility: hidden;
-}
-.text-hide {
-  @include text-hide;
-}
-
-
-// Hide from screenreaders and browsers
-//
-// Credit: HTML5 Boilerplate
-
-.hidden {
-  display: none !important;
-}
-
-
-// For Affix plugin
-// -------------------------
-
-.affix {
-  position: fixed;
-}
+@import "utilities/align";
+@import "utilities/background";
+@import "utilities/borders";
+@import "utilities/clearfix";
+@import "utilities/display";
+@import "utilities/embed";
+@import "utilities/flex";
+@import "utilities/float";
+@import "utilities/position";
+@import "utilities/screenreaders";
+@import "utilities/shadows";
+@import "utilities/sizing";
+@import "utilities/spacing";
+@import "utilities/text";
+@import "utilities/visibility";
