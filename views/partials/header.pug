@@ -1,10 +1,10 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
   .container
-    button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-      span.navbar-toggler-icon
     a.navbar-brand(href='/')
       i.fa.fa-cube
       | Project name
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+      span.navbar-toggler-icon
 
     .collapse.navbar-collapse
       ul.nav.navbar-nav.mr-auto
@@ -16,12 +16,12 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
           a.nav-link(href='/contact') Contact
       ul.nav.navbar-nav
         if !user
-          li.nav-item(class=(title == 'Login') ? 'active' : undefined)
+          li.nav-item(class=(title === 'Login') ? 'active' : undefined)
             a.nav-link(href='/login') Login
-          li.nav-item(class=(title == 'Create Account') ? 'active' : undefined)
+          li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
             a.nav-link(href='/signup') Create Account
         else
-          li.nav-item.dropdown(class=(title == 'Account Management') ? 'active' : undefined)
+          li.nav-item.dropdown(class=(title === 'Account Management') ? 'active' : undefined)
             a.nav-link.dropdown-toggle(href='#', data-toggle='dropdown')
               if user.profile.picture
                 img(src=user.profile.picture, alt=(user.profile.name || user.email || user.id))
