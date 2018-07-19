@@ -15,18 +15,18 @@ block content
       label.col-sm-3.col-form-label.text-right.font-weight-bold(for='name') Name
       .col-sm-7
         input.form-control(type='text', name='name', id='name', value=user.profile.name)
-    .form-group.row.justify-content-md-center
+    .form-group.row.justify-content-md-center.align-items-center
       label.col-sm-3.col-form-label.text-right.font-weight-bold Gender
       .col-sm-7
-        label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
-          span Male
-        label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
-          span Female
-        label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='other', name='gender', value='other', data-toggle='radio')
-          span Other
+        .form-check.form-check-inline
+          input#option-male.form-check-input(type='radio', checked=user.profile.gender==='male', name='gender', value='male', data-toggle='radio')
+          label.form-check-label(for="option-male") Male
+        .form-check.form-check-inline
+          input#option-female.form-check-input(type='radio', checked=user.profile.gender==='female', name='gender', value='female', data-toggle='radio')
+          label.form-check-label(for="option-female") Female
+        .form-check.form-check-inline
+          input#option-other.form-check-input(type='radio', checked=user.profile.gender==='other', name='gender', value='other', data-toggle='radio')
+          label.form-check-label(for="option-other") Other
     .form-group.row.justify-content-md-center
       label.col-sm-3.col-form-label.text-right.font-weight-bold(for='location') Location
       .col-sm-7
