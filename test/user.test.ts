@@ -1,19 +1,21 @@
 import request from "supertest";
-import app from "../src/app";
+import { App } from "../src/app";
 
 const chai = require("chai");
 const expect = chai.expect;
+const app = new App();
+app.Execute();
 
 describe("GET /login", () => {
   it("should return 200 OK", () => {
-    return request(app).get("/login")
+    return request(app.expressApp).get("/login")
       .expect(200);
   });
 });
 
 describe("GET /signup", () => {
   it("should return 200 OK", () => {
-    return request(app).get("/signup")
+    return request(app.expressApp).get("/signup")
       .expect(200);
   });
 });
@@ -21,7 +23,7 @@ describe("GET /signup", () => {
 
 describe("POST /login", () => {
   it("should return some defined error message with valid parameters", (done) => {
-    return request(app).post("/login")
+    return request(app.expressApp).post("/login")
       .field("email", "john@me.com")
       .field("password", "Hunter2")
       .expect(302)

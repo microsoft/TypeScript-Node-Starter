@@ -1,22 +1,33 @@
 import errorHandler from "errorhandler";
 
-import app from "./app";
+import { App } from "./app";
 
-/**
- * Error Handler. Provides full stack - remove for production
- */
-app.use(errorHandler());
+class Server {
+  app: App;
+  constructor() {
+    this.app = new App();
+  }
+  run = async () => {
+    const promise = await new Promise((resolve, reject) => {
+      /**
+       * Error Handler. Provides full stack - remove for production
+       */
+      this.app.expressApp.use(errorHandler());
 
-/**
- * Start Express server.
- */
-const server = app.listen(app.get("port"), () => {
-  console.log(
-    "  App is running at http://localhost:%d in %s mode",
-    app.get("port"),
-    app.get("env")
-  );
-  console.log("  Press CTRL-C to stop\n");
-});
+      this.app.expressApp.listen(this.app.expressApp.get("port"), () => {
+        console.log(
+          "  App is running at http://localhost:%d in %s mode",
+          this.app.expressApp.get("port"),
+          this.app.expressApp.get("env")
+        );
+        console.log("  Press CTRL-C to stop\n");
+        this.app.Execute();
+        resolve();
+      });
+    })
+    .catch(err => {throw err; });
+    return promise;
+  };
+}
 
-export default server;
+new Server().run();

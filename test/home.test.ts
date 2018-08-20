@@ -1,9 +1,12 @@
 import request from "supertest";
-import app from "../src/app";
+import { App } from "../src/app";
+
+const app = new App();
+app.Execute();
 
 describe("GET /", () => {
   it("should return 200 OK", (done) => {
-    request(app).get("/")
+    request(app.expressApp).get("/")
       .expect(200, done);
   });
 });
