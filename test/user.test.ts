@@ -3,19 +3,19 @@ import { App } from "../src/app";
 
 const chai = require("chai");
 const expect = chai.expect;
-const app = new App();
-app.Execute();
+const app = new App(3000, "test");
+app.execute();
 
 describe("GET /login", () => {
   it("should return 200 OK", () => {
-    return request(app.expressApp).get("/login")
+    return request(app.express).get("/login")
       .expect(200);
   });
 });
 
 describe("GET /signup", () => {
   it("should return 200 OK", () => {
-    return request(app.expressApp).get("/signup")
+    return request(app.express).get("/signup")
       .expect(200);
   });
 });
@@ -23,7 +23,7 @@ describe("GET /signup", () => {
 
 describe("POST /login", () => {
   it("should return some defined error message with valid parameters", (done) => {
-    return request(app.expressApp).post("/login")
+    return request(app.express).post("/login")
       .field("email", "john@me.com")
       .field("password", "Hunter2")
       .expect(302)

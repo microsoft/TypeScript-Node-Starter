@@ -3,12 +3,12 @@ import { App } from "../src/app";
 
 const chai = require("chai");
 const expect = chai.expect;
-const app = new App();
-app.Execute();
+const app = new App(3000, "test");
+app.execute();
 
 describe("GET /contact", () => {
   it("should return 200 OK", (done) => {
-    request(app.expressApp).get("/contact")
+    request(app.express).get("/contact")
       .expect(200, done);
   });
 });
@@ -16,7 +16,7 @@ describe("GET /contact", () => {
 
 describe("POST /contact", () => {
   it("should return false from assert when no message is found", (done) => {
-    request(app.expressApp).post("/contact")
+    request(app.express).post("/contact")
       .field("name", "John Doe")
       .field("email", "john@me.com")
       .end(function(err, res) {

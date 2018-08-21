@@ -10,6 +10,24 @@
             "name": "Attach by Process ID",
             "processId": "${command:PickProcess}",
             "protocol": "inspector"
+        },
+        {
+            "name": "Launch",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/dist/server.js",
+            "stopOnEntry": true,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "sourceMaps": false
         }
     ]
 }
