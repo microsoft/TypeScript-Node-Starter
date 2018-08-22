@@ -3,7 +3,7 @@ import { App } from "../src/app";
 
 const chai = require("chai");
 const expect = chai.expect;
-const app = new App(3000, "test");
+const app = App.getApp("test");
 app.execute();
 
 describe("GET /contact", () => {

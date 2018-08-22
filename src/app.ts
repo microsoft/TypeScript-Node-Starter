@@ -17,44 +17,68 @@ import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 
 // Controllers (route handlers)
-import { HomeController } from "./controllers";
-import * as userController from "./controllers/user";
-import * as apiController from "./controllers/api";
-import * as contactController from "./controllers/contact";
+import { HomeController, API, ContactController, UserController, OAuth } from "./controllers";
 
-
-// API keys and Passport configuration
-import * as passportConfig from "./config/passport";
 import { Provider } from "./core/provider";
-import { AppRoutes } from "./config/routes";
 import { app } from "./core/app";
 
 @app({
-  controllers: [HomeController]
+  controllers: [HomeController, API, ContactController, UserController, OAuth], // Add new controllers here to register
+  express: {
+    provider : express(),
+    setters: {
+      "views" :  path.join(__dirname, "../views"),
+      "view engine" : "pug"
+    },
+    middlewares: [
+      errorHandler(), compression(), bodyParser.json(), bodyParser.urlencoded({ extended: true }), expressValidator(),
+      session({ resave: true, saveUninitialized: true, secret: SESSION_SECRET }),
+      passport.initialize(), passport.session(), flash(), lusca.xframe("SAMEORIGIN"), lusca.xssProtection(true),
+      (req: Request, res: Response, next: any) => { res.locals.user = req.user; next(); },
+      (req: Request, res: Response, next: any) => {
+        // After successful login, redirect back to the intended page
+        if (!req.user &&
+          req.path !== "/login" &&
+          req.path !== "/signup" &&
+          !req.path.match(/^\/auth/) &&
+          !req.path.match(/\./)) {
+          req.session.returnTo = req.path;
+        } else if (req.user &&
+          req.path == "/account") {
+          req.session.returnTo = req.path;
+        }
+        next();
+      },
+      express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
+    ]
+  }
 })
 export class App {
   private _express: Express;
-  private port: number;
   private env: string;
+  private appState: string;
 
   get express(): Express { return this._express; }
+  set express(value: Express) { this._express = value; }
 
-  constructor(port: number, env: string) {
-    this._express = express();
-    this.port = port;
-    this.env = env;
-    this.express.set("port", port);
+  private constructor() { }
+
+  private static _app: App = undefined;
+  static getApp(env: string): App {
+    if (!this._app) {
+      this._app = new App();
+      this._app.env = env;
+    }
+    return this._app;
   }
 
   execute = async () => {
+    if (this.appState == "executed") return;
 
     const MongoStore = mongo(session);
 
     // Load environment variables from .env file, where API keys and passwords are configured
     dotenv.config({ path: ".env.example" });
-
-    // Create Express server
-
 
     // Connect to MongoDB
     const mongoUrl = MONGODB_URI;
@@ -66,119 +90,15 @@ export class App {
       // process.exit();
     });
 
-
-    // Express configuration
-
-    /**
-     * Error Handler. Provides full stack - remove for production
-     */
-      this.express.use(errorHandler());
-
-    this.express.set("views", path.join(__dirname, "../views"));
-    this.express.set("view engine", "pug");
-    this.express.use(compression());
-    this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: true }));
-    this.express.use(expressValidator());
-    this.express.use(session({
-      resave: true,
-      saveUninitialized: true,
-      secret: SESSION_SECRET
-
-    }));
-    this.express.use(passport.initialize());
-    this.express.use(passport.session());
-    this.express.use(flash());
-    this.express.use(lusca.xframe("SAMEORIGIN"));
-    this.express.use(lusca.xssProtection(true));
-    this.express.use((req, res, next) => {
-      res.locals.user = req.user;
-      next();
-    });
-    this.express.use((req, res, next) => {
-      // After successful login, redirect back to the intended page
-      if (!req.user &&
-        req.path !== "/login" &&
-        req.path !== "/signup" &&
-        !req.path.match(/^\/auth/) &&
-        !req.path.match(/\./)) {
-        req.session.returnTo = req.path;
-      } else if (req.user &&
-        req.path == "/account") {
-        req.session.returnTo = req.path;
-      }
-      next();
-    });
-
-    this.express.use(
-      express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
-    );
-
-    // const provider = Provider.getDefaultProvider();
-    // provider.register("home", HomeController);
-
-    AppRoutes.RegisterAll();
-    AppRoutes.GetAllRoutes().forEach(route => {
-      switch (route.method) {
-        case "get":
-          this.express.get(route.path, route.middlewares);
-        break;
-        case "post":
-          this._express.post(route.path, route.middlewares);
-        break;
-        case "put":
-          this._express.put(route.path, route.middlewares);
-        break;
-        case "delete":
-          this._express.delete(route.path, route.middlewares);
-        break;
-        default:
-          this.express.get(route.path, route.middlewares);
-        break;
-      }
-    });
-    /**
-     * Primary app routes.
-     */
-    // this.express.get("/", homeController.index);
-    this.express.get("/login", userController.getLogin);
-    this.express.post("/login", userController.postLogin);
-    this.express.get("/logout", userController.logout);
-    this.express.get("/forgot", userController.getForgot);
-    this.express.post("/forgot", userController.postForgot);
-    this.express.get("/reset/:token", userController.getReset);
-    this.express.post("/reset/:token", userController.postReset);
-    this.express.get("/signup", userController.getSignup);
-    this.express.post("/signup", userController.postSignup);
-    this.express.get("/contact", contactController.getContact);
-    this.express.post("/contact", contactController.postContact);
-    this.express.get("/account", passportConfig.isAuthenticated, userController.getAccount);
-    this.express.post("/account/profile", passportConfig.isAuthenticated, userController.postUpdateProfile);
-    this.express.post("/account/password", passportConfig.isAuthenticated, userController.postUpdatePassword);
-    this.express.post("/account/delete", passportConfig.isAuthenticated, userController.postDeleteAccount);
-    this.express.get("/account/unlink/:provider", passportConfig.isAuthenticated, userController.getOauthUnlink);
-
-    /**
-     * API examples routes.
-     */
-    this.express.get("/api", apiController.getApi);
-    this.express.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
-
-    /**
-     * OAuth authentication routes. (Sign in)
-     */
-    this.express.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
-    this.express.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
-      res.redirect(req.session.returnTo || "/");
-    });
+    this.appState = "executed";
   }
 
-  async listen() {
+  async listen(port: number) {
     const promise = await new Promise((resolve, reject) => {
-      this.express.listen(this.port, () => {
+      this.express.listen(port, () => {
         console.log(
           "  App is running at http://localhost:%d in %s mode",
-          this.port,
+          port,
           this.env
         );
         console.log("  Press CTRL-C to stop\n");
@@ -187,4 +107,5 @@ export class App {
     });
     return promise;
   }
+
 }
