@@ -3,7 +3,6 @@ import { RouteHandler } from "./routeHandler";
 
 export function app(value: any) {
   return function(constructor: any) {
-      debugger;
       const controllers = value.controllers;
       if (controllers && controllers.length > 0) {
         controllers.forEach( (controller: any)  => {
