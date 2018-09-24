@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
  * GET /contact
  * Contact form page.
  */
-export let getContact = (req: Request, res: Response) => {
+export const getContact = (req: Request, res: Response) => {
   res.render("contact", {
     title: "Contact"
   });
@@ -23,7 +23,7 @@ export let getContact = (req: Request, res: Response) => {
  * POST /contact
  * Send a contact form via Nodemailer.
  */
-export let postContact = (req: Request, res: Response) => {
+export const postContact = (req: Request, res: Response) => {
   req.assert("name", "Name cannot be blank").notEmpty();
   req.assert("email", "Email is not valid").isEmail();
   req.assert("message", "Message cannot be blank").notEmpty();
