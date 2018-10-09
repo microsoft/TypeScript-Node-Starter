@@ -15,6 +15,7 @@
     "watch-node": "nodemon dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
     "test": "jest --forceExit --coverage --verbose",
+    "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "build-sass": "node-sass src/public/css/main.scss dist/public/css/main.css",
@@ -42,13 +43,14 @@
     "lodash": "^4.17.4",
     "lusca": "^1.5.2",
     "mongoose": "^4.13.11",
-    "morgan": "^1.9.0",
     "nodemailer": "^4.4.1",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
     "pug": "^2.0.0-rc.4",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "@types/async": "^2.0.45",
@@ -76,6 +78,7 @@
     "@types/request": "^2.47.0",
     "@types/shelljs": "^0.7.8",
     "@types/supertest": "^2.0.4",
+    "@types/winston": "^2.3.7",
     "chai": "^4.1.2",
     "concurrently": "^3.5.1",
     "jest": "^22.0.4",
