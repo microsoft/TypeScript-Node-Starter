@@ -6,12 +6,12 @@ import { HttpMethod } from "../core/http";
 export class OAuth {
 
   @route(HttpMethod.GET, "/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }))
-  async getFacebookAuth(req: Request, res: Response) {
+  getFacebookAuth = async(req: Request, res: Response) => {
 
   }
 
   @route(HttpMethod.GET, "/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }))
-  async getFacebookCallback(req: Request, res: Response) {
+  getFacebookCallback = async(req: Request, res: Response) => {
     res.redirect(req.session.returnTo || "/");
   }
 

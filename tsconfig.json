@@ -10,6 +10,9 @@
         "baseUrl": ".",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        "types": [
+            "reflect-metadata"
+        ],
         "paths": {
             "*": [
                 "node_modules/*",
@@ -19,5 +22,9 @@
     },
     "include": [
         "src/**/*"
-    ]
+    ],
+    "exclude": [
+        "node_modules",
+        "test/**/*"
+    ] 
 }

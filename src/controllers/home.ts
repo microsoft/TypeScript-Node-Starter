@@ -4,7 +4,7 @@ import { HttpMethod } from "../core/http";
 export class HomeController {
 
   @route(HttpMethod.GET, "/")
-  async get(req: Request, res: Response) {
+  get = async (req: Request, res: Response) => {
     res.render("home", {
       title: "Home"
     });

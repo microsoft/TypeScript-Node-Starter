@@ -17,7 +17,7 @@ export class ContactController {
    * Contact form page.
    */
   @route(HttpMethod.GET, "/contact")
-  async get(req: Request, res: Response) {
+  get = async (req: Request, res: Response) => {
     res.render("contact", {
       title: "Contact"
     });
@@ -28,7 +28,7 @@ export class ContactController {
    * Send a contact form via Nodemailer.
    */
   @route(HttpMethod.POST, "/contact")
-  async postContact(req: Request, res: Response) {
+  postContact = async(req: Request, res: Response) => {
     req.assert("name", "Name cannot be blank").notEmpty();
     req.assert("email", "Email is not valid").isEmail();
     req.assert("message", "Message cannot be blank").notEmpty();

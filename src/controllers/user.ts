@@ -34,7 +34,7 @@ export class UserController {
    * Sign in using email and password.
    */
   @route(HttpMethod.POST, "/login")
-  async postLogin(req: Request, res: Response, next: NextFunction) {
+  postLogin = async(req: Request, res: Response, next: NextFunction) => {
     req.assert("email", "Email is not valid").isEmail();
     req.assert("password", "Password cannot be blank").notEmpty();
     req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
@@ -65,7 +65,7 @@ export class UserController {
    * Log out.
    */
   @route(HttpMethod.GET, "/logout")
-  async logout(req: Request, res: Response) {
+  logout = async(req: Request, res: Response) => {
     req.logout();
     res.redirect("/");
   }
@@ -75,7 +75,7 @@ export class UserController {
    * Signup page.
    */
   @route(HttpMethod.GET, "/signup")
-  getSignup(req: Request, res: Response) {
+  getSignup = async(req: Request, res: Response) => {
     if (req.user) {
       return res.redirect("/");
     }
@@ -91,7 +91,7 @@ export class UserController {
    */
 
   @route(HttpMethod.POST, "/signup")
-  postSignup(req: Request, res: Response, next: NextFunction) {
+  postSignup = async (req: Request, res: Response, next: NextFunction) => {
     req.assert("email", "Email is not valid").isEmail();
     req.assert("password", "Password must be at least 4 characters long").len({ min: 4 });
     req.assert("confirmPassword", "Passwords do not match").equals(req.body.password);
@@ -133,7 +133,7 @@ export class UserController {
    * Profile page.
    */
   @route(HttpMethod.GET, "/account", passportConfig.isAuthenticated)
-  getAccount(req: Request, res: Response) {
+  getAccount = async(req: Request, res: Response) => {
     res.render("account/profile", {
       title: "Account Management"
     });
@@ -144,7 +144,7 @@ export class UserController {
    * Update profile information.
    */
   @route(HttpMethod.POST, "/account/profile", passportConfig.isAuthenticated)
-  postUpdateProfile(req: Request, res: Response, next: NextFunction) {
+  postUpdateProfile = async(req: Request, res: Response, next: NextFunction) => {
     req.assert("email", "Please enter a valid email address.").isEmail();
     req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
 
@@ -182,7 +182,7 @@ export class UserController {
    * Update current password.
    */
   @route(HttpMethod.POST, "/account/password", passportConfig.isAuthenticated)
-  postUpdatePassword(req: Request, res: Response, next: NextFunction) {
+  postUpdatePassword = async(req: Request, res: Response, next: NextFunction) => {
     req.assert("password", "Password must be at least 4 characters long").len({ min: 4 });
     req.assert("confirmPassword", "Passwords do not match").equals(req.body.password);
 
@@ -209,7 +209,7 @@ export class UserController {
  * Delete user account.
  */
   @route(HttpMethod.POST, "/account/delete", passportConfig.isAuthenticated)
-  async postDeleteAccount (req: Request, res: Response, next: NextFunction) {
+  postDeleteAccount = async (req: Request, res: Response, next: NextFunction) => {
     User.remove({ _id: req.user.id }, (err) => {
       if (err) { return next(err); }
       req.logout();
@@ -223,7 +223,7 @@ export class UserController {
  * Unlink OAuth provider.
  */
   @route(HttpMethod.GET, "/account/unlink/:provider", passportConfig.isAuthenticated)
-  async getOauthUnlink(req: Request, res: Response, next: NextFunction) {
+  getOauthUnlink = async(req: Request, res: Response, next: NextFunction) => {
     const provider = req.params.provider;
     User.findById(req.user.id, (err, user: any) => {
       if (err) { return next(err); }
@@ -242,7 +242,7 @@ export class UserController {
    * Reset Password page.
    */
   @route(HttpMethod.GET, "/reset/:token")
-  async getReset(req: Request, res: Response, next: NextFunction) {
+  getReset = async(req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) {
       return res.redirect("/");
     }
@@ -266,7 +266,7 @@ export class UserController {
  * Process the reset password request.
  */
 @route(HttpMethod.POST, "/reset/:token")
-  async postReset(req: Request, res: Response, next: NextFunction) {
+  postReset = async(req: Request, res: Response, next: NextFunction) => {
     req.assert("password", "Password must be at least 4 characters long.").len({ min: 4 });
     req.assert("confirm", "Passwords must match.").equals(req.body.password);
 
@@ -329,7 +329,7 @@ export class UserController {
  * Forgot Password page.
  */
   @route(HttpMethod.GET, "/forgot")
-  async getForgot (req: Request, res: Response) {
+  getForgot = async (req: Request, res: Response) => {
     if (req.isAuthenticated()) {
       return res.redirect("/");
     }
@@ -343,7 +343,7 @@ export class UserController {
  * Create a random token, then the send user an email with a reset link.
  */
 @route(HttpMethod.POST, "/forgot")
-  async postForgot(req: Request, res: Response, next: NextFunction) {
+  postForgot = async(req: Request, res: Response, next: NextFunction) => {
     req.assert("email", "Please enter a valid email address.").isEmail();
     req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
 

@@ -15,21 +15,29 @@ export class RouteHandler {
 
   public static RegisterToExpress(express: Express) {
     this.Routes.forEach(route => {
+      debugger;
+
+      const instanceProps = route.name.split("-");
+      const instance: any = this.provider.get(Symbol(instanceProps[0]));
+      const method: string = instanceProps[1];
+      const middlewares = route.middlewares;
+      middlewares.push(instance[method]);
+
       switch (route.method) {
         case HttpMethod.GET:
-          express.get(route.path, route.middlewares);
+          express.get(route.path, middlewares);
         break;
         case HttpMethod.POST:
-          express.post(route.path, route.middlewares);
+          express.post(route.path, middlewares);
         break;
         case HttpMethod.PUT:
-          express.put(route.path, route.middlewares);
+          express.put(route.path, middlewares);
         break;
         case HttpMethod.DELETE:
-          express.delete(route.path, route.middlewares);
+          express.delete(route.path, middlewares);
         break;
         default:
-          express.get(route.path, route.middlewares);
+          express.get(route.path, middlewares);
         break;
       }
     });

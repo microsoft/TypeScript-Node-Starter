@@ -18,7 +18,7 @@ export class API {
   }
 
   @route(HttpMethod.GET, "/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized)
-  async getFacebook(req: Request, res: Response, next: NextFunction) {
+  getFacebook = async(req: Request, res: Response, next: NextFunction) => {
     const token = req.user.tokens.find((token: any) => token.kind === "facebook");
     graph.setAccessToken(token.accessToken);
     graph.get(`${req.user.facebook}?fields=id,name,email,first_name,last_name,gender,link,locale,timezone`, (err: Error, results: graph.FacebookUser) => {
