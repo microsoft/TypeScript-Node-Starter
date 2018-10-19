@@ -26,14 +26,14 @@ git clone --depth=1 https://github.com/Microsoft/TypeScript-Node-Starter.git <pr
 cd <project_name>
 npm install
 ```
-- Configure your mongoDB server
+- Configure your MongoDB server
 ```bash
 # create the db directory
 sudo mkdir -p /data/db
 # give the db correct read/write permissions
 sudo chmod 777 /data/db
 ```
-- Start your mongoDB server (you'll probably want another command prompt)
+- Start your MongoDB server (you'll probably want another command prompt)
 ```
 mongod
 ```
