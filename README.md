@@ -148,7 +148,7 @@ Note that all of this has already been setup for this project, but feel free to 
 ## Getting TypeScript
 TypeScript itself is simple to add to any project with `npm`.
 ```
-npm install -D typescript
+npm install -g typescript
 ```
 If you're using VS Code then you're good to go!
 VS Code will detect and use the TypeScript version you have installed in your `node_modules` folder. 
