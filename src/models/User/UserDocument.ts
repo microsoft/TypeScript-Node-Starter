@@ -1,46 +1,16 @@
 import bcrypt from "bcrypt-nodejs";
 import crypto from "crypto";
-import mongoose from "mongoose";
-
-export type UserModel = mongoose.Document & {
-  email: string,
-  password: string,
-  passwordResetToken: string,
-  passwordResetExpires: Date,
-
-  facebook: string,
-  tokens: AuthToken[],
-
-  profile: {
-    name: string,
-    gender: string,
-    location: string,
-    website: string,
-    picture: string
-  },
-
-  comparePassword: comparePasswordFunction,
-  gravatar: (size: number) => string
-};
-
-type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
-
-export type AuthToken = {
-  accessToken: string,
-  kind: string
-};
-
-const userSchema = new mongoose.Schema({
+import mongoose, { Model, Schema } from "mongoose";
+import { comparePasswordFunction, User } from "./User";
+export const userSchema: Schema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
-
   facebook: String,
   twitter: String,
   google: String,
   tokens: Array,
-
   profile: {
     name: String,
     gender: String,
@@ -89,5 +59,5 @@ userSchema.methods.gravatar = function (size: number) {
 };
 
 // export const User: UserType = mongoose.model<UserType>('User', userSchema);
-const User = mongoose.model("User", userSchema);
-export default User;
+const UserDocument: Model<User> = mongoose.model("User", userSchema);
+export default UserDocument;
