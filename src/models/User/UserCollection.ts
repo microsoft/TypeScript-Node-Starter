@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt-nodejs";
 import crypto from "crypto";
 import mongoose, { Model, Schema } from "mongoose";
-import { comparePasswordFunction, User } from "./User";
+import { comparePasswordFunction, default as User } from "./User";
 export const userSchema: Schema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
@@ -58,6 +58,5 @@ userSchema.methods.gravatar = function (size: number) {
   return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-// export const User: UserType = mongoose.model<UserType>('User', userSchema);
-const UserDocument: Model<User> = mongoose.model("User", userSchema);
-export default UserDocument;
+const UserCollection: Model<User> = mongoose.model("User", userSchema);
+export default UserCollection;

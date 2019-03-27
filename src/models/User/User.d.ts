@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-export interface User extends mongoose.Document {
+export default interface User extends mongoose.Document {
   email: string;
   password: string;
   passwordResetToken: string;
@@ -16,7 +16,10 @@ export interface User extends mongoose.Document {
   comparePassword: comparePasswordFunction;
   gravatar: (size: number) => string;
 }
-export type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
+export type comparePasswordFunction = (
+  candidatePassword: string,
+  cb: (err: mongoose.Error, isMatch: boolean) => void
+) => void;
 export interface AuthToken {
   accessToken: string;
   kind: string;

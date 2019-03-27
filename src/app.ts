@@ -2,7 +2,6 @@ import express from "express";
 import compression from "compression";  // compresses requests
 import session from "express-session";
 import bodyParser from "body-parser";
-import logger from "./util/logger";
 import lusca from "lusca";
 import dotenv from "dotenv";
 import mongo from "connect-mongo";
@@ -13,6 +12,7 @@ import passport from "passport";
 import expressValidator from "express-validator";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+import { Response, Request, NextFunction } from "express";
 
 const MongoStore = mongo(session);
 
@@ -35,7 +35,7 @@ const app = express();
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
 (<any>mongoose).Promise = bluebird;
-mongoose.connect(mongoUrl, {useMongoClient: true}).then(
+mongoose.connect(mongoUrl, { useMongoClient: true }).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
@@ -64,11 +64,11 @@ app.use(passport.session());
 app.use(flash());
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.user = req.user;
   next();
 });
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   // After successful login, redirect back to the intended page
   if (!req.user &&
     req.path !== "/login" &&
@@ -118,7 +118,7 @@ app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthor
  * OAuth authentication routes. (Sign in)
  */
 app.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
-app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
+app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req: Request, res: Response) => {
   res.redirect(req.session.returnTo || "/");
 });
 
