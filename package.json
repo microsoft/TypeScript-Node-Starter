@@ -82,7 +82,7 @@
     "chai": "^4.1.2",
     "concurrently": "^3.5.1",
     "jest": "^22.0.4",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.13.0",
     "shelljs": "^0.8.1",
     "supertest": "^3.0.0",
