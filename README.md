@@ -2,7 +2,7 @@
 
 [![Dependency Status](https://david-dm.org/Microsoft/TypeScript-Node-Starter.svg)](https://david-dm.org/Microsoft/TypeScript-Node-Starter) [![Build Status](https://travis-ci.org/Microsoft/TypeScript-Node-Starter.svg?branch=master)](https://travis-ci.org/Microsoft/TypeScript-Node-Starter) 
 
-**Live Demo**: [https://typescriptnodestarter.azurewebsites.net/](https://typescriptnodestarter.azurewebsites.net/)
+**Live Demo**: [https://typescript-node-starter.azurewebsites.net/](https://typescript-node-starter.azurewebsites.net/)
 
 ![image](https://user-images.githubusercontent.com/820883/36764267-abbdb7f8-1be0-11e8-9678-2a9ea448d7f8.png)
 
@@ -136,7 +136,7 @@ This deployment is not the fastest option (but it is the easiest!). We are liter
 12. Add `NODE_ENV` environment variable - In the App Service section of the explorer window, expand the newly created service, right click on **Application Settings**, select **Add New Settings...**, and add `NODE_ENV` as the key and `production` as the value.
 This setting determines which database to point to. 
 If you haven't created a cloud database yet, see [the setup instructions](#mlab).
-13. Profit! If everything worked you should see a page that looks like this: [TypeScript Node Starter Demo Site](https://typescriptnodestarter.azurewebsites.net/)
+13. Profit! If everything worked you should see a page that looks like this: [TypeScript Node Starter Demo Site](https://typescript-node-starter.azurewebsites.net/)
 
 ### Troubleshooting failed deployments
 Deployment can fail for various reasons, if you get stuck with a page that says *Service Unavailable* or some other error, [open an issue](https://github.com/Microsoft/TypeScript-Node-Starter/issues/new) and I'll try to help you resolve the problems.
