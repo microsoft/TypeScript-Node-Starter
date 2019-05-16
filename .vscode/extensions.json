@@ -1,7 +1,6 @@
 {
     "recommendations": [
-        "eg2.tslint",
+        "ms-vscode.vscode-typescript-tslint-plugin",
         "ms-azuretools.vscode-cosmosdb",
-        "streetsidesoftware.code-spell-checker"
     ]
 }

@@ -10,14 +10,8 @@
     "tslint.ignoreDefinitionFiles": false,
     "tslint.autoFixOnSave": true,
     "tslint.exclude": "**/node_modules/**/*",
-    "cSpell.words": [
-        "csrf",
-        "definitelytyped",
-        "promisified"
-    ],
     "appService.zipIgnorePattern": [
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/546ac631-883f-4fb4-bff0-b8639ed6e7c8/resourceGroups/appsvc_rg_linux_centralus/providers/Microsoft.Web/sites/TypeScriptNodeStarter",
     "appService.deploySubpath": ""
 }
