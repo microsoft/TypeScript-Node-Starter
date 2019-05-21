@@ -81,7 +81,9 @@
     "@types/winston": "^2.3.7",
     "chai": "^4.1.2",
     "concurrently": "^3.5.1",
+    "husky": "^2.3.0",
     "jest": "^24.0.0",
+    "lint-staged": "^8.1.7",
     "node-sass": "^4.12.0",
     "nodemon": "^1.18.10",
     "shelljs": "^0.8.1",
@@ -90,5 +92,16 @@
     "ts-node": "^5.0.0",
     "tslint": "^5.9.1",
     "typescript": "^3.4.5"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run tslint",
+      "git add --force"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
