@@ -1,12 +1,12 @@
 import express from "express";
 import compression from "compression";  // compresses requests
-import session from "express-session";
+import expressSession from "express-session";
 import bodyParser from "body-parser";
 import logger from "./util/logger";
 import lusca from "lusca";
 import dotenv from "dotenv";
-import mongo from "connect-mongo";
-import flash from "express-flash";
+import connectMongo from "connect-mongo";
+import expressFlash from "express-flash";
 import path from "path";
 import mongoose from "mongoose";
 import passport from "passport";
@@ -14,7 +14,7 @@ import expressValidator from "express-validator";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 
-const MongoStore = mongo(session);
+const mongoStore = connectMongo(expressSession);
 
 // Load environment variables from .env file, where API keys and passwords are configured
 dotenv.config({ path: ".env.example" });
@@ -24,7 +24,6 @@ import * as homeController from "./controllers/home";
 import * as userController from "./controllers/user";
 import * as apiController from "./controllers/api";
 import * as contactController from "./controllers/contact";
-
 
 // API keys and Passport configuration
 import * as passportConfig from "./config/passport";
@@ -37,8 +36,8 @@ const mongoUrl = MONGODB_URI;
 (<any>mongoose).Promise = bluebird;
 mongoose.connect(mongoUrl, { useNewUrlParser: true , dbName: "codesnooper_dev" }).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
-).catch(err => {
-  console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
+).catch((err) => {
+  console.log(`MongoDB connection error. Please make sure MongoDB is running. ${err}`);
   // process.exit();
 });
 mongoose.set("useCreateIndex", true);
@@ -51,18 +50,18 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
-app.use(session({
+app.use(expressSession({
   resave: true,
   saveUninitialized: true,
   secret: SESSION_SECRET,
-  store: new MongoStore({
+  store: new mongoStore({
     url: mongoUrl,
-    autoReconnect: true
-  })
+    autoReconnect: true,
+  }),
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+app.use(expressFlash());
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
@@ -78,14 +77,14 @@ app.use((req, res, next) => {
     !req.path.match(/\./)) {
     req.session.returnTo = req.path;
   } else if (req.user &&
-    req.path == "/account") {
+    req.path === "/account") {
     req.session.returnTo = req.path;
   }
   next();
 });
 
 app.use(
-  express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
+  express.static(path.join(__dirname, "public"), { maxAge: 31557600000 }),
 );
 
 /**
@@ -113,14 +112,22 @@ app.get("/account/unlink/:provider", passportConfig.isAuthenticated, userControl
  * API examples routes.
  */
 app.get("/api", apiController.getApi);
-app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
+app.get("/api/facebook",
+        passportConfig.isAuthenticated
+,       passportConfig.isAuthorized
+,       apiController.getFacebook);
 
 /**
  * OAuth authentication routes. (Sign in)
  */
-app.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
-app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
-  res.redirect(req.session.returnTo || "/");
-});
+app.get("/auth/facebook",
+        passport.authenticate("facebook",
+                              { scope: ["email", "public_profile"] }));
+app.get("/auth/facebook/callback",
+        passport.authenticate("facebook",
+                              { failureRedirect: "/login" }),
+        (req, res) => {
+          res.redirect(req.session.returnTo || "/");
+        });
 
 export default app;

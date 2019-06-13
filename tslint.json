@@ -1,4 +1,6 @@
 {
+    
+    "extends": "tslint-config-airbnb",
     "rules": {
         "class-name": true,
         "comment-format": [

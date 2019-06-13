@@ -9,7 +9,6 @@ import { WriteError } from "mongodb";
 import "../config/passport";
 // const request = require("express-validator");
 
-
 /**
  * GET /login
  * Login page.
@@ -19,7 +18,7 @@ export let getLogin = (req: Request, res: Response) => {
     return res.redirect("/");
   }
   res.render("account/login", {
-    title: "Login"
+    title: "Login",
   });
 };
 
@@ -71,7 +70,7 @@ export let getSignup = (req: Request, res: Response) => {
     return res.redirect("/");
   }
   res.render("account/signup", {
-    title: "Create Account"
+    title: "Create Account",
   });
 };
 
@@ -94,7 +93,7 @@ export let postSignup = (req: Request, res: Response, next: NextFunction) => {
 
   const user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
@@ -121,7 +120,7 @@ export let postSignup = (req: Request, res: Response, next: NextFunction) => {
  */
 export let getAccount = (req: Request, res: Response) => {
   res.render("account/profile", {
-    title: "Account Management"
+    title: "Account Management",
   });
 };
 
@@ -150,7 +149,9 @@ export let postUpdateProfile = (req: Request, res: Response, next: NextFunction)
     user.save((err: WriteError) => {
       if (err) {
         if (err.code === 11000) {
-          req.flash("errors", { msg: "The email address you have entered is already associated with an account." });
+          req.flash("errors", { msg:
+            "The email address you have entered is already associated with an account.",
+          });
           return res.redirect("/account");
         }
         return next(err);
@@ -236,7 +237,7 @@ export let getReset = (req: Request, res: Response, next: NextFunction) => {
         return res.redirect("/forgot");
       }
       res.render("account/reset", {
-        title: "Password Reset"
+        title: "Password Reset",
       });
     });
 };
@@ -283,21 +284,23 @@ export let postReset = (req: Request, res: Response, next: NextFunction) => {
         service: "SendGrid",
         auth: {
           user: process.env.SENDGRID_USER,
-          pass: process.env.SENDGRID_PASSWORD
-        }
+          pass: process.env.SENDGRID_PASSWORD,
+        },
       });
       const mailOptions = {
         to: user.email,
         from: "express-ts@starter.com",
         subject: "Your password has been changed",
-        text: `Hello,\n\nThis is a confirmation that the password for your account ${user.email} has just been changed.\n`
+        text:
+        `Hello,\n\nThis is a confirmation that the password
+        for your account ${user.email} has just been changed.\n`,
       };
       transporter.sendMail(mailOptions, (err) => {
         req.flash("success", { msg: "Success! Your password has been changed." });
         done(err);
       });
-    }
-  ], (err) => {
+    },
+  ],              (err) => {
     if (err) { return next(err); }
     res.redirect("/");
   });
@@ -312,7 +315,7 @@ export let getForgot = (req: Request, res: Response) => {
     return res.redirect("/");
   }
   res.render("account/forgot", {
-    title: "Forgot Password"
+    title: "Forgot Password",
   });
 };
 
@@ -357,24 +360,29 @@ export let postForgot = (req: Request, res: Response, next: NextFunction) => {
         service: "SendGrid",
         auth: {
           user: process.env.SENDGRID_USER,
-          pass: process.env.SENDGRID_PASSWORD
-        }
+          pass: process.env.SENDGRID_PASSWORD,
+        },
       });
       const mailOptions = {
         to: user.email,
         from: "hackathon@starter.com",
         subject: "Reset your password on Hackathon Starter",
-        text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
-          Please click on the following link, or paste this into your browser to complete the process:\n\n
+        text: `You are receiving this email
+        because you (or someone else) have requested the reset of the password for your account.\n\n
+          Please click on the following link,
+          or paste this into your browser to complete the process:\n\n
           http://${req.headers.host}/reset/${token}\n\n
-          If you did not request this, please ignore this email and your password will remain unchanged.\n`
+          If you did not request this,
+          please ignore this email and your password will remain unchanged.\n`,
       };
       transporter.sendMail(mailOptions, (err) => {
-        req.flash("info", { msg: `An e-mail has been sent to ${user.email} with further instructions.` });
+        req.flash("info", { msg:
+          `An e-mail has been sent to ${user.email} with further instructions.`,
+        });
         done(err);
       });
-    }
-  ], (err) => {
+    },
+  ],              (err) => {
     if (err) { return next(err); }
     res.redirect("/forgot");
   });
