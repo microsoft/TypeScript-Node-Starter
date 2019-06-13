@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from "express";
 import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";
 import "../config/passport";
-const request = require("express-validator");
+// const request = require("express-validator");
 
 
 /**

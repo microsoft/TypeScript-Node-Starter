@@ -35,12 +35,13 @@ const app = express();
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
 (<any>mongoose).Promise = bluebird;
-mongoose.connect(mongoUrl).then(
+mongoose.connect(mongoUrl, { useNewUrlParser: true , dbName: "codesnooper_dev" }).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
   // process.exit();
 });
+mongoose.set("useCreateIndex", true);
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
