@@ -1,3 +1,4 @@
+@import "bootstrap/variables";
 /*
  * Social Buttons for Bootstrap
  *
@@ -7,14 +8,14 @@
  * https://github.com/lipis/bootstrap-social
  */
 
-$bs-height-base: ($line-height-computed + $padding-base-vertical * 2);
-$bs-height-lg:   (floor($font-size-large * $line-height-base) + $padding-large-vertical * 2);
-$bs-height-sm:   (floor($font-size-small * 1.5) + $padding-small-vertical * 2);
-$bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);
+$bs-height-base: ($line-height-base + $btn-padding-y * 2);
+$bs-height-lg:   (floor($font-size-lg * $line-height-base) + $btn-padding-y-lg * 2);
+$bs-height-sm:   (floor($font-size-sm * 1.5) + $btn-padding-y-sm * 2);
+$bs-height-xs:   (floor($font-size-sm * 1.2) + $btn-padding-y-sm + 1);
 
 .btn-social {
   position: relative;
-  padding-left: ($bs-height-base + $padding-base-horizontal);
+  padding-left: ($bs-height-base + $btn-padding-x);
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -25,13 +26,13 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);
     top: 0;
     bottom: 0;
     width: $bs-height-base;
-    line-height: ($bs-height-base + 2);
+    line-height: ($bs-height-base + .2);
     font-size: 1.6em;
     text-align: center;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
   }
   &.btn-lg {
-    padding-left: ($bs-height-lg + $padding-large-horizontal);
+    padding-left: ($bs-height-lg + $btn-padding-x);
     > :first-child {
       line-height: $bs-height-lg;
       width: $bs-height-lg;
@@ -39,7 +40,7 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);
     }
   }
   &.btn-sm {
-    padding-left: ($bs-height-sm + $padding-small-horizontal);
+    padding-left: ($bs-height-sm + $btn-padding-x);
     > :first-child {
       line-height: $bs-height-sm;
       width: $bs-height-sm;
@@ -47,7 +48,7 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);
     }
   }
   &.btn-xs {
-    padding-left: ($bs-height-xs + $padding-small-horizontal);
+    padding-left: ($bs-height-xs + $btn-padding-x);
     > :first-child {
       line-height: $bs-height-xs;
       width: $bs-height-xs;
@@ -88,7 +89,7 @@ $bs-height-xs:   (floor($font-size-small * 1.2) + $padding-small-vertical + 1);
 
 @mixin btn-social($color-bg, $color: #fff) {
   background-color: $color-bg;
-  @include button-variant($color, $color-bg, rgba(0,0,0,.2));
+  @include button-variant($color-bg, rgba(0,0,0,.2));
 }
 
 

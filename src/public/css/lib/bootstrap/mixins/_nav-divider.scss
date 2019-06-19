@@ -2,9 +2,9 @@
 //
 // Dividers (basically an hr) within dropdowns and nav lists
 
-@mixin nav-divider($color: #e5e5e5) {
-  height: 1px;
-  margin: (($line-height-computed / 2) - 1) 0;
+@mixin nav-divider($color: $nav-divider-color, $margin-y: $nav-divider-margin-y) {
+  height: 0;
+  margin: $margin-y 0;
   overflow: hidden;
-  background-color: $color;
+  border-top: 1px solid $color;
 }
