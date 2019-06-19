@@ -64,7 +64,7 @@ The easiest way to achieve this is by using a managed cloud database.
 There are many different providers, but the easiest one to get started with is [MongoLab](#mlab).
 
 ### <a name="mlab"></a> Create a managed MongoDB with MongoLab
-1. Navigate to [MongoLab's Website](https://mlab.com/), sign up for a free account, and then log in.
+1. Navigate to [mLab's Website](https://mlab.com/), sign up for a free account, and then log in.
 2. In the **MongoDB Deployments** section, click the **Create New** button.
 3. Select any provider (I recommend **Microsoft Azure** as it provides an easier path to upgrading to globally distributed instances later).
 4. Select **Sandbox** to keep it free unless you know what you're doing, and hit **Continue**.
@@ -104,7 +104,7 @@ You can confirm that everything worked by seeing your Azure subscription listed 
 Additionally you should see the email associated with your account listed in the status bar at the bottom of VS Code. 
 
 ### Build the app
-Building the app locally is required for before a zip deploy because the App Service won't execute build tasks. 
+Building the app locally is required before a zip deploy because the App Service won't execute build tasks. 
 Build the app however you normally would:
 - `ctrl + shift + b` - kicks off default build in VS Code
 - execute `npm run build` from a terminal window
@@ -143,7 +143,7 @@ Deployment can fail for various reasons, if you get stuck with a page that says 
 
 # TypeScript + Node 
 In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
-Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js project to TypeScript.
+Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js projects to TypeScript.
 
 ## Getting TypeScript
 TypeScript itself is simple to add to any project with `npm`.
@@ -188,7 +188,7 @@ The full folder structure of this app is explained below:
 | tslint.json              | Config settings for TSLint code style checking                                                |
 
 ## Building the project
-It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount build configuration. 
+It is rare for JavaScript projects not to have some kind of build pipeline these days. However, Node projects typically have the least amount of build configuration. 
 Because of this I've tried to keep the build as simple as possible.
 If you're concerned about compile time, the main watch task takes ~2s to refresh.
 
@@ -229,7 +229,7 @@ Let's dissect this project's `tsconfig.json`, starting with the `compilerOptions
 
 
 
-The rest of the file define the TypeScript project context.
+The rest of the file defines the TypeScript project context.
 The project context is basically a set of options that determine which files are compiled when the compiler is invoked with a specific `tsconfig.json`.
 In this case, we use the following to define our project context: 
 ```json
@@ -363,7 +363,7 @@ Source maps allow you to drop break points in your TypeScript source code and ha
 > **Note!** - Source maps aren't specific to TypeScript.
 Anytime JavaScript is transformed (transpiled, compiled, optimized, minified, etc) you need source maps so that the code that is executed at runtime can be _mapped_ back to the source that generated it.
 
-The best part of source maps is when configured correctly, you don't even know they exist! So let's take a look at how we do that in this project.
+The best part of source maps is, when configured correctly, you don't even know they exist! So let's take a look at how we do that in this project.
 
 #### Configuring source maps
 First you need to make sure your `tsconfig.json` has source map generation enabled:
