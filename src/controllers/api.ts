@@ -1,7 +1,5 @@
 "use strict";
 
-import async from "async";
-import request from "request";
 import graph from "fbgraph";
 import { Response, Request, NextFunction } from "express";
 
