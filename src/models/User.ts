@@ -2,7 +2,7 @@ import bcrypt from "bcrypt-nodejs";
 import crypto from "crypto";
 import mongoose from "mongoose";
 
-export type UserModel = mongoose.Document & {
+export type UserDocument = mongoose.Document & {
   email: string,
   password: string,
   passwordResetToken: string,
@@ -77,10 +77,7 @@ userSchema.methods.comparePassword = comparePassword;
 /**
  * Helper method for getting user's gravatar.
  */
-userSchema.methods.gravatar = function (size: number) {
-  if (!size) {
-    size = 200;
-  }
+userSchema.methods.gravatar = function (size: number = 200) {
   if (!this.email) {
     return `https://gravatar.com/avatar/?s=${size}&d=retro`;
   }
@@ -88,6 +85,4 @@ userSchema.methods.gravatar = function (size: number) {
   return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-// export const User: UserType = mongoose.model<UserType>('User', userSchema);
-const User = mongoose.model("User", userSchema);
-export default User;
+export const User = mongoose.model<UserDocument>("User", userSchema);

@@ -7,7 +7,7 @@
 ![image](https://user-images.githubusercontent.com/820883/36764267-abbdb7f8-1be0-11e8-9678-2a9ea448d7f8.png)
 
 The main purpose of this repository is to show a good end-to-end project setup and workflow for writing Node code in TypeScript.
-I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. 
+We will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. 
 
 
 # Pre-reqs
@@ -45,7 +45,7 @@ npm start
 Or, if you're using VS Code, you can use `cmd + shift + b` to run the default build task (which is mapped to `npm run build`), and then you can use the command palette (`cmd + shift + p`) and select `Tasks: Run Task` > `npm: start` to run `npm start` for you.
 
 > **Note on editors!** - TypeScript has great support in [every editor](http://www.typescriptlang.org/index.html#download-links), but this project has been pre-configured for use with [VS Code](https://code.visualstudio.com/). 
-Throughout the README I'll try to call out specific places where VS Code really shines or where this project has been setup to take advantage of specific features.
+Throughout the README We will try to call out specific places where VS Code really shines or where this project has been setup to take advantage of specific features.
 
 Finally, navigate to `http://localhost:3000` and you should see the template being served and rendered locally!
 
@@ -53,7 +53,7 @@ Finally, navigate to `http://localhost:3000` and you should see the template bei
 There are many ways to deploy an Node app, and in general, nothing about the deployment process changes because you're using TypeScript.
 In this section, I'll walk you through how to deploy this app to Azure App Service using the extensions available in VS Code because I think it is the easiest and fastest way to get started, as well as the most friendly workflow from a developer's perspective.
 
-## Pre-reqs
+## Prerequisites
 - [**Azure account**](https://azure.microsoft.com/en-us/free/) - If you don't have one, you can sign up for free.
 The Azure free tier gives you plenty of resources to play around with including up to 10 App Service instances, which is what we will be using.
 - [**VS Code**](https://code.visualstudio.com/) - We'll be using the interface provided by VS Code to quickly deploy our app.
@@ -64,7 +64,7 @@ The easiest way to achieve this is by using a managed cloud database.
 There are many different providers, but the easiest one to get started with is [MongoLab](#mlab).
 
 ### <a name="mlab"></a> Create a managed MongoDB with MongoLab
-1. Navigate to [MongoLab's Website](https://mlab.com/), sign up for a free account, and then log in.
+1. Navigate to [mLab's Website](https://mlab.com/), sign up for a free account, and then log in.
 2. In the **MongoDB Deployments** section, click the **Create New** button.
 3. Select any provider (I recommend **Microsoft Azure** as it provides an easier path to upgrading to globally distributed instances later).
 4. Select **Sandbox** to keep it free unless you know what you're doing, and hit **Continue**.
@@ -104,7 +104,7 @@ You can confirm that everything worked by seeing your Azure subscription listed 
 Additionally you should see the email associated with your account listed in the status bar at the bottom of VS Code. 
 
 ### Build the app
-Building the app locally is required for before a zip deploy because the App Service won't execute build tasks. 
+Building the app locally is required before a zip deploy because the App Service won't execute build tasks. 
 Build the app however you normally would:
 - `ctrl + shift + b` - kicks off default build in VS Code
 - execute `npm run build` from a terminal window
@@ -143,7 +143,7 @@ Deployment can fail for various reasons, if you get stuck with a page that says 
 
 # TypeScript + Node 
 In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
-Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js project to TypeScript.
+Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js projects to TypeScript.
 
 ## Getting TypeScript
 TypeScript itself is simple to add to any project with `npm`.
@@ -176,7 +176,7 @@ The full folder structure of this app is explained below:
 | **src/public**           | Static assets that will be used client side                                                   |
 | **src/types**            | Holds .d.ts files not found on DefinitelyTyped. Covered more in this [section](#type-definition-dts-files)          |
 | **src**/server.ts        | Entry point to your express app                                                               |
-| **test**                 | Contains your tests. Seperate from source because there is a different build process.         |
+| **test**                 | Contains your tests. Separate from source because there is a different build process.         |
 | **views**                | Views define how your app renders on the client. In this case we're using pug                 |
 | .env.example             | API keys, tokens, passwords, database URI. Clone this, but don't check it in to public repos. |
 | .travis.yml              | Used to configure Travis CI build                                                             |
@@ -188,7 +188,7 @@ The full folder structure of this app is explained below:
 | tslint.json              | Config settings for TSLint code style checking                                                |
 
 ## Building the project
-It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount build configuration. 
+It is rare for JavaScript projects not to have some kind of build pipeline these days. However, Node projects typically have the least amount of build configuration. 
 Because of this I've tried to keep the build as simple as possible.
 If you're concerned about compile time, the main watch task takes ~2s to refresh.
 
@@ -229,7 +229,7 @@ Let's dissect this project's `tsconfig.json`, starting with the `compilerOptions
 
 
 
-The rest of the file define the TypeScript project context.
+The rest of the file defines the TypeScript project context.
 The project context is basically a set of options that determine which files are compiled when the compiler is invoked with a specific `tsconfig.json`.
 In this case, we use the following to define our project context: 
 ```json
@@ -363,7 +363,7 @@ Source maps allow you to drop break points in your TypeScript source code and ha
 > **Note!** - Source maps aren't specific to TypeScript.
 Anytime JavaScript is transformed (transpiled, compiled, optimized, minified, etc) you need source maps so that the code that is executed at runtime can be _mapped_ back to the source that generated it.
 
-The best part of source maps is when configured correctly, you don't even know they exist! So let's take a look at how we do that in this project.
+The best part of source maps is, when configured correctly, you don't even know they exist! So let's take a look at how we do that in this project.
 
 #### Configuring source maps
 First you need to make sure your `tsconfig.json` has source map generation enabled:
@@ -523,7 +523,7 @@ In that file you'll find two sections:
 | node-sass                       | Allows to compile .scss files to .css                                  |
 | nodemon                         | Utility that automatically restarts node process when it crashes      |
 | supertest                       | HTTP assertion library.                                               |
-| ts-jest                         | A preprocessor with sourcemap support to help use TypeScript wit Jest.|
+| ts-jest                         | A preprocessor with sourcemap support to help use TypeScript with Jest.|
 | ts-node                         | Enables directly running TS files. Used to run `copy-static-assets.ts` |
 | tslint                          | Linter (similar to ESLint) for TypeScript files                        |
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
@@ -532,3 +532,7 @@ To install or update these dependencies you can use `npm install` or `npm update
 
 # Hackathon Starter Project
 A majority of this quick start's content was inspired or adapted from Sahat's excellent [Hackathon Starter project](https://github.com/sahat/hackathon-starter).
+
+## License
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the [MIT](LICENSE.txt) License.
