@@ -6,6 +6,7 @@ import { User, UserDocument, AuthToken } from "../models/User";
 import { Request, Response, NextFunction } from "express";
 import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";
+import request from "express-validator";
 import "../config/passport";
 
 /**
