@@ -467,7 +467,7 @@ npm run tslint  // runs only TSLint
 ```
 Notice that TSLint is not a part of the main watch task.
 It can be annoying for TSLint to clutter the output window while in the middle of writing a function, so I elected to only run it only during the full build.
-If you are interesting in seeing TSLint feedback as soon as possible, I strongly recommend the [TSLint extension in VS Code]().
+If you are interested in seeing TSLint feedback as soon as possible, I strongly recommend the [TSLint extension in VS Code]().
 
 ### VSCode Extensions
 
