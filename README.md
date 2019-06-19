@@ -7,7 +7,7 @@
 ![image](https://user-images.githubusercontent.com/820883/36764267-abbdb7f8-1be0-11e8-9678-2a9ea448d7f8.png)
 
 The main purpose of this repository is to show a good end-to-end project setup and workflow for writing Node code in TypeScript.
-I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. 
+We will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. 
 
 
 # Pre-reqs
@@ -45,7 +45,7 @@ npm start
 Or, if you're using VS Code, you can use `cmd + shift + b` to run the default build task (which is mapped to `npm run build`), and then you can use the command palette (`cmd + shift + p`) and select `Tasks: Run Task` > `npm: start` to run `npm start` for you.
 
 > **Note on editors!** - TypeScript has great support in [every editor](http://www.typescriptlang.org/index.html#download-links), but this project has been pre-configured for use with [VS Code](https://code.visualstudio.com/). 
-Throughout the README I'll try to call out specific places where VS Code really shines or where this project has been setup to take advantage of specific features.
+Throughout the README We will try to call out specific places where VS Code really shines or where this project has been setup to take advantage of specific features.
 
 Finally, navigate to `http://localhost:3000` and you should see the template being served and rendered locally!
 
