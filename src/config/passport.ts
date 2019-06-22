@@ -1,5 +1,4 @@
 import passport from "passport";
-import request from "request";
 import passportLocal from "passport-local";
 import passportFacebook from "passport-facebook";
 import _ from "lodash";
@@ -121,7 +120,7 @@ passport.use(new FacebookStrategy({
 /**
  * Login Required middleware.
  */
-export let isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
   if (req.isAuthenticated()) {
     return next();
   }
@@ -131,7 +130,7 @@ export let isAuthenticated = (req: Request, res: Response, next: NextFunction) =
 /**
  * Authorization Required middleware.
  */
-export let isAuthorized = (req: Request, res: Response, next: NextFunction) => {
+export const isAuthorized = (req: Request, res: Response, next: NextFunction) => {
   const provider = req.path.split("/").slice(-1)[0];
 
   if (_.find(req.user.tokens, { kind: provider })) {

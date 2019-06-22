@@ -1,122 +1,52 @@
-// Grid system
+/// Grid system
 //
 // Generate semantic grid columns with these mixins.
 
-// Centered container element
-@mixin container-fixed($gutter: $grid-gutter-width) {
+@mixin make-container() {
+  width: 100%;
+  padding-right: ($grid-gutter-width / 2);
+  padding-left: ($grid-gutter-width / 2);
   margin-right: auto;
   margin-left: auto;
-  padding-left:  floor(($gutter / 2));
-  padding-right: ceil(($gutter / 2));
-  @include clearfix;
 }
 
-// Creates a wrapper for a series of columns
-@mixin make-row($gutter: $grid-gutter-width) {
-  margin-left:  ceil(($gutter / -2));
-  margin-right: floor(($gutter / -2));
-  @include clearfix;
+
+// For each breakpoint, define the maximum width of the container in a media query
+@mixin make-container-max-widths($max-widths: $container-max-widths, $breakpoints: $grid-breakpoints) {
+  @each $breakpoint, $container-max-width in $max-widths {
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      max-width: $container-max-width;
+    }
+  }
 }
 
-// Generate the extra small columns
-@mixin make-xs-column($columns, $gutter: $grid-gutter-width) {
+@mixin make-row() {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: ($grid-gutter-width / -2);
+  margin-left: ($grid-gutter-width / -2);
+}
+
+@mixin make-col-ready() {
   position: relative;
-  float: left;
-  width: percentage(($columns / $grid-columns));
-  min-height: 1px;
-  padding-left:  ($gutter / 2);
-  padding-right: ($gutter / 2);
-}
-@mixin make-xs-column-offset($columns) {
-  margin-left: percentage(($columns / $grid-columns));
-}
-@mixin make-xs-column-push($columns) {
-  left: percentage(($columns / $grid-columns));
-}
-@mixin make-xs-column-pull($columns) {
-  right: percentage(($columns / $grid-columns));
+  // Prevent columns from becoming too narrow when at smaller grid tiers by
+  // always setting `width: 100%;`. This works because we use `flex` values
+  // later on to override this initial width.
+  width: 100%;
+  min-height: 1px; // Prevent collapsing
+  padding-right: ($grid-gutter-width / 2);
+  padding-left: ($grid-gutter-width / 2);
 }
 
-// Generate the small columns
-@mixin make-sm-column($columns, $gutter: $grid-gutter-width) {
-  position: relative;
-  min-height: 1px;
-  padding-left:  ($gutter / 2);
-  padding-right: ($gutter / 2);
-
-  @media (min-width: $screen-sm-min) {
-    float: left;
-    width: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-sm-column-offset($columns) {
-  @media (min-width: $screen-sm-min) {
-    margin-left: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-sm-column-push($columns) {
-  @media (min-width: $screen-sm-min) {
-    left: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-sm-column-pull($columns) {
-  @media (min-width: $screen-sm-min) {
-    right: percentage(($columns / $grid-columns));
-  }
+@mixin make-col($size, $columns: $grid-columns) {
+  flex: 0 0 percentage($size / $columns);
+  // Add a `max-width` to ensure content within each column does not blow out
+  // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+  // do not appear to require this.
+  max-width: percentage($size / $columns);
 }
 
-// Generate the medium columns
-@mixin make-md-column($columns, $gutter: $grid-gutter-width) {
-  position: relative;
-  min-height: 1px;
-  padding-left:  ($gutter / 2);
-  padding-right: ($gutter / 2);
-
-  @media (min-width: $screen-md-min) {
-    float: left;
-    width: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-md-column-offset($columns) {
-  @media (min-width: $screen-md-min) {
-    margin-left: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-md-column-push($columns) {
-  @media (min-width: $screen-md-min) {
-    left: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-md-column-pull($columns) {
-  @media (min-width: $screen-md-min) {
-    right: percentage(($columns / $grid-columns));
-  }
-}
-
-// Generate the large columns
-@mixin make-lg-column($columns, $gutter: $grid-gutter-width) {
-  position: relative;
-  min-height: 1px;
-  padding-left:  ($gutter / 2);
-  padding-right: ($gutter / 2);
-
-  @media (min-width: $screen-lg-min) {
-    float: left;
-    width: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-lg-column-offset($columns) {
-  @media (min-width: $screen-lg-min) {
-    margin-left: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-lg-column-push($columns) {
-  @media (min-width: $screen-lg-min) {
-    left: percentage(($columns / $grid-columns));
-  }
-}
-@mixin make-lg-column-pull($columns) {
-  @media (min-width: $screen-lg-min) {
-    right: percentage(($columns / $grid-columns));
-  }
+@mixin make-col-offset($size, $columns: $grid-columns) {
+  $num: $size / $columns;
+  margin-left: if($num == 0, 0, percentage($num));
 }
