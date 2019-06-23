@@ -6,7 +6,7 @@ import { User, UserDocument, AuthToken } from "../models/User";
 import { Request, Response, NextFunction } from "express";
 import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";
-import request from "express-validator";
+import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
 
 /**
@@ -27,21 +27,21 @@ export const getLogin = (req: Request, res: Response) => {
  * Sign in using email and password.
  */
 export const postLogin = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("email", "Email is not valid").isEmail();
-  req.assert("password", "Password cannot be blank").notEmpty();
-  req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+  check("email", "Email is not valid").isEmail();
+  check("password", "Password cannot be blank").isLength({min: 1});
+  sanitize("email").normalizeEmail({ gmail_remove_dots: false });
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
-  if (errors) {
-    req.flash("errors", errors);
+  if (!errors.isEmpty()) {
+    req.flash("errors", errors.array());
     return res.redirect("/login");
   }
 
   passport.authenticate("local", (err: Error, user: UserDocument, info: IVerifyOptions) => {
     if (err) { return next(err); }
     if (!user) {
-      req.flash("errors", info.message);
+      req.flash("errors", {msg: info.message});
       return res.redirect("/login");
     }
     req.logIn(user, (err) => {
@@ -79,15 +79,15 @@ export const getSignup = (req: Request, res: Response) => {
  * Create a new local account.
  */
 export const postSignup = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("email", "Email is not valid").isEmail();
-  req.assert("password", "Password must be at least 4 characters long").len({ min: 4 });
-  req.assert("confirmPassword", "Passwords do not match").equals(req.body.password);
-  req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+  check("email", "Email is not valid").isEmail();
+  check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
+  check("confirmPassword", "Passwords do not match").equals(req.body.password);
+  sanitize("email").normalizeEmail({ gmail_remove_dots: false });
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
-  if (errors) {
-    req.flash("errors", errors);
+  if (!errors.isEmpty()) {
+    req.flash("errors", errors.array());
     return res.redirect("/signup");
   }
 
@@ -129,13 +129,13 @@ export const getAccount = (req: Request, res: Response) => {
  * Update profile information.
  */
 export const postUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("email", "Please enter a valid email address.").isEmail();
-  req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+  check("email", "Please enter a valid email address.").isEmail();
+  sanitize("email").normalizeEmail({ gmail_remove_dots: false });
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
-  if (errors) {
-    req.flash("errors", errors);
+  if (!errors.isEmpty()) {
+    req.flash("errors", errors.array());
     return res.redirect("/account");
   }
 
@@ -165,13 +165,13 @@ export const postUpdateProfile = (req: Request, res: Response, next: NextFunctio
  * Update current password.
  */
 export const postUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("password", "Password must be at least 4 characters long").len({ min: 4 });
-  req.assert("confirmPassword", "Passwords do not match").equals(req.body.password);
+  check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
+  check("confirmPassword", "Passwords do not match").equals(req.body.password);
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
-  if (errors) {
-    req.flash("errors", errors);
+  if (!errors.isEmpty()) {
+    req.flash("errors", errors.array());
     return res.redirect("/account");
   }
 
@@ -245,13 +245,13 @@ export const getReset = (req: Request, res: Response, next: NextFunction) => {
  * Process the reset password request.
  */
 export const postReset = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("password", "Password must be at least 4 characters long.").len({ min: 4 });
-  req.assert("confirm", "Passwords must match.").equals(req.body.password);
+  check("password", "Password must be at least 4 characters long.").isLength({ min: 4 });
+  check("confirm", "Passwords must match.").equals(req.body.password);
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
-  if (errors) {
-    req.flash("errors", errors);
+  if (!errors.isEmpty()) {
+    req.flash("errors", errors.array());
     return res.redirect("back");
   }
 
@@ -320,13 +320,13 @@ export const getForgot = (req: Request, res: Response) => {
  * Create a random token, then the send user an email with a reset link.
  */
 export const postForgot = (req: Request, res: Response, next: NextFunction) => {
-  req.assert("email", "Please enter a valid email address.").isEmail();
-  req.sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+  check("email", "Please enter a valid email address.").isEmail();
+  sanitize("email").normalizeEmail({ gmail_remove_dots: false });
 
-  const errors = req.validationErrors();
+  const errors = validationResult(req);
 
-  if (errors) {
-    req.flash("errors", errors);
+  if (!errors.isEmpty()) {
+    req.flash("errors", errors.array());
     return res.redirect("/forgot");
   }
 
