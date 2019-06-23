@@ -9,7 +9,6 @@ import flash from "express-flash";
 import path from "path";
 import mongoose from "mongoose";
 import passport from "passport";
-import expressValidator from "express-validator";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 
@@ -35,7 +34,7 @@ const app = express();
 const mongoUrl = MONGODB_URI;
 (<any>mongoose).Promise = bluebird;
 
-mongoose.connect(mongoUrl, { useMongoClient: true }).then(
+mongoose.connect(mongoUrl, { useNewUrlParser: true} ).then(
   () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
   console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
@@ -49,7 +48,6 @@ app.set("view engine", "pug");
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expressValidator());
 app.use(session({
   resave: true,
   saveUninitialized: true,
