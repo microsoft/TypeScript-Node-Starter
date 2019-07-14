@@ -23,7 +23,7 @@ We will try to keep this as up-to-date as possible, but community contributions 
 	- [Type Definition (`.d.ts`) Files](#type-definition-dts-files)
 	- [Debugging](#debugging)
 	- [Testing](#testing)
-	- [TSLint](#tslint)
+	- [ESLint](#eslint)
 - [Dependencies](#dependencies)
 	- [`dependencies`](#dependencies-1)
 	- [`devDependencies`](#devdependencies)
@@ -203,7 +203,9 @@ The full folder structure of this app is explained below:
 | jest.config.js           | Used to configure Jest running tests written in TypeScript                                    |
 | package.json             | File that contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)                          |
 | tsconfig.json            | Config settings for compiling server code written in TypeScript                               |
-| tslint.json              | Config settings for TSLint code style checking                                                |
+| tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
+| .eslintrc                | Config settings for ESLint code style checking                                                |
+| .eslintignore            | Config settings for paths to exclude from linting                                             |
 
 ## Building the project
 It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount of build configuration.
@@ -271,7 +273,7 @@ Below is a list of all the scripts this template has available:
 | Npm Script | Description |
 | ------------------------- | ------------------------------------------------------------------------------------------------- |
 | `start`                   | Does the same as 'npm run serve'. Can be invoked with `npm start`                                 |
-| `build`                   | Full build. Runs ALL build tasks (`build-sass`, `build-ts`, `tslint`, `copy-static-assets`)       |
+| `build`                   | Full build. Runs ALL build tasks (`build-sass`, `build-ts`, `lint`, `copy-static-assets`)       |
 | `serve`                   | Runs node on `dist/server.js` which is the apps entry point                                       |
 | `watch-node`              | Runs node with nodemon so the process restarts if it crashes. Used in the main watch task         |
 | `watch`                   | Runs all watch tasks (TypeScript, Sass, Node). Use this if you're not touching static assets.     |
@@ -281,7 +283,7 @@ Below is a list of all the scripts this template has available:
 | `watch-ts`                | Same as `build-ts` but continuously watches `.ts` files and re-compiles when needed                |
 | `build-sass`              | Compiles all `.scss` files to `.css` files                                                          |
 | `watch-sass`              | Same as `build-sass` but continuously watches `.scss` files and re-compiles when needed            |
-| `tslint`                  | Runs TSLint on project files                                                                       |
+| `lint`                    | Runs ESLint on project files                                                                       |
 | `copy-static-assets`      | Calls script that copies JS libs, fonts, and images to dist directory                             |
 | `debug`                   | Performs a full build and then serves the app in watch mode                                       |
 | `serve-debug`             | Runs the app with the --inspect flag                                                               |
@@ -461,26 +463,24 @@ Note this will also generate a coverage report.
 Writing tests for web apps has entire books dedicated to it and best practices are strongly influenced by personal style, so I'm deliberately avoiding discussing how or when to write tests in this guide.
 However, if prescriptive guidance on testing is something that you're interested in, [let me know](https://www.surveymonkey.com/r/LN2CV82), I'll do some homework and get back to you.
 
-## TSLint
-TSLint is a code linter which mainly helps catch minor code quality and style issues.
-TSLint is very similar to ESLint or JSLint but is built with TypeScript in mind.
+## ESLint
+ESLint is a code linter which mainly helps catch quickly minor code quality and style issues.
 
-### TSLint rules
-Like most linters, TSLint has a wide set of configurable rules as well as support for custom rule sets.
-All rules are configured through `tslint.json`.
+### ESLint rules
+Like most linters, ESLint has a wide set of configurable rules as well as support for custom rule sets.
+All rules are configured through `.eslintrc` configuration file.
 In this project, we are using a fairly basic set of rules with no additional custom rules.
-The settings are largely based off the TSLint settings that we use to develop TypeScript itself.
 
-### Running TSLint
-Like the rest of our build steps, we use npm scripts to invoke TSLint.
-To run TSLint you can call the main build script or just the TSLint task.
+### Running ESLint
+Like the rest of our build steps, we use npm scripts to invoke ESLint.
+To run ESLint you can call the main build script or just the ESLint task.
 ```
-npm run build   // runs full build including TSLint
-npm run tslint  // runs only TSLint
+npm run build   // runs full build including ESLint
+npm run lint    // runs only ESLint
 ```
-Notice that TSLint is not a part of the main watch task.
-It can be annoying for TSLint to clutter the output window while in the middle of writing a function, so I elected to only run it only during the full build.
-If you are interested in seeing TSLint feedback as soon as possible, I strongly recommend the [TSLint extension in VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin).
+Notice that ESLint is not a part of the main watch task.
+
+If you are interested in seeing ESLint feedback as soon as possible, I strongly recommend the [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
 
 ### VSCode Extensions
 
@@ -488,7 +488,7 @@ To enhance your development experience while working in VSCode we also provide y
 
 ![Suggested Extensions In VSCode](https://user-images.githubusercontent.com/14539/34583539-6f290a30-f198-11e7-8804-30f40d418e20.png)
 
-- [TSLint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+- [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 - [Azure Cosmos DB](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb)
 - [Azure App Service](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice)
@@ -539,7 +539,7 @@ In that file you'll find two sections:
 | supertest                       | HTTP assertion library.                                                |
 | ts-jest                         | A preprocessor with sourcemap support to help use TypeScript with Jest.|
 | ts-node                         | Enables directly running TS files. Used to run `copy-static-assets.ts` |
-| tslint                          | Linter (similar to ESLint) for TypeScript files                        |
+| eslint                          | Linter for JavaScript and TypeScript files                             |
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity   |
 
 To install or update these dependencies you can use `npm install` or `npm update`.
