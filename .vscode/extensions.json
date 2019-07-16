@@ -1,6 +1,3 @@
 {
-    "recommendations": [
-        "ms-vscode.vscode-typescript-tslint-plugin",
-        "ms-azuretools.vscode-cosmosdb",
-    ]
+  "recommendations": ["dbaeumer.vscode-eslint", "ms-azuretools.vscode-cosmosdb"]
 }
