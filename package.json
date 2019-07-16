@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run serve",
-    "build": "npm run build-sass && npm run build-ts && npm run tslint && npm run copy-static-assets",
+    "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-static-assets",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\"",
@@ -20,7 +20,7 @@
     "watch-ts": "tsc -w",
     "build-sass": "node-sass src/public/css/main.scss dist/public/css/main.css",
     "watch-sass": "node-sass -w src/public/css/main.scss dist/public/css/main.css",
-    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts}' --quiet --fix",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
     "debug": "npm run build && npm run watch-debug",
     "serve-debug": "nodemon --inspect dist/server.js",
@@ -57,6 +57,7 @@
     "@types/bcrypt-nodejs": "^0.0.30",
     "@types/bluebird": "^3.5.27",
     "@types/body-parser": "^1.17.0",
+    "@types/chai": "^4.1.7",
     "@types/compression": "^0.0.36",
     "@types/connect-mongo": "^0.0.42",
     "@types/dotenv": "^6.1.1",
@@ -80,8 +81,11 @@
     "@types/shelljs": "^0.8.5",
     "@types/supertest": "^2.0.7",
     "@types/winston": "^2.3.9",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
     "chai": "^4.2.0",
     "concurrently": "^4.1.0",
+    "eslint": "^5.0.0",
     "jest": "^24.8.0",
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.1",
@@ -89,7 +93,6 @@
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   }
 }
