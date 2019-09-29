@@ -9,6 +9,14 @@ describe("GET /login", () => {
     });
 });
 
+
+describe("GET /forgot", () => {
+    it("should return 200 OK", () => {
+        return request(app).get("/forgot")
+            .expect(200);
+    });
+});
+
 describe("GET /signup", () => {
     it("should return 200 OK", () => {
         return request(app).get("/signup")
@@ -16,6 +24,12 @@ describe("GET /signup", () => {
     });
 });
 
+describe("GET /reset", () => {
+    it("should return 302 Found for redirection", () => {
+        return request(app).get("/reset/1")
+            .expect(302);
+    });
+});
 
 describe("POST /login", () => {
     it("should return some defined error message with valid parameters", (done) => {
