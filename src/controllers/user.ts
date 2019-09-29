@@ -142,7 +142,8 @@ export const postUpdateProfile = (req: Request, res: Response, next: NextFunctio
         return res.redirect("/account");
     }
 
-    User.findById(req.user.id, (err, user: UserDocument) => {
+    const user = req.user as UserDocument;
+    User.findById(user.id, (err, user: UserDocument) => {
         if (err) { return next(err); }
         user.email = req.body.email || "";
         user.profile.name = req.body.name || "";
@@ -178,7 +179,8 @@ export const postUpdatePassword = (req: Request, res: Response, next: NextFuncti
         return res.redirect("/account");
     }
 
-    User.findById(req.user.id, (err, user: UserDocument) => {
+    const user = req.user as UserDocument;
+    User.findById(user.id, (err, user: UserDocument) => {
         if (err) { return next(err); }
         user.password = req.body.password;
         user.save((err: WriteError) => {
@@ -194,7 +196,8 @@ export const postUpdatePassword = (req: Request, res: Response, next: NextFuncti
  * Delete user account.
  */
 export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
-    User.remove({ _id: req.user.id }, (err) => {
+    const user = req.user as UserDocument;
+    User.remove({ _id: user.id }, (err) => {
         if (err) { return next(err); }
         req.logout();
         req.flash("info", { msg: "Your account has been deleted." });
@@ -208,7 +211,8 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
  */
 export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
     const provider = req.params.provider;
-    User.findById(req.user.id, (err, user: any) => {
+    const user = req.user as UserDocument;
+    User.findById(user.id, (err, user: any) => {
         if (err) { return next(err); }
         user[provider] = undefined;
         user.tokens = user.tokens.filter((token: AuthToken) => token.kind !== provider);
