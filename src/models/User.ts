@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 export type UserDocument = mongoose.Document & {
     email: string;
     password: string;
-    passwordResetToken: string;
+    passwordResetToken: AuthToken;
+    // passwordResetToken: string;
     passwordResetExpires: Date;
 
     facebook: string;
@@ -21,9 +22,11 @@ export type UserDocument = mongoose.Document & {
 
     comparePassword: comparePasswordFunction;
     gravatar: (size: number) => string;
+    
+    // [provider: string]: any;
 };
 
-type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
+type comparePasswordFunction = (candidatePassword: string, cb: (err: Error, isMatch: boolean) => void) => void;
 
 export interface AuthToken {
     accessToken: string;
