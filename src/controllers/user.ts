@@ -142,8 +142,7 @@ export const postUpdateProfile = (req: Request, res: Response, next: NextFunctio
         return res.redirect("/account");
     }
 
-    const user = req.user as UserDocument;
-    User.findById(user.id, (err, user: UserDocument) => {
+    User.findById(req.user.id, (err, user) => {
         if (err) { return next(err); }
         user.email = req.body.email || "";
         user.profile.name = req.body.name || "";
@@ -179,8 +178,7 @@ export const postUpdatePassword = (req: Request, res: Response, next: NextFuncti
         return res.redirect("/account");
     }
 
-    const user = req.user as UserDocument;
-    User.findById(user.id, (err, user: UserDocument) => {
+    User.findById(req.user.id, (err, user) => {
         if (err) { return next(err); }
         user.password = req.body.password;
         user.save((err: WriteError) => {
@@ -196,8 +194,7 @@ export const postUpdatePassword = (req: Request, res: Response, next: NextFuncti
  * Delete user account.
  */
 export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as UserDocument;
-    User.remove({ _id: user.id }, (err) => {
+    User.remove({ _id: req.user.id }, (err) => {
         if (err) { return next(err); }
         req.logout();
         req.flash("info", { msg: "Your account has been deleted." });
@@ -211,10 +208,8 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
  */
 export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
     const provider = req.params.provider;
-    const user = req.user as UserDocument;
-    User.findById(user.id, (err, user: any) => {
+    User.findById(req.user.id, (err, user) => {
         if (err) { return next(err); }
-        user[provider] = undefined;
         user.tokens = user.tokens.filter((token: AuthToken) => token.kind !== provider);
         user.save((err: WriteError) => {
             if (err) { return next(err); }
@@ -267,7 +262,7 @@ export const postReset = (req: Request, res: Response, next: NextFunction) => {
             User
                 .findOne({ passwordResetToken: req.params.token })
                 .where("passwordResetExpires").gt(Date.now())
-                .exec((err, user: any) => {
+                .exec((err, user) => {
                     if (err) { return next(err); }
                     if (!user) {
                         req.flash("errors", { msg: "Password reset token is invalid or has expired." });
@@ -346,14 +341,14 @@ export const postForgot = (req: Request, res: Response, next: NextFunction) => {
             });
         },
         function setRandomToken(token: AuthToken, done: Function) {
-            User.findOne({ email: req.body.email }, (err, user: any) => {
+            User.findOne({ email: req.body.email }, (err, user) => {
                 if (err) { return done(err); }
                 if (!user) {
                     req.flash("errors", { msg: "Account with that email address does not exist." });
                     return res.redirect("/forgot");
                 }
                 user.passwordResetToken = token;
-                user.passwordResetExpires = Date.now() + 3600000; // 1 hour
+                user.passwordResetExpires = new Date(Date.now() + 3600000); // 1 hour
                 user.save((err: WriteError) => {
                     done(err, token, user);
                 });
