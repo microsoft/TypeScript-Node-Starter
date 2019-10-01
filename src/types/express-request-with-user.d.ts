@@ -1,5 +1,5 @@
 import {UserDocument} from "../models/User";
-import {NextFunction, Request, Response} from "express";
+import {Request} from "express";
 
 declare module 'express' {
 	export interface User extends UserDocument {}

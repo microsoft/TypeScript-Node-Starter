@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from "express";
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;
 
-passport.serializeUser<any, any>((user, done) => {
+passport.serializeUser((user: UserDocument, done) => {
     done(undefined, user.id);
 });
 
