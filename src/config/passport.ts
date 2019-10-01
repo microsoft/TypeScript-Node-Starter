@@ -2,11 +2,8 @@ import passport from "passport";
 import passportLocal from "passport-local";
 import passportFacebook from "passport-facebook";
 import _ from "lodash";
-
-// import { User, UserType } from '../models/User';
 import { User, UserDocument } from "../models/User";
-import {genericExpressMethod} from "express-request-with-user";
-
+import { Request, Response, NextFunction } from "express";
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;
 
@@ -120,7 +117,7 @@ passport.use(new FacebookStrategy({
 /**
  * Login Required middleware.
  */
-export const isAuthenticated: genericExpressMethod = (req, res, next) => {
+export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) {
         return next();
     }
@@ -130,10 +127,9 @@ export const isAuthenticated: genericExpressMethod = (req, res, next) => {
 /**
  * Authorization Required middleware.
  */
-export const isAuthorized: genericExpressMethod = (req, res, next) => {
+export const isAuthorized = (req: Request, res: Response, next: NextFunction) => {
     const provider = req.path.split("/").slice(-1)[0];
 
-    // const user = req.user as UserDocument;
     if (_.find(req.user.tokens, { kind: provider })) {
         next();
     } else {

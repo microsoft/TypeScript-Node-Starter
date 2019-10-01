@@ -2,13 +2,12 @@ import async from "async";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 import passport from "passport";
-import {AuthToken, User, UserDocument} from "../models/User";
-import {Request, Response} from "express";
-import {IVerifyOptions} from "passport-local";
-import {WriteError} from "mongodb";
-import {check, sanitize, validationResult} from "express-validator";
+import { User, UserDocument, AuthToken } from "../models/User";
+import { Request, Response, NextFunction } from "express";
+import { IVerifyOptions } from "passport-local";
+import { WriteError } from "mongodb";
+import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
-import {genericExpressMethod} from "express-request-with-user";
 
 /**
  * GET /login
@@ -27,8 +26,7 @@ export const getLogin = (req: Request, res: Response) => {
  * POST /login
  * Sign in using email and password.
  */
-
-export const postLogin: genericExpressMethod = (req, res, next) => {
+export const postLogin = (req: Request, res: Response, next: NextFunction) => {
     check("email", "Email is not valid").isEmail();
     check("password", "Password cannot be blank").isLength({min: 1});
     // eslint-disable-next-line @typescript-eslint/camelcase
@@ -81,7 +79,7 @@ export const getSignup = (req: Request, res: Response) => {
  * POST /signup
  * Create a new local account.
  */
-export const postSignup: genericExpressMethod = (req, res, next) => {
+export const postSignup = (req: Request, res: Response, next: NextFunction) => {
     check("email", "Email is not valid").isEmail();
     check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
     check("confirmPassword", "Passwords do not match").equals(req.body.password);
@@ -132,7 +130,7 @@ export const getAccount = (req: Request, res: Response) => {
  * POST /account/profile
  * Update profile information.
  */
-export const postUpdateProfile: genericExpressMethod = (req, res, next) => {
+export const postUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
     check("email", "Please enter a valid email address.").isEmail();
     // eslint-disable-next-line @typescript-eslint/camelcase
     sanitize("email").normalizeEmail({ gmail_remove_dots: false });
@@ -144,7 +142,6 @@ export const postUpdateProfile: genericExpressMethod = (req, res, next) => {
         return res.redirect("/account");
     }
 
-    // const user = req.user as UserDocument;
     User.findById(req.user.id, (err, user) => {
         if (err) { return next(err); }
         user.email = req.body.email || "";
@@ -170,7 +167,7 @@ export const postUpdateProfile: genericExpressMethod = (req, res, next) => {
  * POST /account/password
  * Update current password.
  */
-export const postUpdatePassword: genericExpressMethod = (req, res, next) => {
+export const postUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
     check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
     check("confirmPassword", "Passwords do not match").equals(req.body.password);
 
@@ -181,7 +178,6 @@ export const postUpdatePassword: genericExpressMethod = (req, res, next) => {
         return res.redirect("/account");
     }
 
-    // const user = req.user as UserDocument;
     User.findById(req.user.id, (err, user) => {
         if (err) { return next(err); }
         user.password = req.body.password;
@@ -197,8 +193,7 @@ export const postUpdatePassword: genericExpressMethod = (req, res, next) => {
  * POST /account/delete
  * Delete user account.
  */
-export const postDeleteAccount: genericExpressMethod = (req, res, next) => {
-    // const user = req.user as UserDocument;
+export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
     User.remove({ _id: req.user.id }, (err) => {
         if (err) { return next(err); }
         req.logout();
@@ -211,12 +206,10 @@ export const postDeleteAccount: genericExpressMethod = (req, res, next) => {
  * GET /account/unlink/:provider
  * Unlink OAuth provider.
  */
-export const getOauthUnlink: genericExpressMethod = (req, res, next) => {
+export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
     const provider = req.params.provider;
-    // const user = req.user as UserDocument;
     User.findById(req.user.id, (err, user) => {
         if (err) { return next(err); }
-        // user[provider] = undefined;
         user.tokens = user.tokens.filter((token: AuthToken) => token.kind !== provider);
         user.save((err: WriteError) => {
             if (err) { return next(err); }
@@ -230,7 +223,7 @@ export const getOauthUnlink: genericExpressMethod = (req, res, next) => {
  * GET /reset/:token
  * Reset Password page.
  */
-export const getReset: genericExpressMethod = (req, res, next) => {
+export const getReset = (req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) {
         return res.redirect("/");
     }
@@ -253,7 +246,7 @@ export const getReset: genericExpressMethod = (req, res, next) => {
  * POST /reset/:token
  * Process the reset password request.
  */
-export const postReset: genericExpressMethod = (req, res, next) => {
+export const postReset = (req: Request, res: Response, next: NextFunction) => {
     check("password", "Password must be at least 4 characters long.").isLength({ min: 4 });
     check("confirm", "Passwords must match.").equals(req.body.password);
 
@@ -328,7 +321,7 @@ export const getForgot = (req: Request, res: Response) => {
  * POST /forgot
  * Create a random token, then the send user an email with a reset link.
  */
-export const postForgot: genericExpressMethod = (req, res, next) => {
+export const postForgot = (req: Request, res: Response, next: NextFunction) => {
     check("email", "Please enter a valid email address.").isEmail();
     // eslint-disable-next-line @typescript-eslint/camelcase
     sanitize("email").normalizeEmail({ gmail_remove_dots: false });

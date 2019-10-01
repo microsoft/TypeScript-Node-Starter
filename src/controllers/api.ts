@@ -1,6 +1,5 @@
 import graph from "fbgraph";
-import { Response, Request } from "express";
-import {genericExpressMethod} from "express-request-with-user";
+import { Response, Request, NextFunction } from "express";
 
 
 /**
@@ -17,8 +16,7 @@ export const getApi = (req: Request, res: Response) => {
  * GET /api/facebook
  * Facebook API example.
  */
-export const getFacebook: genericExpressMethod = (req, res, next) => {
-    // const user = req.user /*as UserDocument*/;
+export const getFacebook = (req: Request, res: Response, next: NextFunction) => {
     const token = req.user.tokens.find(token => token.kind === "facebook");
     graph.setAccessToken(token.accessToken);
     graph.get(`${req.user.facebook}?fields=id,name,email,first_name,last_name,gender,link,locale,timezone`, (err: Error, results: graph.FacebookUser) => {
