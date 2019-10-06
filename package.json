@@ -9,6 +9,7 @@
     "author": "Bowden Kelly",
     "license": "MIT",
     "scripts": {
+        "start-dev": "dotenv -- nodemon -e ts,graphql -x ts-node --files src/server.ts",
         "start": "npm run serve",
         "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-static-assets",
         "serve": "node dist/server.js",
@@ -88,6 +89,7 @@
         "@typescript-eslint/parser": "^2.3.1",
         "chai": "^4.2.0",
         "concurrently": "^4.1.2",
+        "dotenv-cli": "^2.0.1",
         "eslint": "^6.4.0",
         "jest": "^24.9.0",
         "node-sass": "^4.12.0",
