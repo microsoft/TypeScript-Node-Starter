@@ -9,7 +9,7 @@
     "author": "Bowden Kelly",
     "license": "MIT",
     "scripts": {
-        "start-dev": "dotenv -- nodemon -e ts,graphql -x ts-node --files src/server.ts",
+        "start-dev": "dotenv -- nodemon -e ts -x ts-node --files src/server.ts",
         "start": "npm run serve",
         "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-static-assets",
         "serve": "node dist/server.js",
