@@ -9,6 +9,7 @@ import { WriteError } from "mongodb";
 import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
 import { isKnownProvider } from "../interfaces/providers";
+import { Req } from "../interfaces/req";
 
 /**
  * GET /login
@@ -131,7 +132,7 @@ export const getAccount = (req: Request, res: Response) => {
  * POST /account/profile
  * Update profile information.
  */
-export const postUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
+export const postUpdateProfile = (req: Req, res: Response, next: NextFunction) => {
     check("email", "Please enter a valid email address.").isEmail();
     // eslint-disable-next-line @typescript-eslint/camelcase
     sanitize("email").normalizeEmail({ gmail_remove_dots: false });
@@ -143,7 +144,7 @@ export const postUpdateProfile = (req: Request, res: Response, next: NextFunctio
         return res.redirect("/account");
     }
 
-    const user = req.user as UserDocument;
+    const user = req.user;
     User.findById(user.id, (err, user: UserDocument) => {
         if (err) { return next(err); }
         user.email = req.body.email || "";
@@ -169,7 +170,7 @@ export const postUpdateProfile = (req: Request, res: Response, next: NextFunctio
  * POST /account/password
  * Update current password.
  */
-export const postUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
+export const postUpdatePassword = (req: Req, res: Response, next: NextFunction) => {
     check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
     check("confirmPassword", "Passwords do not match").equals(req.body.password);
 
@@ -180,7 +181,7 @@ export const postUpdatePassword = (req: Request, res: Response, next: NextFuncti
         return res.redirect("/account");
     }
 
-    const user = req.user as UserDocument;
+    const user = req.user;
     User.findById(user.id, (err, user: UserDocument) => {
         if (err) { return next(err); }
         user.password = req.body.password;
@@ -196,8 +197,8 @@ export const postUpdatePassword = (req: Request, res: Response, next: NextFuncti
  * POST /account/delete
  * Delete user account.
  */
-export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as UserDocument;
+export const postDeleteAccount = (req: Req, res: Response, next: NextFunction) => {
+    const user = req.user;
     User.remove({ _id: user.id }, (err) => {
         if (err) { return next(err); }
         req.logout();
@@ -210,12 +211,12 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
  * GET /account/unlink/:provider
  * Unlink OAuth provider.
  */
-export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
+export const getOauthUnlink = (req: Req, res: Response, next: NextFunction) => {
     const provider = req.params.provider;
     if (!isKnownProvider(provider)) {
         return next(`Unrecognized provider '${provider}'`);
     }
-    const user = req.user as UserDocument;
+    const user = req.user;
     User.findById(user.id, (err, user) => {
         if (err) { return next(err); }
         user[provider] = undefined;

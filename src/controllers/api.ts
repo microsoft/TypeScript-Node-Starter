@@ -2,7 +2,7 @@
 
 import graph from "fbgraph";
 import { NextFunction, Request, Response } from "express";
-import { UserDocument } from "../models/User";
+import { Req } from "../interfaces/req";
 
 
 /**
@@ -19,8 +19,8 @@ export const getApi = (req: Request, res: Response) => {
  * GET /api/facebook
  * Facebook API example.
  */
-export const getFacebook = (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as UserDocument;
+export const getFacebook = (req: Req, res: Response, next: NextFunction) => {
+    const user = req.user;
     const token = user.tokens.find((token) => token.kind === "facebook");
     graph.setAccessToken(token.accessToken);
     graph.get(`${user.facebook}?fields=id,name,email,first_name,last_name,gender,link,locale,timezone`, (err: Error, results: graph.FacebookUser) => {
