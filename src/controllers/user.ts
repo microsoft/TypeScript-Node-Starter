@@ -8,6 +8,7 @@ import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";
 import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
+import { isKnownProvider } from "../interfaces/providers";
 
 /**
  * GET /login
@@ -211,8 +212,11 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
  */
 export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
     const provider = req.params.provider;
+    if (!isKnownProvider(provider)) {
+        return next(`Unrecognized provider '${provider}'`);
+    }
     const user = req.user as UserDocument;
-    User.findById(user.id, (err, user: any) => {
+    User.findById(user.id, (err, user) => {
         if (err) { return next(err); }
         user[provider] = undefined;
         user.tokens = user.tokens.filter((token: AuthToken) => token.kind !== provider);
@@ -267,7 +271,7 @@ export const postReset = (req: Request, res: Response, next: NextFunction) => {
             User
                 .findOne({ passwordResetToken: req.params.token })
                 .where("passwordResetExpires").gt(Date.now())
-                .exec((err, user: any) => {
+                .exec((err, user) => {
                     if (err) { return next(err); }
                     if (!user) {
                         req.flash("errors", { msg: "Password reset token is invalid or has expired." });
@@ -346,14 +350,14 @@ export const postForgot = (req: Request, res: Response, next: NextFunction) => {
             });
         },
         function setRandomToken(token: AuthToken, done: Function) {
-            User.findOne({ email: req.body.email }, (err, user: any) => {
+            User.findOne({ email: req.body.email }, (err, user) => {
                 if (err) { return done(err); }
                 if (!user) {
                     req.flash("errors", { msg: "Account with that email address does not exist." });
                     return res.redirect("/forgot");
                 }
-                user.passwordResetToken = token;
-                user.passwordResetExpires = Date.now() + 3600000; // 1 hour
+                user.passwordResetToken = token.toString();
+                user.passwordResetExpires = new Date(Date.now() + 3600000); // 1 hour
                 user.save((err: WriteError) => {
                     done(err, token, user);
                 });
