@@ -8,6 +8,7 @@ import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";
 import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
+import { SENDGRID_USER, SENDGRID_PASSWORD } from "../util/secrets";
 
 /**
  * GET /login
@@ -48,7 +49,7 @@ export const postLogin = (req: Request, res: Response, next: NextFunction) => {
         req.logIn(user, (err) => {
             if (err) { return next(err); }
             req.flash("success", { msg: "Success! You are logged in." });
-            res.redirect(req.session.returnTo || "/");
+            res.redirect((req.session && req.session.returnTo) || "/");
         });
     })(req, res, next);
 };
@@ -288,8 +289,8 @@ export const postReset = (req: Request, res: Response, next: NextFunction) => {
             const transporter = nodemailer.createTransport({
                 service: "SendGrid",
                 auth: {
-                    user: process.env.SENDGRID_USER,
-                    pass: process.env.SENDGRID_PASSWORD
+                    user: SENDGRID_USER,
+                    pass: SENDGRID_PASSWORD
                 }
             });
             const mailOptions = {
@@ -363,8 +364,8 @@ export const postForgot = (req: Request, res: Response, next: NextFunction) => {
             const transporter = nodemailer.createTransport({
                 service: "SendGrid",
                 auth: {
-                    user: process.env.SENDGRID_USER,
-                    pass: process.env.SENDGRID_PASSWORD
+                    user: SENDGRID_USER,
+                    pass: SENDGRID_PASSWORD
                 }
             });
             const mailOptions = {

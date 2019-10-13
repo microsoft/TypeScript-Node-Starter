@@ -6,6 +6,7 @@ import _ from "lodash";
 // import { User, UserType } from '../models/User';
 import { User, UserDocument } from "../models/User";
 import { Request, Response, NextFunction } from "express";
+import { FACEBOOK_ID, FACEBOOK_SECRET } from "../util/secrets";
 
 const LocalStrategy = passportLocal.Strategy;
 const FacebookStrategy = passportFacebook.Strategy;
@@ -61,8 +62,8 @@ passport.use(new LocalStrategy({ usernameField: "email" }, (email, password, don
  * Sign in with Facebook.
  */
 passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_ID,
-    clientSecret: process.env.FACEBOOK_SECRET,
+    clientID: FACEBOOK_ID,
+    clientSecret: FACEBOOK_SECRET,
     callbackURL: "/auth/facebook/callback",
     profileFields: ["name", "email", "link", "locale", "timezone"],
     passReqToCallback: true
@@ -78,7 +79,7 @@ passport.use(new FacebookStrategy({
                     if (err) { return done(err); }
                     user.facebook = profile.id;
                     user.tokens.push({ kind: "facebook", accessToken });
-                    user.profile.name = user.profile.name || `${profile.name.givenName} ${profile.name.familyName}`;
+                    user.profile.name = user.profile.name || (profile.name && `${profile.name.givenName} ${profile.name.familyName}`);
                     user.profile.gender = user.profile.gender || profile._json.gender;
                     user.profile.picture = user.profile.picture || `https://graph.facebook.com/${profile.id}/picture?type=large`;
                     user.save((err: Error) => {
@@ -104,7 +105,7 @@ passport.use(new FacebookStrategy({
                     user.email = profile._json.email;
                     user.facebook = profile.id;
                     user.tokens.push({ kind: "facebook", accessToken });
-                    user.profile.name = `${profile.name.givenName} ${profile.name.familyName}`;
+                    user.profile.name = profile.name && `${profile.name.givenName} ${profile.name.familyName}`;
                     user.profile.gender = profile._json.gender;
                     user.profile.picture = `https://graph.facebook.com/${profile.id}/picture?type=large`;
                     user.profile.location = (profile._json.location) ? profile._json.location.name : "";
