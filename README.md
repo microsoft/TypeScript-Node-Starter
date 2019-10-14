@@ -45,15 +45,23 @@ git clone --depth=1 https://github.com/Microsoft/TypeScript-Node-Starter.git <pr
 cd <project_name>
 npm install
 ```
-- Configure your mongoDB server
+
+## Configure your mongoDB server.
+
+- If you have Docker installed, you can simply run:
+
+```bash
+docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:latest
+```
+
+- Or install it on your machine and start it:
+
 ```bash
 # create the db directory
 sudo mkdir -p /data/db
 # give the db correct read/write permissions
 sudo chmod 777 /data/db
-```
-- Start your mongoDB server (you'll probably want another command prompt)
-```
+# Start your mongoDB server (you'll probably want another command prompt)
 mongod
 ```
 - Build and run the project
