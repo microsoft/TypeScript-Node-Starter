@@ -343,7 +343,7 @@ First the compiler will look for a `d.ts` file in `node_modules/@types` and then
 #### Using `dts-gen`
 Unless you are familiar with `.d.ts` files, I strongly recommend trying to use the tool [dts-gen](https://github.com/Microsoft/dts-gen) first.
 The [README](https://github.com/Microsoft/dts-gen#dts-gen-a-typescript-definition-file-generator) does a great job explaining how to use the tool, and for most cases, you'll get an excellent scaffold of a `.d.ts` file to start with.
-In this project, `bcrypt-nodejs.d.ts`, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`.
+In this project, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`.
 
 #### Writing a `.d.ts` file
 If generating a `.d.ts` using `dts-gen` isn't working, [you should tell me about it first](https://www.surveymonkey.com/r/LN2CV82), but then you can create your own `.d.ts` file.
@@ -507,32 +507,32 @@ In that file you'll find two sections:
 
 ## `dependencies`
 
-| Package                         | Description                                                           |
-| ------------------------------- | --------------------------------------------------------------------- |
+| Package                         | Description                                                            |
+| ------------------------------- | ---------------------------------------------------------------------- |
 | async                           | Utility library that provides asynchronous control flow.               |
-| bcrypt-nodejs                   | Library for hashing and salting user passwords.                       |
-| bluebird                        | Promise library                                                       |
-| body-parser                     | Express 4 middleware.                                                 |
-| compression                     | Express 4 middleware.                                                 |
-| connect-mongo                   | MongoDB session store for Express.                                    |
+| bcrypt                          | Library for hashing and salting user passwords.                        |
+| bluebird                        | Promise library                                                        |
+| body-parser                     | Express 4 middleware.                                                  |
+| compression                     | Express 4 middleware.                                                  |
+| connect-mongo                   | MongoDB session store for Express.                                     |
 | dotenv                          | Loads environment variables from .env file.                            |
-| errorhandler                    | Express 4 middleware.                                                 |
-| express                         | Node.js web framework.                                                |
-| express-flash                    | Provides flash messages for Express.                                   |
-| express-session                 | Express 4 middleware.                                                 |
-| express-validator               | Easy form validation for Express.                                     |
-| fbgraph                         | Facebook Graph API library.                                           |
-| lodash                          | General utility library.                                              |
-| lusca                           | CSRF middleware.                                                      |
-| mongoose                        | MongoDB ODM.                                                          |
-| nodemailer                      | Node.js library for sending emails.                                   |
-| passport                        | Simple and elegant authentication library for node.js                 |
-| passport-facebook               | Sign-in with Facebook plugin.                                         |
-| passport-local                  | Sign-in with Username and Password plugin.                            |
-| pug (jade)                      | Template engine for Express.                                          |
+| errorhandler                    | Express 4 middleware.                                                  |
+| express                         | Node.js web framework.                                                 |
+| express-flash                   | Provides flash messages for Express.                                   |
+| express-session                 | Express 4 middleware.                                                  |
+| express-validator               | Easy form validation for Express.                                      |
+| fbgraph                         | Facebook Graph API library.                                            |
+| lodash                          | General utility library.                                               |
+| lusca                           | CSRF middleware.                                                       |
+| mongoose                        | MongoDB ODM.                                                           |
+| nodemailer                      | Node.js library for sending emails.                                    |
+| passport                        | Simple and elegant authentication library for node.js                  |
+| passport-facebook               | Sign-in with Facebook plugin.                                          |
+| passport-local                  | Sign-in with Username and Password plugin.                             |
+| pug (jade)                      | Template engine for Express.                                           |
 | request                         | Simplified HTTP request library.                                       |
 | request-promise                 | Promisified HTTP request library. Let's us use async/await             |
-| winston                         | Logging library                                                       |
+| winston                         | Logging library                                                        |
 
 ## `devDependencies`
 

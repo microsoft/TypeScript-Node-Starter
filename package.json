@@ -28,7 +28,7 @@
     },
     "dependencies": {
         "async": "^3.1.0",
-        "bcrypt-nodejs": "^0.0.3",
+        "bcrypt": "^3.0.6",
         "bluebird": "^3.5.5",
         "body-parser": "^1.19.0",
         "compression": "^1.7.4",
@@ -54,7 +54,7 @@
     },
     "devDependencies": {
         "@types/async": "^3.0.2",
-        "@types/bcrypt-nodejs": "^0.0.30",
+        "@types/bcrypt": "^3.0.0",
         "@types/bluebird": "^3.5.27",
         "@types/body-parser": "^1.17.1",
         "@types/chai": "^4.2.3",
