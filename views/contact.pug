@@ -10,15 +10,15 @@ block content
     .form-group.row.justify-content-md-center
       label.col-sm-2.col-form-label.text-right.font-weight-bold(for='name') Name
       .col-sm-8
-        input.form-control(type='text', name='name', id='name', autofocus=true)
+        input.form-control(name='name', id='name', autofocus, required)
     .form-group.row.justify-content-md-center
       label.col-sm-2.col-form-label.text-right.font-weight-bold(for='email') Email
       .col-sm-8
-        input.form-control(type='text', name='email', id='email')
+        input.form-control(type='email', name='email', id='email', required)
     .form-group.row.justify-content-md-center
       label.col-sm-2.col-form-label.text-right.font-weight-bold(for='message') Body
       .col-sm-8
-        textarea.form-control(name='message', id='message', rows='7')
+        textarea.form-control(name='message', id='message', rows='7', required)
     .form-group.row.justify-content-md-center
       .offset-sm-2.col-sm-8
         button.btn.btn-primary(type='submit')

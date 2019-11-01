@@ -8,10 +8,10 @@ block content
       input(type='hidden', name='_csrf', value=_csrf)
       .form-group
         label.col-form-label.font-weight-bold(for='password') New Password
-        input.form-control(type='password', name='password', id='password', placeholder='New password', autofocus, required)
+        input.form-control(type='password', name='password', id='password', placeholder='New password', autofocus, required, minlength='4')
       .form-group
         label.col-form-label.font-weight-bold(for='confirm') Confirm Password
-        input.form-control(type='password', name='confirm', id='confirm', placeholder='Confirm password', required)
+        input.form-control(type='password', name='confirm', id='confirm', placeholder='Confirm password', required, minlength='4')
       .form-group
         button.btn.btn-primary.btn-reset(type='submit')
           i.fa.fa-keyboard-o
