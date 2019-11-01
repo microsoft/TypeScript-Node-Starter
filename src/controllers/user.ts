@@ -26,11 +26,11 @@ export const getLogin = (req: Request, res: Response) => {
  * POST /login
  * Sign in using email and password.
  */
-export const postLogin = (req: Request, res: Response, next: NextFunction) => {
-    check("email", "Email is not valid").isEmail();
-    check("password", "Password cannot be blank").isLength({min: 1});
+export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
+    await check("email", "Email is not valid").isEmail().run(req);
+    await check("password", "Password cannot be blank").isLength({min: 1}).run(req);
     // eslint-disable-next-line @typescript-eslint/camelcase
-    sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+    await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
 
@@ -79,12 +79,12 @@ export const getSignup = (req: Request, res: Response) => {
  * POST /signup
  * Create a new local account.
  */
-export const postSignup = (req: Request, res: Response, next: NextFunction) => {
-    check("email", "Email is not valid").isEmail();
-    check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
-    check("confirmPassword", "Passwords do not match").equals(req.body.password);
+export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
+    await check("email", "Email is not valid").isEmail().run(req);
+    await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
+    await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);
     // eslint-disable-next-line @typescript-eslint/camelcase
-    sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+    await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
 
@@ -130,10 +130,10 @@ export const getAccount = (req: Request, res: Response) => {
  * POST /account/profile
  * Update profile information.
  */
-export const postUpdateProfile = (req: Request, res: Response, next: NextFunction) => {
-    check("email", "Please enter a valid email address.").isEmail();
+export const postUpdateProfile = async (req: Request, res: Response, next: NextFunction) => {
+    await check("email", "Please enter a valid email address.").isEmail().run(req);
     // eslint-disable-next-line @typescript-eslint/camelcase
-    sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+    await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
 
@@ -168,9 +168,9 @@ export const postUpdateProfile = (req: Request, res: Response, next: NextFunctio
  * POST /account/password
  * Update current password.
  */
-export const postUpdatePassword = (req: Request, res: Response, next: NextFunction) => {
-    check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
-    check("confirmPassword", "Passwords do not match").equals(req.body.password);
+export const postUpdatePassword = async (req: Request, res: Response, next: NextFunction) => {
+    await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
+    await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);
 
     const errors = validationResult(req);
 
@@ -251,9 +251,9 @@ export const getReset = (req: Request, res: Response, next: NextFunction) => {
  * POST /reset/:token
  * Process the reset password request.
  */
-export const postReset = (req: Request, res: Response, next: NextFunction) => {
-    check("password", "Password must be at least 4 characters long.").isLength({ min: 4 });
-    check("confirm", "Passwords must match.").equals(req.body.password);
+export const postReset = async (req: Request, res: Response, next: NextFunction) => {
+    await check("password", "Password must be at least 4 characters long.").isLength({ min: 4 }).run(req);
+    await check("confirm", "Passwords must match.").equals(req.body.password).run(req);
 
     const errors = validationResult(req);
 
@@ -326,10 +326,10 @@ export const getForgot = (req: Request, res: Response) => {
  * POST /forgot
  * Create a random token, then the send user an email with a reset link.
  */
-export const postForgot = (req: Request, res: Response, next: NextFunction) => {
-    check("email", "Please enter a valid email address.").isEmail();
+export const postForgot = async (req: Request, res: Response, next: NextFunction) => {
+    await check("email", "Please enter a valid email address.").isEmail().run(req);
     // eslint-disable-next-line @typescript-eslint/camelcase
-    sanitize("email").normalizeEmail({ gmail_remove_dots: false });
+    await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
 

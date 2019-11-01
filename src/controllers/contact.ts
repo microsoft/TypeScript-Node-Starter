@@ -24,10 +24,10 @@ export const getContact = (req: Request, res: Response) => {
  * POST /contact
  * Send a contact form via Nodemailer.
  */
-export const postContact = (req: Request, res: Response) => {
-    check("name", "Name cannot be blank").not().isEmpty();
-    check("email", "Email is not valid").isEmail();
-    check("message", "Message cannot be blank").not().isEmpty();
+export const postContact = async (req: Request, res: Response) => {
+    await check("name", "Name cannot be blank").not().isEmpty().run(req);
+    await check("email", "Email is not valid").isEmail().run(req);
+    await check("message", "Message cannot be blank").not().isEmpty().run(req);
 
     const errors = validationResult(req);
 
