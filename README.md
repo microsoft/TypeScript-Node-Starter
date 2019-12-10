@@ -343,7 +343,7 @@ First the compiler will look for a `d.ts` file in `node_modules/@types` and then
 #### Using `dts-gen`
 Unless you are familiar with `.d.ts` files, I strongly recommend trying to use the tool [dts-gen](https://github.com/Microsoft/dts-gen) first.
 The [README](https://github.com/Microsoft/dts-gen#dts-gen-a-typescript-definition-file-generator) does a great job explaining how to use the tool, and for most cases, you'll get an excellent scaffold of a `.d.ts` file to start with.
-In this project, `bcrypt-nodejs.d.ts`, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`.
+In this project, `fbgraph.d.ts`, and `lusca.d.ts` were all generated using `dts-gen`.
 
 #### Writing a `.d.ts` file
 If generating a `.d.ts` using `dts-gen` isn't working, [you should tell me about it first](https://www.surveymonkey.com/r/LN2CV82), but then you can create your own `.d.ts` file.
@@ -510,7 +510,7 @@ In that file you'll find two sections:
 | Package                         | Description                                                           |
 | ------------------------------- | --------------------------------------------------------------------- |
 | async                           | Utility library that provides asynchronous control flow.               |
-| bcrypt-nodejs                   | Library for hashing and salting user passwords.                       |
+| bcrypt                          | Library for hashing and salting user passwords.                       |
 | bluebird                        | Promise library                                                       |
 | body-parser                     | Express 4 middleware.                                                 |
 | compression                     | Express 4 middleware.                                                 |
@@ -518,7 +518,7 @@ In that file you'll find two sections:
 | dotenv                          | Loads environment variables from .env file.                            |
 | errorhandler                    | Express 4 middleware.                                                 |
 | express                         | Node.js web framework.                                                |
-| express-flash                    | Provides flash messages for Express.                                   |
+| express-flash                   | Provides flash messages for Express.                                   |
 | express-session                 | Express 4 middleware.                                                 |
 | express-validator               | Easy form validation for Express.                                     |
 | fbgraph                         | Facebook Graph API library.                                           |

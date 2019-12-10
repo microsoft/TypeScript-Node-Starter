@@ -27,8 +27,9 @@
         "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run serve-debug\""
     },
     "dependencies": {
+        "@types/bcrypt": "^3.0.0",
         "async": "^3.1.0",
-        "bcrypt-nodejs": "^0.0.3",
+        "bcrypt": "^3.0.7",
         "bluebird": "^3.5.5",
         "body-parser": "^1.19.0",
         "compression": "^1.7.4",
@@ -54,7 +55,6 @@
     },
     "devDependencies": {
         "@types/async": "^3.0.2",
-        "@types/bcrypt-nodejs": "^0.0.30",
         "@types/bluebird": "^3.5.27",
         "@types/body-parser": "^1.17.1",
         "@types/chai": "^4.2.3",
@@ -90,7 +90,7 @@
         "concurrently": "^4.1.2",
         "eslint": "^6.4.0",
         "jest": "^24.9.0",
-        "node-sass": "^4.12.0",
+        "node-sass": "^4.13.0",
         "nodemon": "^1.19.2",
         "shelljs": "^0.8.3",
         "supertest": "^4.0.2",
