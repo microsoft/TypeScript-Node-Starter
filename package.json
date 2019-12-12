@@ -10,6 +10,7 @@
     "license": "MIT",
     "scripts": {
         "start": "npm run serve",
+        "start-dev": "dotenv -- ts-node-dev --watch views src/server.ts",
         "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-static-assets",
         "serve": "node dist/server.js",
         "watch-node": "nodemon dist/server.js",
@@ -95,6 +96,7 @@
         "supertest": "^4.0.2",
         "ts-jest": "^24.1.0",
         "ts-node": "^8.4.1",
+        "ts-node-dev": "^1.0.0-pre.43",
         "typescript": "^3.6.3"
     }
 }
