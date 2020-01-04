@@ -111,7 +111,7 @@ You can test that it works locally by updating `MONGODB_URI_LOCAL` to the same c
 After rebuilding/serving, the app should work, but users that were previously created in local testing will not exist in the new database!
 Don't forget to return the `MONGO_URI_LOCAL` to your local test database (if you so desire).
 
-## <a name="sendgrid"></a> SendGrid Account
+### <a name="sendgrid"></a> SendGrid Account
 1. Navigate to [SendGrid's Website](https://sendgrid.com/), sign up for a free account, and complete the verification process.
 2. Open your `.env` file and update `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` with your SendGrid username and password respectively.
 
