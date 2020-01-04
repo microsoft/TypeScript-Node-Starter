@@ -13,6 +13,7 @@ We will try to keep this as up-to-date as possible, but community contributions 
 
 - [Pre-reqs](#pre-reqs)
 - [Getting started](#getting-started)
+    - [Docker](#docker)
 - [Deploying the app](#deploying-the-app)
 	- [Pre-reqs](#pre-reqs-1)
 	- [Deploying to Azure App Service](#deploying-to-azure-app-service)
@@ -34,6 +35,7 @@ To build and run this app locally you will need a few things:
 - Install [Node.js](https://nodejs.org/en/)
 - Install [MongoDB](https://docs.mongodb.com/manual/installation/)
 - Install [VS Code](https://code.visualstudio.com/)
+- Install [Docker](https://docs.docker.com/install/) (Optional)
 
 # Getting started
 - Clone the repository
@@ -75,6 +77,23 @@ Or, if you're using VS Code, you can use `cmd + shift + b` to run the default bu
 Throughout the README We will try to call out specific places where VS Code really shines or where this project has been setup to take advantage of specific features.
 
 Finally, navigate to `http://localhost:3000` and you should see the template being served and rendered locally!
+
+## <a name="docker"></a> Docker
+
+The Docker image uses [`node:12-alpine`](https://hub.docker.com/layers/node/library/node/12-alpine/images/sha256-ccc95a4262bd49f7a6b0027d8e6844de800230f4c4de36082c097916c56537be) image from [Docker Hub](https://hub.docker.com), builds the app, and removes the development dependencies resulting in a very small (approximately 40 MB compressed) docker image.
+
+### `docker-compose`
+The Node.js app, and the MongoDB server can be started with a single command, `docker compose up -d --build`.
+
+### `docker run`
+1. Build the Docker container with the following command.
+  ```sh
+  docker build -t my-express-app .
+  ```
+2. Run the docker container with `docker run`. Refer to the `.env.example` file for more information about the environment variables.
+  ```sh
+  docker run -p 3000:3000 -e NODE_ENV=production -e SESSION_SECRET=ashdfjhasdlkjfhalksdjhflak -e FACEBOOK_ID=754220301289665 -e FACEBOOK_SECRET=41860e58c256a3d7ad8267d3c1939a4a -e MONGODB_URI=MONGODB_URI=mongodb://<mlab_user>:<mlab_password>@<mlab_connection_url> my-express-app
+  ```
 
 # Deploying the app
 There are many ways to deploy an Node app, and in general, nothing about the deployment process changes because you're using TypeScript.
@@ -214,6 +233,9 @@ The full folder structure of this app is explained below:
 | tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
 | .eslintrc                | Config settings for ESLint code style checking                                                |
 | .eslintignore            | Config settings for paths to exclude from linting                                             |
+| Dockerfile               | Used to configre Docker image build process                                                   |
+| .dockerignore            | Config settings for ignoring files during the Docker image build process                      |
+| docker-compose.yml       | Config settings to run the Docker image of the app                                            |
 
 ## Building the project
 It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount of build configuration.

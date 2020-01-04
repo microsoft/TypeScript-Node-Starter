@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  app:
+    depends_on:
+      - mongo
+    container_name: node-app
+    build: "."
+    restart: always
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/appdb
+      - NODE_ENV=production
+      - SESSION_SECRET=jklmasdhfasds
+      - FACEBOOK_ID=754220301289665
+      - FACEBOOK_SECRET=41860e58c256a3d7ad8267d3c1939a4a
+    ports:
+      - "8080:3000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo-db
+    restart: always
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
