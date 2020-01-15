@@ -1,12 +1,13 @@
 import nodemailer from "nodemailer";
 import { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
+import { SENDGRID_USER, SENDGRID_PASSWORD } from "../util/secrets";
 
 const transporter = nodemailer.createTransport({
     service: "SendGrid",
     auth: {
-        user: process.env.SENDGRID_USER,
-        pass: process.env.SENDGRID_PASSWORD
+        user: SENDGRID_USER,
+        pass: SENDGRID_PASSWORD
     }
 });
 

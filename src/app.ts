@@ -1,5 +1,5 @@
 import express from "express";
-import compression from "compression";  // compresses requests
+import compression from "compression"; // compresses requests
 import session from "express-session";
 import bodyParser from "body-parser";
 import lusca from "lusca";
@@ -19,7 +19,6 @@ import * as userController from "./controllers/user";
 import * as apiController from "./controllers/api";
 import * as contactController from "./controllers/contact";
 
-
 // API keys and Passport configuration
 import * as passportConfig from "./config/passport";
 
@@ -32,7 +31,7 @@ mongoose.Promise = bluebird;
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true } ).then(
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
-).catch(err => {
+).catch((err: Error) => {
     console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
     // process.exit();
 });
@@ -64,15 +63,20 @@ app.use((req, res, next) => {
 });
 app.use((req, res, next) => {
     // After successful login, redirect back to the intended page
-    if (!req.user &&
-    req.path !== "/login" &&
-    req.path !== "/signup" &&
-    !req.path.match(/^\/auth/) &&
-    !req.path.match(/\./)) {
-        req.session.returnTo = req.path;
-    } else if (req.user &&
-    req.path == "/account") {
-        req.session.returnTo = req.path;
+    if (req.session) {
+        if (!req.user &&
+        req.path !== "/login" &&
+        req.path !== "/signup" &&
+        !req.path.match(/^\/auth/) &&
+        !req.path.match(/\./)) {
+            req.session.returnTo = req.path;
+        } else if (req.user &&
+        req.path == "/account") {
+            req.session.returnTo = req.path;
+        }
+    }
+    else {
+        next(Error("req.session is missing"));
     }
     next();
 });
@@ -113,7 +117,7 @@ app.get("/api/facebook", passportConfig.isAuthenticated, passportConfig.isAuthor
  */
 app.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email", "public_profile"] }));
 app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRedirect: "/login" }), (req, res) => {
-    res.redirect(req.session.returnTo || "/");
+    res.redirect((req.session && req.session.returnTo) || "/");
 });
 
 export default app;

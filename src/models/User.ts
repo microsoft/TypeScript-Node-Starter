@@ -23,7 +23,7 @@ export type UserDocument = mongoose.Document & {
     gravatar: (size: number) => string;
 };
 
-type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
+type comparePasswordFunction = (candidatePassword: string, cb: (err: Error, isMatch: boolean) => void) => void;
 
 export interface AuthToken {
     accessToken: string;
@@ -58,15 +58,15 @@ userSchema.pre("save", function save(next) {
     if (!user.isModified("password")) { return next(); }
     bcrypt.genSalt(10, (err, salt) => {
         if (err) { return next(err); }
-        bcrypt.hash(user.password, salt, undefined, (err: mongoose.Error, hash) => {
+        bcrypt.hash(user.password, salt, () => {}, (err, result) => {
             if (err) { return next(err); }
-            user.password = hash;
+            user.password = result;
             next();
         });
     });
 });
 
-const comparePassword: comparePasswordFunction = function (candidatePassword, cb) {
+const comparePassword: comparePasswordFunction = function (this: UserDocument, candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, (err: mongoose.Error, isMatch: boolean) => {
         cb(err, isMatch);
     });
