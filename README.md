@@ -89,6 +89,8 @@ The Azure free tier gives you plenty of resources to play around with including 
 For local development, running MongoDB on localhost is fine, however once we deploy we need a database with high availability.
 The easiest way to achieve this is by using a managed cloud database.
 There are many different providers, but the easiest one to get started with is [MongoLab](#mlab).
+- **SendGrid Account** -
+If you don't have one, you can sign up for free, we will need it to send emails. There are many different providers that Nodemailer supports ([Well-known services](https://nodemailer.com/smtp/well-known/)), we'll be using [SendGrid](#sendgrid).
 
 ### <a name="mlab"></a> Create a managed MongoDB with MongoLab
 1. Navigate to [MongoLab's Website](https://mlab.com/), sign up for a free account, and then log in.
@@ -109,6 +111,9 @@ You can test that it works locally by updating `MONGODB_URI_LOCAL` to the same c
 After rebuilding/serving, the app should work, but users that were previously created in local testing will not exist in the new database!
 Don't forget to return the `MONGO_URI_LOCAL` to your local test database (if you so desire).
 
+### <a name="sendgrid"></a> SendGrid Account
+1. Navigate to [SendGrid's Website](https://sendgrid.com/), sign up for a free account, and complete the verification process.
+2. Open your `.env` file and update `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` with your SendGrid username and password respectively.
 
 ## Deploying to Azure App Service
 Deploying from VS Code can be broken into the following steps:
