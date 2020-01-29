@@ -199,6 +199,7 @@ The full folder structure of this app is explained below:
 | Name | Description |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
 | **.vscode**              | Contains VS Code specific settings                                                            |
+| **.github**              | Contains GitHub settings and configurations, incuding the GitHub Actions workflows            |
 | **dist**                 | Contains the distributable (or output) from your TypeScript build. This is the code you ship  |
 | **node_modules**         | Contains all your npm dependencies                                                            |
 | **src**                  | Contains your source code that will be compiled to the dist dir                               |
