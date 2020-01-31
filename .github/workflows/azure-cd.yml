@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Start Docker for Mongodb
+        run: docker run -d -p 27017:27017 mongo
       - name: npm install, build, and test
         run: |
           npm install
