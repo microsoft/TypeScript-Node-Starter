@@ -48,8 +48,6 @@
         "passport-facebook": "^3.0.0",
         "passport-local": "^1.0.0",
         "pug": "^2.0.4",
-        "request": "^2.88.0",
-        "request-promise": "^4.2.4",
         "winston": "^3.2.1"
     },
     "devDependencies": {
