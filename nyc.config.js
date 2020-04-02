@@ -1,7 +1,5 @@
 const base = require("@istanbuljs/nyc-config-babel");
 
-
-
 module.exports = {
     ...base,
     include: [
