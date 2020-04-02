@@ -11,7 +11,7 @@
     "scripts": {
         "clean": "rimraf .dist",
         "build": "babel src --out-dir .dist --extensions \".ts,.tsx\"",
-        "lint": "eslint \"src/**/*.{js,ts}\"",
+        "lint": "eslint \"{src,test}/**/*.{js,ts}\" || eslint \"{src,test}/**/*.{js,ts}\" -f node_modules/eslint-detailed-reporter/lib/detailed.js -o .lint/index.html",
         "test": "nyc mocha"
     },
     "dependencies": {},
@@ -32,6 +32,7 @@
         "babel-plugin-istanbul": "^5.1.1",
         "chai": "^4.2.0",
         "eslint": "^6.4.0",
+        "eslint-detailed-reporter": "^0.8.0",
         "mocha": "^7.0.0",
         "mochawesome": "^5.0.0",
         "nyc": "^15.0.0",

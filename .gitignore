@@ -1,5 +1,6 @@
 .coverage/
 .nyc_output/
 .dist/
+.lint/
 node_modules/
 .DS_Store
