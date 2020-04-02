@@ -1,0 +1,60 @@
+{
+  "on": {
+    "pull_request": {
+      "branches": [
+        "master"
+      ],
+      "jobs": {
+        "credentials": {
+          "steps": [
+            {
+              "name": "Configure AWS Credentials",
+              "uses": "aws-actions/configure-aws-credentials@v1",
+              "with": {
+                "aws-access-key-id": "${{ secrets.AWS_ACCESS_KEY_ID }}",
+                "aws-secret-access-key": "${{ secrets.AWS_SECRET_ACCESS_KEY }}",
+                "aws-region": "ap-southeast-2"
+              }
+            }
+          ]
+        },
+        "build": {
+          "needs": "credentials",
+          "steps": [
+            {
+              "name": "build",
+              "uses": "matt-tyler/aws-codebuild-run-project@master",
+              "with": {
+                "project-name": "Build-myapp-Node"
+              }
+            }
+          ]
+        },
+        "test": {
+          "needs": "credentials",
+          "steps": [
+            {
+              "name": "test",
+              "uses": "matt-tyler/aws-codebuild-run-project@master",
+              "with": {
+                "project-name": "Test-myapp-Node"
+              }
+            }
+          ]
+        },
+        "lint": {
+          "needs": "credentials",
+          "steps": [
+            {
+              "name": "lint",
+              "uses": "matt-tyler/aws-codebuild-run-project@master",
+              "with": {
+                "project-name": "Lint-myapp-Node"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
