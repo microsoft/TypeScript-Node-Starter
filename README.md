@@ -518,7 +518,6 @@ In that file you'll find two sections:
 | async                           | Utility library that provides asynchronous control flow.               |
 | bcrypt-nodejs                   | Library for hashing and salting user passwords.                       |
 | bluebird                        | Promise library                                                       |
-| body-parser                     | Express 4 middleware.                                                 |
 | compression                     | Express 4 middleware.                                                 |
 | connect-mongo                   | MongoDB session store for Express.                                    |
 | dotenv                          | Loads environment variables from .env file.                            |
