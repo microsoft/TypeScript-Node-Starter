@@ -1,6 +1,6 @@
 {
     "name": "express-typescript-starter-semantic-release-test",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "description": "A starting point for Node.js express apps with TypeScript",
     "repository": {
         "type": "git",
