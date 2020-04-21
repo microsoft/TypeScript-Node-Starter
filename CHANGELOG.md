@@ -1,3 +1,11 @@
+# [2.3.0-staging.1](https://github.com/quentinwendegass/TypeScript-Node-Starter/compare/v2.2.0...v2.3.0-staging.1) (2020-04-21)
+
+
+### Features
+
+* add nice feature ([c19ead6](https://github.com/quentinwendegass/TypeScript-Node-Starter/commit/c19ead6f20b06d453a7c9c0acf9c0b389d7d342c))
+* some changes ([#4](https://github.com/quentinwendegass/TypeScript-Node-Starter/issues/4)) ([a108c81](https://github.com/quentinwendegass/TypeScript-Node-Starter/commit/a108c81f3fc0fca2f8fe7e9e94911fc1b5aba847))
+
 # [2.3.0](https://github.com/quentinwendegass/TypeScript-Node-Starter/compare/v2.2.0...v2.3.0) (2020-04-21)
 
 
