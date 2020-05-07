@@ -53,7 +53,7 @@ sudo mkdir -p /data/db
 sudo chmod 777 /data/db
 
 # starting from macOS 10.15 even the admin cannot create directory at root
-# so lets create the db diretory under the home directory.
+# so lets create the db directory under the home directory.
 mkdir -p ~/data/db
 # user account has automatically read and write permissions for ~/data/db.
 ```
