@@ -545,7 +545,6 @@ In that file you'll find two sections:
 | Package                         | Description                                                            |
 | ------------------------------- | ---------------------------------------------------------------------- |
 | @types                          | Dependencies in this folder are `.d.ts` files used to provide types    |
-| chai                            | Testing utility library that makes it easier to write tests            |
 | concurrently                    | Utility that manages multiple concurrent tasks. Used with npm scripts  |
 | jest                            | Testing library for JavaScript.                                        |
 | node-sass                       | Allows to compile .scss files to .css                                  |
