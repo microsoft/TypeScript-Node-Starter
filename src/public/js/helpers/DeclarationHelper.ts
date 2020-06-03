@@ -6,7 +6,7 @@ var Project = {};
 var DeclarationHelper = {
   declareNamespace: (path: string) => {
     let splited = path.split('.');
-    let current: any = Project;
+    let current = Project;
     
     splited.forEach((name) => {
       if (current[name] === undefined) {
@@ -27,6 +27,21 @@ var DeclarationHelper = {
     namespace[name] = klass;
     
     return namespace[name];
+  },
+  
+  'get': (path: string) => {
+    let splited = path.split('.');
+    splited.shift();
+    let current = Project;
+    
+    splited.forEach((name) => {
+      if (current[name] === undefined) {
+        return null;
+      }
+      current = current[name];
+    });
+    
+    return current;
   }
 };
 
