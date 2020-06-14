@@ -3,18 +3,18 @@ import compression from "compression";  // compresses requests
 import session from "express-session";
 import bodyParser from "body-parser";
 import lusca from "lusca";
-import mongo from "connect-mongo";
 import flash from "express-flash";
 import path from "path";
-import mongoose from "mongoose";
 import passport from "passport";
 import bluebird from "bluebird";
 import route from "./route";
 
 // Create Express server
+//
 const app = express();
 
 // Express configuration
+//
 app.set("port", process.env.PORT || 8000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");

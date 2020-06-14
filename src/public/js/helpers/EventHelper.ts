@@ -1,12 +1,22 @@
 // Auto[Generating:V1]--->
 // PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
 
-var EventHelper = {
-  cancel: (event: Event) => {
+const EventHelper = {
+  cancel: (event: any) => {
     event.preventDefault();
     event.stopPropagation();
     
     return false;
+  },
+  
+  getCurrentElement: (event: any) => {
+    return (event as any).currentTarget;
+  },
+  getOriginalElement: (event: any) => {
+    return event.srcElement || (event as any).originalTarget || event.target;
+  },
+  getMousePosition: (event: any) => {
+    return [(event as any).clientX, (event as any).clientY];
   }
 };
 
