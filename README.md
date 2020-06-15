@@ -418,18 +418,55 @@ Node.js debugging in VS Code is easy to setup and even easier to use.
 This project comes pre-configured with everything you need to get started.
 
 When you hit `F5` in VS Code, it looks for a top level `.vscode` folder with a `launch.json` file.
+
+You can debug in the following ways:
+* **Attach by Process ID** - run the project in debug mode. This is mostly identical to the "Node.js: Attach by Process ID" template with one minor change.
+We added `"protocol": "inspector"` which tells VS Code that we're using the latest version of Node which uses a new debug protocol.
+* **Jest Current File** - have a Jest test file open and active in VSCode, then debug this specific file by setting break point. All tests are not run.
+* **Jest all** -  run all tests, set a break point.
+
 In this file, you can tell VS Code exactly what you want to do:
 ```json
-{
-    "type": "node",
-    "request": "attach",
-    "name": "Attach by Process ID",
-    "processId": "${command:PickProcess}",
-    "protocol": "inspector"
-}
+[
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}",
+            "protocol": "inspector"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest Current File",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": [
+                "${fileBasenameNoExtension}",
+                "--detectOpenHandles"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "windows": {
+                "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest all",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "test"
+            ],
+            "port": 9229,
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+    ]
 ```
-This is mostly identical to the "Node.js: Attach by Process ID" template with one minor change.
-We added `"protocol": "inspector"` which tells VS Code that we're using the latest version of Node which uses a new debug protocol.
 
 With this file in place, you can hit `F5` to attach a debugger.
 You will probably have multiple node processes running, so you need to find the one that shows `node dist/server.js`.
