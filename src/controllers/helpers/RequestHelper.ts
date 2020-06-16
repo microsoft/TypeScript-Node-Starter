@@ -1,3 +1,6 @@
+// Auto[Generating:V1]--->
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
+
 import {Request} from "express";
 import {SourceType, Input} from "./DatabaseHelper.js";
 import {ValidationHelper} from "./ValidationHelper.js";
@@ -96,3 +99,6 @@ const RequestHelper = {
 };
 
 export {ActionType, RequestHelper};
+
+// <--- Auto[Generating:V1]
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
