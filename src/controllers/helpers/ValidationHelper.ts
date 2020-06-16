@@ -22,9 +22,9 @@ const ValidationHelper = {
 		input.validation = validationDict[input.guid];
 	},
 	validate: (data: Input[]) => {
-	 	for (let item of data) {
+	 	for (const item of data) {
 	 		if (item.validation.required &&
-	 			(item.value === null || item.value === undefined || item.value === '')) {
+	 			(item.value === null || item.value === undefined || item.value === "")) {
 	 			throw new Error(item.validation.customMessage || `${item.validation.name} is required.`);
 	 		}
 	 	}

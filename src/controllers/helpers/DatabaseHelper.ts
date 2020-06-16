@@ -1,5 +1,5 @@
-import {VolatileMemoryClient, RelationalDatabaseClient, DocumentDatabaseClient, PrioritizedWorkerClient} from './ConnectionHelper.js';
-import {ValidationInfo} from './ValidationHelper.js';
+import {VolatileMemoryClient, RelationalDatabaseClient, DocumentDatabaseClient, PrioritizedWorkerClient} from "./ConnectionHelper.js";
+import {ValidationInfo} from "./ValidationHelper.js";
 
 enum SourceType {
   Relational,
@@ -40,14 +40,14 @@ interface Input {
 
 const DatabaseHelper = {
 	prepare: (data: Input[]): HierarchicalDataTable => {
-		let tables: HierarchicalDataTable[] = [];
-		for (let item of data) {
+		const tables: HierarchicalDataTable[] = [];
+		for (const item of data) {
 			let table = tables.filter(table => table.group == item.group)[0];
 			if (!table) tables.push({source: item.target, group: item.group, rows: []});
 			table = tables[0];
 			
 			if (table.rows.length == 0) table.rows.push({columns: [], relations: []});
-			let row = table.rows[0];
+			const row = table.rows[0];
 			
 			let column = row.columns.filter(column => column.name == item.name)[0];
 			if (!column) row.columns.push({name: null, value: null});
@@ -65,8 +65,8 @@ const DatabaseHelper = {
 		return tables[0];
 	},
 	convertDictionaryToHierarchicalDataColumns: (dictionary: any): HierarchicalDataColumn[] => {
-		let columns: HierarchicalDataColumn[] = [];
-		for (let key in dictionary) {
+		const columns: HierarchicalDataColumn[] = [];
+		for (const key in dictionary) {
     	if (dictionary.hasOwnProperty(key)) {
     		columns.push({
     			name: key,
@@ -77,15 +77,15 @@ const DatabaseHelper = {
    	return columns;
 	},
 	convertHierarchicalDataColumnsToDictionary: (columns: HierarchicalDataColumn[]): any => {
-		let dictionary = {};
-		for (let column of columns) {
+		const dictionary = {};
+		for (const column of columns) {
 			dictionary[column.name] = column.value;
 		}
 		return dictionary;
 	},
 	insert: async (data: Input[]): Promise<HierarchicalDataRow> => {
 		return new Promise((resolve) => {
-			let input: HierarchicalDataTable = DatabaseHelper.prepare(data);
+			const input: HierarchicalDataTable = DatabaseHelper.prepare(data);
 			
       switch (input.source) {
       	case SourceType.Relational:
@@ -131,7 +131,7 @@ const DatabaseHelper = {
 	},
 	update: async (data: Input[]): Promise<HierarchicalDataRow> => {
 		return new Promise((resolve) => {
-			let input: HierarchicalDataTable = DatabaseHelper.prepare(data);
+			const input: HierarchicalDataTable = DatabaseHelper.prepare(data);
 			
       switch (input.source) {
       	case SourceType.Relational:
@@ -163,7 +163,7 @@ const DatabaseHelper = {
 	},
 	retrieve: async (data: Input[]): Promise<HierarchicalDataTable> => {
 		return new Promise((resolve) => {
-			let input: HierarchicalDataTable = DatabaseHelper.prepare(data);
+			const input: HierarchicalDataTable = DatabaseHelper.prepare(data);
 			
       switch (input.source) {
       	case SourceType.Relational:
@@ -195,7 +195,7 @@ const DatabaseHelper = {
 	},
 	delete: async (data: Input[]): Promise<boolean> => {
 		return new Promise((resolve) => {
-			let input: HierarchicalDataTable = DatabaseHelper.prepare(data);
+			const input: HierarchicalDataTable = DatabaseHelper.prepare(data);
 			
       switch (input.source) {
       	case SourceType.Relational:
