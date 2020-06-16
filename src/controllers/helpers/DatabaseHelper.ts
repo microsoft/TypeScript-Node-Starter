@@ -1,3 +1,6 @@
+// Auto[Generating:V1]--->
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
+
 import {VolatileMemoryClient, RelationalDatabaseClient, DocumentDatabaseClient, PrioritizedWorkerClient} from "./ConnectionHelper.js";
 import {ValidationInfo} from "./ValidationHelper.js";
 
@@ -228,3 +231,6 @@ const DatabaseHelper = {
 };
 
 export {SourceType, ActionType, HierarchicalDataTable, HierarchicalDataRow, HierarchicalDataColumn, Input, DatabaseHelper};
+
+// <--- Auto[Generating:V1]
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.

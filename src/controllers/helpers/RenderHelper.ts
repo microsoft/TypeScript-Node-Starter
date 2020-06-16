@@ -1,3 +1,6 @@
+// Auto[Generating:V1]--->
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
+
 import {Response} from "express";
 
 const RenderHelper = {
@@ -21,3 +24,6 @@ const RenderHelper = {
 };
 
 export {RenderHelper};
+
+// <--- Auto[Generating:V1]
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.

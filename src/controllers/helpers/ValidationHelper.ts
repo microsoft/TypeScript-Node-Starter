@@ -1,3 +1,6 @@
+// Auto[Generating:V1]--->
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
+
 import {Input} from "./DatabaseHelper.js";
 
 interface ValidationInfo {
@@ -32,3 +35,6 @@ const ValidationHelper = {
 };
 
 export {ValidationInfo, ValidationHelper};
+
+// <--- Auto[Generating:V1]
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.

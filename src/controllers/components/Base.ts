@@ -1,3 +1,6 @@
+// Auto[Generating:V1]--->
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
+
 import {Request, Response} from "express";
 import {HierarchicalDataTable, HierarchicalDataRow, HierarchicalDataColumn, ActionType, Input} from "../helpers/DatabaseHelper.js";
 import {ValidationHelper} from "../helpers/ValidationHelper.js";
@@ -69,3 +72,6 @@ class Base {
 }
 
 export {Base};
+
+// <--- Auto[Generating:V1]
+// PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
