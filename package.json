@@ -95,6 +95,7 @@
         "node-sass": "^4.14.1",
         "nodemon": "^2.0.4",
         "shelljs": "^0.8.3",
+        "sinon": "^9.0.2",
         "supertest": "^4.0.2",
         "ts-jest": "^26.1.0",
         "ts-node": "^8.4.1",
