@@ -40,9 +40,13 @@ const DataManipulationHelper = {
 	  				if (json.redirect) {
 	  				  window.location = json.redirect;
 	  				} else {
-	  				  control.setState({
-	  				    data: json.results
-	  				  });
+	  				  if (control) {
+  	  				  control.setState({
+  	  				    data: json.results
+  	  				  });
+  	  				} else {
+  	  				  alert(`There was an error rendering the data on client side (needed component).`);
+  	  				}
 	  				}
 	  			} else {
 	  				alert(json.error);
