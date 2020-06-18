@@ -26,7 +26,7 @@ const DataManipulationHelper = {
 			fieldManipulatorsInfoDict[guid] = fields;
 		}
 	},
-  request: (guid: string, action: string) => {
+  request: (guid: string, action: string, control: any) => {
   	if (fieldManipulatorsInfoDict[guid]) {
   		const params = {};
   		const fields = fieldManipulatorsInfoDict[guid];
@@ -51,7 +51,13 @@ const DataManipulationHelper = {
 	  	RequestHelper.post(`${location.protocol}//${location.host}${location.pathname}`, params)
 	  		.then((json) => {
 	  			if (json.success) {
-	  				alert(`[TODO] Implementing API`);
+	  				if (json.redirect) {
+	  				  window.location = json.redirect;
+	  				} else {
+	  				  control.setState({
+	  				    data: json.results
+	  				  });
+	  				}
 	  			} else {
 	  				alert(json.error);
 	  			}
