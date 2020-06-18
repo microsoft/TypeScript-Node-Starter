@@ -80,7 +80,12 @@ const RequestHelper = {
 			throw new Error("There was an error trying to obtain requesting parameters (missing).");
 		}
 		
+		if (!json.hasOwnProperty(guid)) {
+		  return null;
+		}
+		
 		const paramInfo = requestParamInfoDict[guid];
+		
 		const input: Input = {
 		  target: paramInfo.target,
   		group: paramInfo.group,
