@@ -8,17 +8,24 @@ const RenderHelper = {
 	  response.json({
 			success: true,
 			error: null,
-			results: data
+			results: data,
+			redirect: null
 		});
 	},
 	navigate: (response: Response, data: string) => {
-		response.redirect(data);
+		response.json({
+			success: true,
+			error: null,
+			results: null,
+			redirect: data
+		});
 	},
 	error: (response: Response, error: Error) => {
 	  response.json({
 			success: false,
 			error: error.message,
-			results: null
+			results: null,
+			redirect: null
 		});
 	}
 };
