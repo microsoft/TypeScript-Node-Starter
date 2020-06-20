@@ -34,7 +34,7 @@ class Base {
         RenderHelper.json(this.response, await this.update(data));
         break;
       case ActionType.Delete:
-        RenderHelper.json(this.response, await this.delete(data));
+        RenderHelper.json(this.response, await this.remove(data));
         break;
       case ActionType.Retrieve:
         RenderHelper.json(this.response, await this.retrieve(data));
@@ -103,7 +103,7 @@ class Base {
  		throw new Error("Not Implemented Error");
   }
   
-  protected async delete(data: Input[]): Promise<boolean> {
+  protected async remove(data: Input[]): Promise<boolean> {
  		throw new Error("Not Implemented Error");
   }
   
