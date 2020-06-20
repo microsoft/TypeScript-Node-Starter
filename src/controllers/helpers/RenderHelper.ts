@@ -20,6 +20,11 @@ const RenderHelper = {
 			redirect: data
 		});
 	},
+	page: (response: Response, path: string, data: any[]) => {
+	  response.render(path, {
+	    data: data
+	  });
+	},
 	error: (response: Response, error: Error) => {
 	  response.json({
 			success: false,

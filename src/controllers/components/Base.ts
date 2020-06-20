@@ -9,10 +9,12 @@ import {RenderHelper} from "../helpers/RenderHelper.js";
 class Base {
 	protected request: Request;
 	protected response: Response;
+	protected template: String;
 	
-	constructor(request: Request, response: Response) {
+	constructor(request: Request, response: Response, template: string) {
   	this.request = request;
   	this.response = response;
+  	this.template = template;
   }
 	
 	protected perform(action: ActionType, data: Input[]) {
@@ -42,12 +44,51 @@ class Base {
         break;
       case ActionType.Navigate:
         RenderHelper.navigate(this.response, await this.navigate(data));
+      default:
+        switch (this.request.method) {
+          case 'GET':
+            RenderHelper.page(this.response, this.template, await this.get(data));
+            break;
+          case 'POST':
+            RenderHelper.page(this.response, this.template, await this.post(data));
+            break;
+          case 'PUT':
+            RenderHelper.page(this.response, this.template, await this.put(data));
+            break;
+          case 'DELETE':
+            RenderHelper.page(this.response, this.template, await this.delete(data));
+            break;
+        }
         break;
     }
   }
   
   protected validate(data: Input[]): void {
  		ValidationHelper.validate(data);
+  }
+  
+  protected async get(data: Input[]): Promise<HierarchicalDataTable[]> {
+ 	  return new Promise((resolve) => {
+ 	    resolve([]);
+ 	  });
+  }
+  
+  protected async post(data: Input[]): Promise<HierarchicalDataTable[]> {
+ 		return new Promise((resolve) => {
+ 	    resolve([]);
+ 	  });
+  }
+  
+  protected async put(data: Input[]): Promise<HierarchicalDataTable[]> {
+ 		return new Promise((resolve) => {
+ 	    resolve([]);
+ 	  });
+  }
+  
+  protected async delete(data: Input[]): Promise<HierarchicalDataTable[]> {
+ 		return new Promise((resolve) => {
+ 	    resolve([]);
+ 	  });
   }
   
   protected async insert(data: Input[]): Promise<HierarchicalDataRow> {
