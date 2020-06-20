@@ -12,7 +12,7 @@ const DataManipulationHelper = {
 			fieldManipulatorsInfoDict[guid] = fields;
 		}
 	},
-  request: (guid: string, action: string, control: any) => {
+  request: (guid: string, action: string, callback: any) => {
   	if (fieldManipulatorsInfoDict[guid]) {
   		const params = {};
   		const fields = fieldManipulatorsInfoDict[guid];
@@ -40,10 +40,8 @@ const DataManipulationHelper = {
 	  				if (json.redirect) {
 	  				  window.location = json.redirect;
 	  				} else {
-	  				  if (control) {
-  	  				  control.setState({
-  	  				    data: json.results
-  	  				  });
+	  				  if (callback) {
+  	  				  callback(json.results);
   	  				} else {
   	  				  alert(`There was an error rendering the data on client side (needed component).`);
   	  				}
