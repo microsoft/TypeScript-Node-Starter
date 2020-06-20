@@ -70,7 +70,7 @@ const RequestHelper = {
 			case "navigate":
 				return ActionType.Navigate;
 			default:
-				throw new Error("There was an error trying to obtain requesting parameters (invalid).");
+				return null;
 		}
 	},
 	getInput: (request: Request, guid: string): Input => {
