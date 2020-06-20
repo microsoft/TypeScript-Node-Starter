@@ -9,7 +9,7 @@ import {RenderHelper} from "../helpers/RenderHelper.js";
 class Base {
 	protected request: Request;
 	protected response: Response;
-	protected template: String;
+	protected template: string;
 	
 	constructor(request: Request, response: Response, template: string) {
   	this.request = request;
