@@ -22,7 +22,7 @@ const RenderHelper = {
 	},
 	page: (response: Response, path: string, data: any[]) => {
 	  response.render(path, {
-	    data: data
+	    data: JSON.stringify(data)
 	  });
 	},
 	error: (response: Response, error: Error) => {
