@@ -7,8 +7,8 @@ import {ValidationHelper} from "../helpers/ValidationHelper.js";
 import {RenderHelper} from "../helpers/RenderHelper.js";
 
 class Base {
-	request: Request;
-	response: Response;
+	protected request: Request;
+	protected response: Response;
 	
 	constructor(request: Request, response: Response) {
   	this.request = request;
