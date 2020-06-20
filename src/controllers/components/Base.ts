@@ -44,6 +44,7 @@ class Base {
         break;
       case ActionType.Navigate:
         RenderHelper.navigate(this.response, await this.navigate(data));
+        break;
       default:
         switch (this.request.method) {
           case 'GET':
