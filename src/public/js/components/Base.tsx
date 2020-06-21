@@ -24,12 +24,8 @@ let DefaultBaseState: any = {
 };
 
 class Base extends React.Component {
-    protected state: IBaseState = {};
-    protected static defaultProps: IBaseProps = DefaultBaseProps;
-    
     constructor(props) {
         super(props);
-        Object.assign(this.state, CodeHelper.clone(DefaultBaseState));
     }
     
     protected getDataFromNotation(notation: string): any {
