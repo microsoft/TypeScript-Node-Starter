@@ -30,7 +30,6 @@ interface HierarchicalDataRow {
 interface HierarchicalDataColumn {
 	name: string;
   value: any;
-  relations: HierarchicalDataTable[];
 }
 
 interface Input {
@@ -54,7 +53,7 @@ const DatabaseHelper = {
 			const row = table.rows[0];
 			
 			let column = row.columns.filter(column => column.name == item.name)[0];
-			if (!column) row.columns.push({name: null, value: null, relations: []});
+			if (!column) row.columns.push({name: null, value: null});
 			column = row.columns[0];
 			
 			column.name = item.name;
@@ -74,8 +73,7 @@ const DatabaseHelper = {
     	if (dictionary.hasOwnProperty(key)) {
     		columns.push({
     			name: key,
-    			value: dictionary[key],
-    			relations: []
+    			value: dictionary[key]
     		});
     	}
    	}

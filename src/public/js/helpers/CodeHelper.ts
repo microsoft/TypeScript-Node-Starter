@@ -29,6 +29,14 @@ const CodeHelper = {
     var p = Object.keys(x);
     return Object.keys(y).every(function (i) { return p.indexOf(i) !== -1; }) &&
         p.every(function (i) { return CodeHelper.equals(x[i], y[i]); });
+  },
+  escape: (unsafe: string) => {
+  	return unsafe
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#039;");
   }
 };
 

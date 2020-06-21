@@ -4,6 +4,26 @@
 import {RequestHelper} from './RequestHelper.js';
 import {HTMLHelper} from './HTMLHelper.js';
 
+enum SourceType {
+  Relational,
+  PrioritizedWorker,
+  Document,
+  VolatileMemory
+}
+interface HierarchicalDataTable {
+	source: SourceType;
+	group: string;
+  rows: HierarchicalDataRow[];
+}
+interface HierarchicalDataRow {
+  columns: HierarchicalDataColumn[];
+  relations: HierarchicalDataTable[];
+}
+interface HierarchicalDataColumn {
+	name: string;
+  value: any;
+}
+
 const fieldManipulatorsInfoDict: any = {};
 
 const DataManipulationHelper = {
@@ -57,10 +77,56 @@ const DataManipulationHelper = {
 	  			
 	  		});
   	}
+  },
+  getDataFromKey: (key: string, current: HierarchicalDataRow, searchForFinalResults: boolean=false): any => {
+		if (!searchForFinalResults) {
+			// Search HierarchicalDataTable
+			// 
+			let tables = (current.relations || []).filter(table => (table.group == key));
+			if (tables.length > 0 && tables[0].rows && tables[0].rows.length > 0) {
+				return tables[0].rows[0];
+			} else {
+				return null;
+			}
+		} else {
+			// Search HierarchicalDataColumn
+			// 
+			let columns = (current.columns || []).filter(column => (column.name == key));
+			if (columns.length > 0) {
+				return columns[0].value;
+			} else {
+				let tables = (current.relations || []).filter(table => (table.group == key));
+				if (tables.length > 0 && tables[0].rows && tables[0].rows.length > 0) {
+					return tables[0].rows[0].relations;
+				} else {
+					return null;
+				}
+			}
+		}
+  },
+  getDataFromNotation: (notation: string, data: HierarchicalDataTable[]): any => {
+    if (!notation) {
+      console.log('There was an error processing hierarchical data on client side (missing notation).');
+      return [];
+    }
+    
+    let splited = notation.split('.');
+    let current = {
+			columns: null,
+			relations: data
+		};
+		
+		let shifted = splited.shift();
+		while (current && shifted) {
+			current = DataManipulationHelper.getDataFromKey(shifted, current, splited.length == 0);
+			shifted = splited.shift();
+		}
+		
+		return current;
   }
 };
 
-export {DataManipulationHelper};
+export {HierarchicalDataTable, HierarchicalDataRow, HierarchicalDataColumn, DataManipulationHelper};
 
 // <--- Auto[Generating:V1]
 // PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
