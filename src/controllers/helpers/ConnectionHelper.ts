@@ -24,7 +24,8 @@ if (process.env.VOLATILE_MEMORY_KEY) {
 }
 if (process.env.RELATIONAL_DATABASE_KEY) {
 	const connectionURL = new URL(process.env[process.env.RELATIONAL_DATABASE_KEY]);
-	RelationalDatabaseClient = mysql.createConnection({
+	RelationalDatabaseClient = mysql.createPool({
+	  connectionLimit : 10,
 	  host     : connectionURL.host,
 	  user     : connectionURL.username,
 	  password : connectionURL.password,
