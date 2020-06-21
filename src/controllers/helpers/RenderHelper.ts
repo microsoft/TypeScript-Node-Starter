@@ -5,6 +5,7 @@ import {Response} from "express";
 
 const RenderHelper = {
 	json: (response: Response, data: any) => {
+	  if (response.headersSent) return;
 	  response.json({
 			success: true,
 			error: null,
@@ -13,6 +14,7 @@ const RenderHelper = {
 		});
 	},
 	navigate: (response: Response, data: string) => {
+	  if (response.headersSent) return;
 		response.json({
 			success: true,
 			error: null,
@@ -21,11 +23,13 @@ const RenderHelper = {
 		});
 	},
 	page: (response: Response, path: string, data: any[]) => {
+	  if (response.headersSent) return;
 	  response.render(path, {
 	    data: JSON.stringify(data)
 	  });
 	},
 	error: (response: Response, error: Error) => {
+	  if (response.headersSent) return;
 	  response.json({
 			success: false,
 			error: error.message,
