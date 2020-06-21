@@ -44,6 +44,10 @@ class Base extends React.Component {
         }
     }
     
+    public manipulate(action: string, results: any) {
+        
+    }
+    
     protected render() { }
 }
 
