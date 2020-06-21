@@ -119,7 +119,7 @@ const DataManipulationHelper = {
 		let shifted = splited.shift();
 		while (current && shifted) {
 			current = DataManipulationHelper.getDataFromKey(shifted, current, splited.length == 0);
-			if (splited.length != 0) shifted = splited.shift();
+			shifted = splited.shift();
 		}
 		
 		return current;
