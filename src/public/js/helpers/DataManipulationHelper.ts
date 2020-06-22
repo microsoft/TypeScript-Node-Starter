@@ -66,7 +66,7 @@ const DataManipulationHelper = {
 	  				  window.location = json.redirect;
 	  				} else {
 	  				  if (callback) {
-  	  				  callback(json.results);
+  	  				  callback(action, json.results);
   	  				} else {
   	  				  alert(`There was an error rendering the data on client side (needed component).`);
   	  				}
