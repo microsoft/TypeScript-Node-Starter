@@ -2,17 +2,9 @@
 // PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
 
 import {Request} from "express";
-import {SourceType, Input} from "./DatabaseHelper.js";
+import {SourceType, ActionType, Input} from "./DatabaseHelper.js";
 import {ValidationHelper} from "./ValidationHelper.js";
 
-enum ActionType {
-  Insert,
-  Update,
-  Delete,
-  Retrieve,
-  Popup,
-  Navigate
-}
 interface RequestParamInfo {
   target: SourceType;
   group: boolean;
@@ -69,6 +61,8 @@ const RequestHelper = {
 				return ActionType.Popup;
 			case "navigate":
 				return ActionType.Navigate;
+			case "test":
+				return ActionType.Test;
 			default:
 				return null;
 		}
@@ -103,7 +97,7 @@ const RequestHelper = {
 	}
 };
 
-export {ActionType, RequestHelper};
+export {RequestHelper};
 
 // <--- Auto[Generating:V1]
 // PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.

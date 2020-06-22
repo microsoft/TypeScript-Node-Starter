@@ -29,7 +29,7 @@ if (process.env.RELATIONAL_DATABASE_KEY) {
 	  host     : connectionURL.host,
 	  user     : connectionURL.username,
 	  password : connectionURL.password,
-	  database : connectionURL.pathname.split('/')[1]
+	  database : connectionURL.pathname.split("/")[1]
 	});
 }
 if (process.env.DOCUMENT_DATABASE_KEY) {

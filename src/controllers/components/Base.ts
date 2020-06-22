@@ -45,18 +45,21 @@ class Base {
       case ActionType.Navigate:
         RenderHelper.navigate(this.response, await this.navigate(data));
         break;
+      case ActionType.Test:
+      	RenderHelper.json(this.response, await this.get(data));
+      	break;
       default:
         switch (this.request.method) {
-          case 'GET':
+          case "GET":
             RenderHelper.page(this.response, this.template, await this.get(data));
             break;
-          case 'POST':
+          case "POST":
             RenderHelper.page(this.response, this.template, await this.post(data));
             break;
-          case 'PUT':
+          case "PUT":
             RenderHelper.page(this.response, this.template, await this.put(data));
             break;
-          case 'DELETE':
+          case "DELETE":
             RenderHelper.page(this.response, this.template, await this.delete(data));
             break;
         }

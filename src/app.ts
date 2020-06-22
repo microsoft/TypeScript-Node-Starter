@@ -7,6 +7,7 @@ import flash from "express-flash";
 import path from "path";
 import passport from "passport";
 import bluebird from "bluebird";
+import cors from "cors";
 import route from "./route";
 
 // Create Express server
@@ -28,8 +29,16 @@ app.use((req, res, next) => {
     next();
 });
 
+// CORS configuration
+// 
+if (["production"].indexOf(process.env.NODE_ENV) == -1) {
+	app.use(cors());
+}
+
+// Cache configuration
+// 
 app.use(
-    express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
+    express.static(path.join(__dirname, "public"), { maxAge: 3600000 })
 );
 
 route(app);

@@ -4,6 +4,8 @@
 import {RequestHelper} from './RequestHelper.js';
 import {HTMLHelper} from './HTMLHelper.js';
 
+declare let window: any;
+
 enum SourceType {
   Relational,
   PrioritizedWorker,
@@ -25,6 +27,9 @@ interface HierarchicalDataColumn {
 }
 
 const fieldManipulatorsInfoDict: any = {};
+const isDevelopmentMachine = ['localhost:3000', 'develop.stackblend.com', 'staging.stackblend.com', 'www.stackblend.com'].indexOf(location.host) != -1;
+const registeredEndpoint: string = (isDevelopmentMachine) ? window.ENDPOINT || null : null;
+const currentPath: string = (isDevelopmentMachine) ? window.PATH || null : null;
 
 const DataManipulationHelper = {
 	register: (guid: string, fields: string[]) => {
@@ -54,7 +59,7 @@ const DataManipulationHelper = {
 	  	
 	  	params['action'] = action;
 	  	
-	  	RequestHelper.post(`${location.protocol}//${location.host}${location.pathname}`, params)
+	  	RequestHelper.post((registeredEndpoint || `${location.protocol}//${location.host}`) + (currentPath || `${location.pathname}`), params)
 	  		.then((json) => {
 	  			if (json.success) {
 	  				if (json.redirect) {

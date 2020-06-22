@@ -16,7 +16,8 @@ enum ActionType {
   Delete,
   Retrieve,
   Popup,
-  Navigate
+  Navigate,
+  Test
 }
 interface HierarchicalDataTable {
 	source: SourceType;
