@@ -1,7 +1,7 @@
 {
   "version": 1,
   "globalSettings": {
-    "currentMode": "site",
+    "currentMode": "data",
     "externalLibraries": "react@16 jquery-core@3 bootstrap@4",
     "colorSwatches": [
       null,
@@ -148,7 +148,9 @@
   },
   "components": {},
   "popups": {},
-  "flows": {},
+  "flows": {
+    "default": "<body class=\"internal-fsb-guide-on internal-fsb-disabled-guide\"><div class=\"container-fluid internal-fsb-begin\" internal-fsb-guid=\"0\" style=\"height: 100%;\"><div class=\"row internal-fsb-absolute-layout internal-fsb-begin-layout internal-fsb-allow-cursor\" style=\"height: 100%; min-height: 191px;\" internal-fsb-event-no-propagate=\"1\"><div class=\"internal-fsb-element\" internal-fsb-guid=\"89a041e8\" internal-fsb-name=\"RelationalDatabase 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"RelationalDatabase\" style=\"; left: 70px; top: 62px; width: 389px; min-height: 79px\" data-title-name=\"Data Flow is underdevelopment, and your changes here have no effect to the project.\"><div class=\"internal-fsb-title\">Data Flow is underdevelopment, and your changes here have no effect to the project.</div><div class=\"container-fluid\"><div class=\"row internal-fsb-absolute-layout internal-fsb-allow-cursor\" internal-fsb-event-no-propagate=\"1\" style=\"position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; min-height: 63px;\"></div></div></div></div></div></body>"
+  },
   "services": {},
   "stylesheets": {
     "08abd2c9": "font-family: Courier Prime; font-size: 12px; color: rgba(156, 156, 156, 1); padding-top: 10px; padding-left: 10px; padding-bottom: 10px; padding-right: 10px; -fsb-reusable-name: note; -fsb-reusable-id: 08abd2c9"

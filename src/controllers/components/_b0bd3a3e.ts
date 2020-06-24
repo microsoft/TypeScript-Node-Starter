@@ -133,22 +133,6 @@ class Controller extends Base {
 	  // <---Auto[MergingBegin]
 	  
 	  // Auto[Merging]--->
-		RequestHelper.registerInput('5d980940', undefined, undefined, undefined);
-		ValidationHelper.registerInput('5d980940', "Textbox 1", false, undefined);
-    input = RequestHelper.getInput(request, '5d980940');
-    
-    // Override data parsing and manipulation of Textbox 1 here:
-    // 
-    
-    if (input != null) data.push(input);
-		RequestHelper.registerInput('88170786', undefined, undefined, undefined);
-		ValidationHelper.registerInput('88170786', "Select 1", false, undefined);
-    input = RequestHelper.getInput(request, '88170786');
-    
-    // Override data parsing and manipulation of Select 1 here:
-    // 
-    
-    if (input != null) data.push(input);
 	  // <---Auto[Merging]
 	  
 	  // Auto[MergingEnd]--->
