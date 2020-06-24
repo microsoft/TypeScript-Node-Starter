@@ -123,18 +123,21 @@ class Controller extends Base {
  		  }
  		}
  		
- 		RelationalDatabaseClient.query('INSERT INTO Settings (key, value) VALUES ?', [[[key, value]]], (function(error, results, fields) {
- 		  return new Promise((resolve, reject) => {
+ 		return new Promise((resolve, reject) => {
+   		RelationalDatabaseClient.query('INSERT INTO Settings (key, value) VALUES ?', [[[key, value]]], (function(error, results, fields) {
  		    if (error) {
  		      reject(error);
    		  } else {
    		    resolve({
-   		      key: key,
-   		      value: value
+   		      columns: [{
+   		        name: key,
+   		        value: value
+   		      }],
+   		      relations: []
    		    });
    		  }
- 		  });
- 		}));
+ 		  }));
+ 		});
   }
   
   protected async remove(data: Input[]): Promise<boolean> {
