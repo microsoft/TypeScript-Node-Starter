@@ -13,6 +13,7 @@ import {Base} from './Base.js';
 
 // Import additional modules here:
 //
+import {RelationalDatabaseClient} from '../helpers/ConnectionHelper.js'
 
 // Auto[Declare]--->
 /*enum SourceType {
