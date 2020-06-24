@@ -1,0 +1,73 @@
+//- Auto[Generating:V1]--->
+//- PLEASE DO NOT MODIFY BECAUSE YOUR CHANGES MAY BE LOST.
+
+.
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Saving Example</title>
+      <meta name="description" content="" />
+      <link rel="stylesheet" href="//staging.stackblend.com/css/embed.css">
+      <style type="text/css"></style>
+    </head>
+    <body>
+      
+      <div internal-fsb-guid="0" class="container-fluid internal-fsb-begin">
+        <div class="row internal-fsb-strict-layout internal-fsb-begin-layout">
+          <div internal-fsb-guid="a84b2958" class="internal-fsb-element col-3 offset-0">
+            <input style="display: block; width: 100%;" type="text" required="true" />
+          </div>
+          <div internal-fsb-guid="1765d360" class="internal-fsb-element col-3 offset-0">
+            <input style="display: block; width: 100%;" type="text" required="true" />
+          </div>
+          <button internal-fsb-guid="12817159" class="internal-fsb-element  col-2 offset-0" type="button" onClick="internalFsbSubmit('12817159', 'update', 'a84b2958 1765d360', null)">
+            <div internal-fsb-guid="12817159-text" class="internal-fsb-element">
+              Button
+            </div>
+          </button>
+        </div>
+      </div>
+      <script type="text/javascript" src="//staging.stackblend.com/js/Embed.bundle.js"></script>
+      <script type="text/javascript">
+      var Controller = /** @class */ (function () {
+          function Controller() {
+              this.dictionary = {};
+          }
+          Controller.prototype.register = function (guid, eventName, functionName) {
+              if (!this.dictionary[guid])
+                  this.dictionary[guid] = {};
+              this.dictionary[guid][eventName] = functionName;
+          };
+          Controller.prototype.listen = function (guid) {
+              if (this.dictionary[guid]) {
+                  for (var key in this.dictionary[guid]) {
+                      if (this.dictionary[guid].hasOwnProperty(key)) {
+                          var eventName = key;
+                          var functionName = this.dictionary[guid][key];
+                          var element = this.getElementUsingGUID(guid);
+                          element.addEventListener(eventName, this[functionName].bind(this), false);
+                      }
+                  }
+              }
+          };
+          Controller.prototype.getElementUsingGUID = function (guid) {
+              return document.querySelectorAll('[internal-fsb-guid="' + guid + '"]')[0];
+          };
+          return Controller;
+      }());
+      var controller = new Controller();
+      
+      </script>
+      
+      <script type="text/javascript">
+      window.data = !{data} || null;
+      </script>
+      <script type="text/javascript" src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+      <script type="text/javascript" src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+      <script type="text/javascript" src="/js/Site.bundle.js"></script>
+    </body>
+  </html>
+
+//- <--- Auto[Generating:V1]
+//- PLEASE DO NOT MODIFY BECAUSE YOUR CHANGES MAY BE LOST.
