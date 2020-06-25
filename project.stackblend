@@ -1,7 +1,7 @@
 {
   "version": 1,
   "globalSettings": {
-    "currentMode": "data",
+    "currentMode": "site",
     "externalLibraries": "react@16 jquery-core@3 bootstrap@4",
     "colorSwatches": [
       null,
@@ -33,7 +33,7 @@
       null,
       null
     ],
-    "editingPageID": "b0bd3a3e",
+    "editingPageID": "index",
     "editingComponentID": null,
     "editingPopupID": null,
     "pages": [
@@ -58,10 +58,10 @@
     ],
     "components": [],
     "popups": [],
-    "internal-fsb-data-code-import": null,
-    "internal-fsb-data-code-declare": null,
-    "internal-fsb-data-code-interface": null,
-    "internal-fsb-data-code-body": null,
+    "internal-fsb-data-code-import": "\n\n// Import additional modules here:\n//\n\n",
+    "internal-fsb-data-code-declare": "\n\n// Declare private static variables here:\n//\n\n",
+    "internal-fsb-data-code-interface": "\n\n// Declare or extend interfaces here:\n//\n\n",
+    "internal-fsb-data-code-body": "\n  \n  // Declare class variables and functions here:\n  //\n  protected validate(data: Input[]): void {\n  \t// The message of thrown error will be the validation message.\n  \t//\n \t\tValidationHelper.validate(data);\n  }\n  \n  protected async get(data: Input[]): Promise<HierarchicalDataTable[]> {\n \t\treturn [{\n \t\t  source: null,\n \t\t  group: \"Custom\",\n \t\t  rows: [{\n \t\t    columns: [{\n \t\t      name: \"message\",\n \t\t      value: \"Hello World!\"\n \t\t    }],\n \t\t    relations: []\n \t\t  }]\n \t\t}];\n  }\n  \n  protected async post(data: Input[]): Promise<HierarchicalDataTable[]> {\n \t\treturn super.post(data);\n  }\n  \n  protected async put(data: Input[]): Promise<HierarchicalDataTable[]> {\n \t\treturn super.put(data);\n  }\n  \n  protected async delete(data: Input[]): Promise<HierarchicalDataTable[]> {\n \t\treturn super.delete(data);\n  }\n  \n  protected async insert(data: Input[]): Promise<HierarchicalDataRow> {\n \t\treturn await DatabaseHelper.insert(data);\n  }\n  \n  protected async update(data: Input[]): Promise<HierarchicalDataRow> {\n \t\treturn await DatabaseHelper.update(data);\n  }\n  \n  protected async remove(data: Input[]): Promise<boolean> {\n \t\treturn await DatabaseHelper.delete(data);\n  }\n  \n  protected async retrieve(data: Input[]): Promise<HierarchicalDataTable> {\n \t\treturn await DatabaseHelper.retrieve(data);\n  }\n  \n  protected async navigate(data: Input[]): Promise<string> {\n \t\treturn '/';\n  }\n \t\n  ",
     "internal-fsb-data-code-footer": null
   },
   "sites": {
@@ -73,13 +73,13 @@
       "head": {
         "fonts": {}
       },
-      "body": "<body class=\"internal-fsb-guide-on\"><div class=\"container-fluid internal-fsb-begin\" internal-fsb-guid=\"0\"><div class=\"row internal-fsb-strict-layout internal-fsb-begin-layout internal-fsb-allow-cursor\" internal-fsb-event-no-propagate=\"1\"><div contenteditable=\"true\" class=\"internal-fsb-element col-12\" internal-fsb-guid=\"9bab7d34\" internal-fsb-name=\"TextElement 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"TextElement\" internal-fsb-react-mode=\"Document\" internal-fsb-react-data=\"Custom.message\">ABC</div></div></div></body>",
+      "body": "<body class=\"internal-fsb-guide-on\"><div class=\"container-fluid internal-fsb-begin\" internal-fsb-guid=\"0\"><div class=\"row internal-fsb-strict-layout internal-fsb-begin-layout internal-fsb-allow-cursor\" internal-fsb-event-no-propagate=\"1\"><div contenteditable=\"true\" class=\"internal-fsb-element col-12 -fsb-preset-08abd2c9\" internal-fsb-guid=\"c4382c32\" internal-fsb-name=\"TextElement 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"TextElement\" style=\"-fsb-inherited-presets: 08abd2c9\"><div>Developer Note:&nbsp;</div><div><br></div><div>To test this page, you must configure an end point which is a development or staging server, that deploys the repository, via Settings.</div><div><br></div><div>If you configure it correctly, the text box below will show a custom message instead of ABC.</div></div><div contenteditable=\"true\" class=\"internal-fsb-element col-12\" internal-fsb-guid=\"9bab7d34\" internal-fsb-name=\"TextElement 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"TextElement\" internal-fsb-react-mode=\"Document\" internal-fsb-react-data=\"Custom.message\">ABC</div></div></div></body>",
       "accessories": {
-        "selectingElementGUID": "9bab7d34",
+        "selectingElementGUID": "c4382c32",
         "currentCursorWalkPath": [
           "0",
           0,
-          1,
+          2,
           null
         ]
       },
