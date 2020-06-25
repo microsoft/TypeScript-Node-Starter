@@ -4,9 +4,9 @@
     "currentMode": "site",
     "externalLibraries": "react@16 jquery-core@3 bootstrap@4",
     "colorSwatches": [
-      null,
-      null,
-      null,
+      "rgba(3, 115, 252, 1)",
+      "rgba(255, 0, 85, 1)",
+      "rgba(255, 255, 255, 1)",
       null,
       null,
       null,
@@ -34,7 +34,7 @@
       null
     ],
     "editingPageID": "index",
-    "editingComponentID": null,
+    "editingComponentID": "5382c791",
     "editingPopupID": null,
     "pages": [
       {
@@ -54,9 +54,21 @@
         "name": "Bootstrap Demo",
         "path": "/bootstrap_demo",
         "state": "update"
+      },
+      {
+        "id": "39ee7bcc",
+        "name": "Component Demo",
+        "path": "/component_demo",
+        "state": "update"
       }
     ],
-    "components": [],
+    "components": [
+      {
+        "id": "5382c791",
+        "name": "Example Component",
+        "state": "update"
+      }
+    ],
     "popups": [],
     "internal-fsb-data-code-import": "\n\n// Import additional modules here:\n//\n\n",
     "internal-fsb-data-code-declare": "\n\n// Declare private static variables here:\n//\n\n",
@@ -144,9 +156,41 @@
         "internal-fsb-data-code-body": null,
         "internal-fsb-data-code-footer": null
       }
+    },
+    "39ee7bcc": {
+      "id": "39ee7bcc",
+      "name": "Component Demo",
+      "path": "/component_demo",
+      "state": "update",
+      "head": {
+        "fonts": {}
+      },
+      "body": "<body class=\"internal-fsb-guide-on\"><div class=\"container-fluid internal-fsb-begin\" internal-fsb-guid=\"0\"><div class=\"row internal-fsb-strict-layout internal-fsb-begin-layout internal-fsb-allow-cursor\" internal-fsb-event-no-propagate=\"1\"><div class=\"internal-fsb-element col-4 offset-0\" internal-fsb-guid=\"5382c791\" internal-fsb-name=\"FlowLayout 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"FlowLayout\" style=\"min-height: 200px; -fsb-background-type: linear; background: linear-gradient(90deg, rgba(3, 115, 252, 1) 0%, rgba(255, 0, 85, 1) 100%)\" internal-fsb-react-mode=\"Site\"><div class=\"container-fluid\"><div class=\"row internal-fsb-strict-layout internal-fsb-allow-cursor\" internal-fsb-event-no-propagate=\"1\"><div contenteditable=\"true\" class=\"internal-fsb-element col-12 offset-0\" internal-fsb-guid=\"7e72dc95\" internal-fsb-name=\"TextElement 2\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"TextElement\" style=\"color: rgba(255, 255, 255, 0.83); text-align: center\"><div><br></div><div><br></div><div><br></div>This is a component which can be duplicated.</div></div></div></div><div class=\"col-4 offset-0 internal-fsb-element  \" internal-fsb-guid=\"aba587c6\" internal-fsb-name=\"Example Component 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"FlowLayout\" style=\"min-height: 200px; -fsb-background-type: linear; background: linear-gradient(90deg, rgba(3, 115, 252, 1) 0%, rgba(255, 0, 85, 1) 100%)\" internal-fsb-react-mode=\"Site\" internal-fsb-inheriting=\"5382c791\"><div class=\"container-fluid\"><div class=\"row internal-fsb-strict-layout\" internal-fsb-event-no-propagate=\"1\"><div contenteditable=\"true\" class=\"col-12 offset-0 internal-fsb-inheriting-element\" internal-fsb-name=\"TextElement 2\" internal-fsb-event-no-propagate=\"1\" style=\"color: rgba(255, 255, 255, 0.83); text-align: center\"><div class=\"\"><br class=\"\"></div><div class=\"\"><br class=\"\"></div><div class=\"\"><br class=\"\"></div>This is a component which can be duplicated.</div></div></div></div><div class=\"col-4 offset-0 internal-fsb-element  \" internal-fsb-guid=\"106ad665\" internal-fsb-name=\"Example Component 2\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"FlowLayout\" style=\"min-height: 200px; -fsb-background-type: linear; background: linear-gradient(90deg, rgba(3, 115, 252, 1) 0%, rgba(255, 0, 85, 1) 100%)\" internal-fsb-react-mode=\"Site\" internal-fsb-inheriting=\"5382c791\"><div class=\"container-fluid\"><div class=\"row internal-fsb-strict-layout\" internal-fsb-event-no-propagate=\"1\"><div contenteditable=\"true\" class=\"col-12 offset-0 internal-fsb-inheriting-element\" internal-fsb-name=\"TextElement 2\" internal-fsb-event-no-propagate=\"1\" style=\"color: rgba(255, 255, 255, 0.83); text-align: center\"><div class=\"\"><br class=\"\"></div><div class=\"\"><br class=\"\"></div><div class=\"\"><br class=\"\"></div>This is a component which can be duplicated.</div></div></div></div></div></div></body>",
+      "accessories": {
+        "selectingElementGUID": "7e72dc95",
+        "currentCursorWalkPath": [
+          "0",
+          0,
+          3,
+          null
+        ]
+      },
+      "extensions": {
+        "internal-fsb-data-code-import": null,
+        "internal-fsb-data-code-declare": null,
+        "internal-fsb-data-code-interface": null,
+        "internal-fsb-data-code-body": null,
+        "internal-fsb-data-code-footer": null
+      }
     }
   },
-  "components": {},
+  "components": {
+    "5382c791": {
+      "namespace": "Project.Controls",
+      "klass": "FlowLayout_5382c791",
+      "html": "<div class=\"internal-fsb-element col-4 offset-0\" internal-fsb-guid=\"5382c791\" internal-fsb-name=\"FlowLayout 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"FlowLayout\" style=\"min-height: 200px; -fsb-background-type: linear; background: linear-gradient(90deg, rgba(3, 115, 252, 1) 0%, rgba(255, 0, 85, 1) 100%)\" internal-fsb-react-mode=\"Site\"><div class=\"container-fluid\"><div class=\"row internal-fsb-strict-layout internal-fsb-allow-cursor\" internal-fsb-event-no-propagate=\"1\"><div contenteditable=\"true\" class=\"internal-fsb-element col-12 offset-0\" internal-fsb-guid=\"7e72dc95\" internal-fsb-name=\"TextElement 2\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"TextElement\" style=\"color: rgba(255, 255, 255, 0.83); text-align: center\"><div><br></div><div><br></div><div><br></div>This is a component which can be duplicated.</div></div></div></div>"
+    }
+  },
   "popups": {},
   "flows": {
     "default": "<body class=\"internal-fsb-guide-on internal-fsb-disabled-guide\"><div class=\"container-fluid internal-fsb-begin\" internal-fsb-guid=\"0\" style=\"height: 100%;\"><div class=\"row internal-fsb-absolute-layout internal-fsb-begin-layout internal-fsb-allow-cursor\" style=\"height: 100%; min-height: 191px;\" internal-fsb-event-no-propagate=\"1\"><div class=\"internal-fsb-element\" internal-fsb-guid=\"89a041e8\" internal-fsb-name=\"RelationalDatabase 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"RelationalDatabase\" style=\"; left: 70px; top: 62px; width: 389px; min-height: 79px\" data-title-name=\"Data Flow is underdevelopment, and your changes here have no effect to the project.\"><div class=\"internal-fsb-title\">Data Flow is underdevelopment, and your changes here have no effect to the project.</div><div class=\"container-fluid\"><div class=\"row internal-fsb-absolute-layout internal-fsb-allow-cursor\" internal-fsb-event-no-propagate=\"1\" style=\"position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; min-height: 63px;\"></div></div></div></div></div></body>"
@@ -159,6 +203,18 @@
     [
       "TextElement_9bab7d34",
       "0c2054b1f286d3aa853076f5b6d306decaf2a4fa"
+    ],
+    [
+      "FlowLayout_5382c791",
+      "7028f59e53d9892107da0ef368afaaa3c4b7426f"
+    ],
+    [
+      "FlowLayout_aba587c6",
+      "2967e32dbf51a5b57d908ae699291eaf3552fdcf"
+    ],
+    [
+      "FlowLayout_106ad665",
+      "8fefb5f70d7db7ad38d7f5ced0c135ffac1b4588"
     ]
   ]
 }
