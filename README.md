@@ -52,4 +52,4 @@ To get started:
 
 ## Questions?
 
-For any questions, please send and email to [jatupon@softenstorm.com](mailto:jatupon@softenstorm.com).
+For any questions, please send an email to [jatupon@softenstorm.com](mailto:jatupon@softenstorm.com).
