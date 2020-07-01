@@ -2,6 +2,7 @@
 // PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
 
 import {SourceType} from "./DatabaseHelper.js";
+import {ProjectConfigurationHelper} from "./ProjectConfigurationHelper.js";
 
 enum FieldType {
   AutoNumber,

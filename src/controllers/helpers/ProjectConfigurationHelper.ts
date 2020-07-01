@@ -1,8 +1,11 @@
 // Auto[Generating:V1]--->
 // PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
 
-import * as data from '../../../../project.stackblend';
-import {DataSchema} from './SchemaHelper.js';
+import fs from "fs";
+import {DataSchema} from "./SchemaHelper.js";
+
+const file = fs.readFileSync("../../../project.stackblend", "utf8");
+const data = JSON.parse(file);
 
 const ProjectConfigurationHelper = {
 	getDataSchema: (): DataSchema => {

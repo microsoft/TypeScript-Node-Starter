@@ -3,11 +3,11 @@
 
 // Auto[Import]--->
 import {Request, Response} from "express";
-import {SourceType, ActionType, HierarchicalDataTable, HierarchicalDataRow, HierarchicalDataColumn, Input, DatabaseHelper} from '../helpers/DatabaseHelper.js';
-import {ValidationInfo, ValidationHelper} from '../helpers/ValidationHelper.js';
-import {RequestHelper} from '../helpers/RequestHelper.js';
-import {RenderHelper} from '../helpers/RenderHelper.js';
-import {Base} from './Base.js';
+import {SourceType, ActionType, HierarchicalDataTable, HierarchicalDataRow, HierarchicalDataColumn, Input, DatabaseHelper} from "../helpers/DatabaseHelper.js";
+import {ValidationInfo, ValidationHelper} from "../helpers/ValidationHelper.js";
+import {RequestHelper} from "../helpers/RequestHelper.js";
+import {RenderHelper} from "../helpers/RenderHelper.js";
+import {Base} from "./Base.js";
 
 // <---Auto[Import]
 
@@ -73,7 +73,7 @@ class Controller extends Base {
   	super(request, response, template);
   	
   	try {
-	    let [action, data] = this.initialize(request);
+	    const [action, data] = this.initialize(request);
 	    this.perform(action, data);
    	} catch(error) {
 	  	RenderHelper.error(this.response, error);
@@ -122,29 +122,29 @@ class Controller extends Base {
   }
   
   protected async navigate(data: Input[]): Promise<string> {
- 		return '/';
+ 		return "/";
   }
  	
   // Auto[MergingBegin]--->  
   private initialize(request: Request): [ActionType, Input[]] {
-  	let action: ActionType = RequestHelper.getAction(request);
-  	let data: Input[] = [];
+  	const action: ActionType = RequestHelper.getAction(request);
+  	const data: Input[] = [];
   	let input: Input = null;
   	
 	  // <---Auto[MergingBegin]
 	  
 	  // Auto[Merging]--->
-		RequestHelper.registerInput('5d980940', undefined, undefined, undefined);
-		ValidationHelper.registerInput('5d980940', "Textbox 1", false, undefined);
-    input = RequestHelper.getInput(request, '5d980940');
+		RequestHelper.registerInput("5d980940", undefined, undefined, undefined);
+		ValidationHelper.registerInput("5d980940", "Textbox 1", false, undefined);
+    input = RequestHelper.getInput(request, "5d980940");
     
     // Override data parsing and manipulation of Textbox 1 here:
     // 
     
     if (input != null) data.push(input);
-		RequestHelper.registerInput('88170786', undefined, undefined, undefined);
-		ValidationHelper.registerInput('88170786', "Select 1", false, undefined);
-    input = RequestHelper.getInput(request, '88170786');
+		RequestHelper.registerInput("88170786", undefined, undefined, undefined);
+		ValidationHelper.registerInput("88170786", "Select 1", false, undefined);
+    input = RequestHelper.getInput(request, "88170786");
     
     // Override data parsing and manipulation of Select 1 here:
     // 

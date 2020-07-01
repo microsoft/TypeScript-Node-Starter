@@ -3,17 +3,17 @@
 
 // Auto[Import]--->
 import {Request, Response} from "express";
-import {SourceType, ActionType, HierarchicalDataTable, HierarchicalDataRow, HierarchicalDataColumn, Input, DatabaseHelper} from '../helpers/DatabaseHelper.js';
-import {ValidationInfo, ValidationHelper} from '../helpers/ValidationHelper.js';
-import {RequestHelper} from '../helpers/RequestHelper.js';
-import {RenderHelper} from '../helpers/RenderHelper.js';
-import {Base} from './Base.js';
+import {SourceType, ActionType, HierarchicalDataTable, HierarchicalDataRow, HierarchicalDataColumn, Input, DatabaseHelper} from "../helpers/DatabaseHelper.js";
+import {ValidationInfo, ValidationHelper} from "../helpers/ValidationHelper.js";
+import {RequestHelper} from "../helpers/RequestHelper.js";
+import {RenderHelper} from "../helpers/RenderHelper.js";
+import {Base} from "./Base.js";
 
 // <---Auto[Import]
 
 // Import additional modules here:
 // 
-import {RelationalDatabaseClient} from '../helpers/ConnectionHelper.js'
+import {RelationalDatabaseClient} from "../helpers/ConnectionHelper.js";
 
 // Auto[Declare]--->
 /*enum SourceType {
@@ -74,7 +74,7 @@ class Controller extends Base {
   	super(request, response, template);
   	
   	try {
-	    let [action, data] = this.initialize(request);
+	    const [action, data] = this.initialize(request);
 	    this.perform(action, data);
    	} catch(error) {
 	  	RenderHelper.error(this.response, error);
@@ -113,19 +113,19 @@ class Controller extends Base {
   protected async update(data: Input[]): Promise<HierarchicalDataRow[]> {
     let key: string;
     let value: string;
- 		for (let input of data) {
+ 		for (const input of data) {
  		  switch (input.name) {
- 		    case 'key':
+ 		    case "key":
  		      key = input.value;
  		      break;
- 		    case 'value':
+ 		    case "value":
  		      value = input.value;
  		      break;
  		  }
  		}
  		
  		return new Promise((resolve, reject) => {
-   		RelationalDatabaseClient.query('INSERT INTO Settings (key, value) VALUES ?', [[[key, value]]], (function(error, results, fields) {
+   		RelationalDatabaseClient.query("INSERT INTO Settings (key, value) VALUES ?", [[[key, value]]], (function(error, results, fields) {
  		    if (error) {
  		      reject(error);
    		  } else {
@@ -133,11 +133,11 @@ class Controller extends Base {
    		      keys: {},
    		      columns: {
    		        key: {
-   		          name: 'key',
+   		          name: "key",
    		          value: key
    		        },
    		        value: {
-   		          name: 'value',
+   		          name: "value",
    		          value: value
    		        }
    		      },
@@ -157,29 +157,29 @@ class Controller extends Base {
   }
   
   protected async navigate(data: Input[]): Promise<string> {
- 		return '/';
+ 		return "/";
   }
  	
   // Auto[MergingBegin]--->  
   private initialize(request: Request): [ActionType, Input[]] {
-  	let action: ActionType = RequestHelper.getAction(request);
-  	let data: Input[] = [];
+  	const action: ActionType = RequestHelper.getAction(request);
+  	const data: Input[] = [];
   	let input: Input = null;
   	
 	  // <---Auto[MergingBegin]
 	  
 	  // Auto[Merging]--->
-		RequestHelper.registerInput('a84b2958', "relational", "Settings", "key");
-		ValidationHelper.registerInput('a84b2958', "Textbox 1", true, "Needed Key");
-    input = RequestHelper.getInput(request, 'a84b2958');
+		RequestHelper.registerInput("a84b2958", "relational", "Settings", "key");
+		ValidationHelper.registerInput("a84b2958", "Textbox 1", true, "Needed Key");
+    input = RequestHelper.getInput(request, "a84b2958");
     
     // Override data parsing and manipulation of Textbox 1 here:
     // 
     
     if (input != null) data.push(input);
-		RequestHelper.registerInput('1765d360', "relational", "Settings", "value");
-		ValidationHelper.registerInput('1765d360', "Textbox 2", true, "Needed Value");
-    input = RequestHelper.getInput(request, '1765d360');
+		RequestHelper.registerInput("1765d360", "relational", "Settings", "value");
+		ValidationHelper.registerInput("1765d360", "Textbox 2", true, "Needed Value");
+    input = RequestHelper.getInput(request, "1765d360");
     
     // Override data parsing and manipulation of Textbox 2 here:
     // 
