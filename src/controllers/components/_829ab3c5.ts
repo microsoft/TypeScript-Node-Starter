@@ -12,7 +12,7 @@ import {Base} from './Base.js';
 // <---Auto[Import]
 
 // Import additional modules here:
-//
+// 
 import {RelationalDatabaseClient} from '../helpers/ConnectionHelper.js'
 
 // Auto[Declare]--->
