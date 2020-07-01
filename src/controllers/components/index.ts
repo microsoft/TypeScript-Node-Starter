@@ -41,13 +41,14 @@ enum ValidationInfo {
 
 // Auto[Interface]--->
 /*interface HierarchicalDataTable {
-  source: SourceType;
+	source: SourceType;
 	group: string;
   rows: HierarchicalDataRow[];
 }
 interface HierarchicalDataRow {
-  columns: HierarchicalDataColumn[];
-  relations: HierarchicalDataTable[];
+  keys: {[Identifier: string]: HierarchicalDataColumn};
+  columns: {[Identifier: string]: HierarchicalDataColumn};
+  relations: {[Identifier: string]: HierarchicalDataTable};
 }
 interface HierarchicalDataColumn {
 	name: string;
