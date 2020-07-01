@@ -89,45 +89,50 @@ class Controller extends Base {
  		ValidationHelper.validate(data);
   }
   
-  protected async get(data: Input[]): Promise<HierarchicalDataTable[]> {
- 		return [{
- 		  source: null,
- 		  group: "Custom",
- 		  rows: [{
- 		    columns: [{
- 		      name: "message",
- 		      value: "Hello World!"
- 		    }],
- 		    relations: []
- 		  }]
- 		}];
+  protected async get(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
+ 		return {
+ 		  Custom: {
+   		  source: null,
+   		  group: "Custom",
+   		  rows: [{
+   		    keys: {},
+   		    columns: {
+   		      message: {
+   		        name: "message",
+   		        value: "Hello World!"
+   		      }
+   		    },
+   		    relations: {}
+   		  }]
+ 		  }
+ 		};
   }
   
-  protected async post(data: Input[]): Promise<HierarchicalDataTable[]> {
+  protected async post(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		return super.post(data);
   }
   
-  protected async put(data: Input[]): Promise<HierarchicalDataTable[]> {
+  protected async put(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		return super.put(data);
   }
   
-  protected async delete(data: Input[]): Promise<HierarchicalDataTable[]> {
+  protected async delete(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		return super.delete(data);
   }
   
-  protected async insert(data: Input[]): Promise<HierarchicalDataRow> {
+  protected async insert(data: Input[]): Promise<HierarchicalDataRow[]> {
  		return await DatabaseHelper.insert(data);
   }
   
-  protected async update(data: Input[]): Promise<HierarchicalDataRow> {
+  protected async update(data: Input[]): Promise<HierarchicalDataRow[]> {
  		return await DatabaseHelper.update(data);
   }
   
-  protected async remove(data: Input[]): Promise<boolean> {
+  protected async remove(data: Input[]): Promise<HierarchicalDataRow[]> {
  		return await DatabaseHelper.delete(data);
   }
   
-  protected async retrieve(data: Input[]): Promise<HierarchicalDataTable> {
+  protected async retrieve(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		return await DatabaseHelper.retrieve(data);
   }
   
