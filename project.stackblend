@@ -33,7 +33,7 @@
       null,
       null
     ],
-    "editingPageID": "b0bd3a3e",
+    "editingPageID": "39ee7bcc",
     "editingComponentID": "5382c791",
     "editingPopupID": null,
     "pages": [
@@ -181,10 +181,10 @@
         ]
       },
       "extensions": {
-        "internal-fsb-data-code-import": null,
-        "internal-fsb-data-code-declare": null,
-        "internal-fsb-data-code-interface": null,
-        "internal-fsb-data-code-body": null,
+        "internal-fsb-data-code-import": "\n\n// Import additional modules here:\n// \n\n",
+        "internal-fsb-data-code-declare": "\n\n// Declare private static variables here:\n//\n\n",
+        "internal-fsb-data-code-interface": "\n\n// Declare or extend interfaces here:\n//\n\n",
+        "internal-fsb-data-code-body": "\n  \n  // Declare class variables and functions here:\n  //\n  protected validate(data: Input[]): void {\n  \t// The message of thrown error will be the validation message.\n  \t//\n \t\tValidationHelper.validate(data);\n  }\n  \n  protected async get(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {\n \t\treturn super.get(data);\n  }\n  \n  protected async post(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {\n \t\treturn super.post(data);\n  }\n  \n  protected async put(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {\n \t\treturn super.put(data);\n  }\n  \n  protected async delete(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {\n \t\treturn super.delete(data);\n  }\n  \n  protected async insert(data: Input[]): Promise<HierarchicalDataRow[]> {\n \t\treturn await DatabaseHelper.insert(data);\n  }\n  \n  protected async update(data: Input[]): Promise<HierarchicalDataRow[]> {\n \t\treturn await DatabaseHelper.update(data);\n  }\n  \n  protected async remove(data: Input[]): Promise<HierarchicalDataRow[]> {\n \t\treturn await DatabaseHelper.delete(data);\n  }\n  \n  protected async retrieve(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {\n \t\treturn await DatabaseHelper.retrieve(data);\n  }\n  \n  protected async navigate(data: Input[]): Promise<string> {\n \t\treturn '/';\n  }\n \t\n  ",
         "internal-fsb-data-code-footer": null
       }
     }
@@ -193,7 +193,10 @@
     "5382c791": {
       "namespace": "Project.Controls",
       "klass": "FlowLayout_5382c791",
-      "html": "<div class=\"internal-fsb-element col-4 offset-0\" internal-fsb-guid=\"5382c791\" internal-fsb-name=\"FlowLayout 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"FlowLayout\" style=\"min-height: 200px; -fsb-background-type: linear; background: linear-gradient(90deg, rgba(3, 115, 252, 1) 0%, rgba(255, 0, 85, 1) 100%)\" internal-fsb-react-mode=\"Site\"><div class=\"container-fluid\" internal-fsb-event-no-propagate=\"1\"><div class=\"row internal-fsb-strict-layout internal-fsb-allow-cursor\"><div contenteditable=\"true\" class=\"internal-fsb-element col-12 offset-0\" internal-fsb-guid=\"7e72dc95\" internal-fsb-name=\"TextElement 2\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"TextElement\" style=\"color: rgba(255, 255, 255, 0.83); text-align: center\"><div><br></div><div><br></div><div><br></div>This is a component which can be duplicated.</div></div></div></div>"
+      "html": "<div class=\"internal-fsb-element col-4 offset-0\" internal-fsb-guid=\"5382c791\" internal-fsb-name=\"FlowLayout 1\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"FlowLayout\" style=\"min-height: 200px; -fsb-background-type: linear; background: linear-gradient(90deg, rgba(3, 115, 252, 1) 0%, rgba(255, 0, 85, 1) 100%)\" internal-fsb-react-mode=\"Site\"><div class=\"container-fluid\" internal-fsb-event-no-propagate=\"1\"><div class=\"row internal-fsb-strict-layout internal-fsb-allow-cursor\"><div contenteditable=\"true\" class=\"internal-fsb-element col-12 offset-0\" internal-fsb-guid=\"7e72dc95\" internal-fsb-name=\"TextElement 2\" internal-fsb-event-no-propagate=\"1\" internal-fsb-class=\"TextElement\" style=\"color: rgba(255, 255, 255, 0.83); text-align: center\"><div><br></div><div><br></div><div><br></div>This is a component which can be duplicated.</div></div></div></div>",
+      "id": "5382c791",
+      "name": "Example Component",
+      "state": "update"
     }
   },
   "popups": {},
