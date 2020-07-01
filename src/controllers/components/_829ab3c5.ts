@@ -129,7 +129,7 @@ class Controller extends Base {
  		    if (error) {
  		      reject(error);
    		  } else {
-   		    resolve({
+   		    resolve([{
    		      keys: {},
    		      columns: {
    		        key: {
@@ -142,7 +142,7 @@ class Controller extends Base {
    		        }
    		      },
    		      relations: {}
-   		    });
+   		    }]);
    		  }
  		  }));
  		});
