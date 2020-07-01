@@ -9,11 +9,11 @@ declare let React: any;
 declare let ReactDOM: any;
 
 interface IBaseProps {
-	data: HierarchicalDataTable[];
+	data: {[Identifier: string]: HierarchicalDataTable};
 }
 
 interface IBaseState {
-	data: HierarchicalDataTable[];
+	data: {[Identifier: string]: HierarchicalDataTable};
 }
 
 let DefaultBaseProps: any = {
@@ -23,32 +23,93 @@ let DefaultBaseState: any = {
 	data: null
 };
 
+const controls: any = [];
+const update = (data: any) => {
+  for (let control of controls) {
+    try {
+      control.update(data);
+    } catch { /* void */ }
+  }
+};
+
 class Base extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+    controls.push(this);
+  }
+  
+  public update(data: any) {
+    this.setState({
+      data: data
+    });
+  }
+  
+  protected getDataFromNotation(notation: string): any {
+    if (!notation) {
+      console.log('There was an error processing hierarchical data on client side (missing notation).');
+      return [];
     }
     
-    protected getDataFromNotation(notation: string): any {
-        if (!notation) {
-            console.log('There was an error processing hierarchical data on client side (missing notation).');
-            return [];
+    if (this.state.data) {
+    	return DataManipulationHelper.getDataFromNotation(notation, this.state.data);
+    } else if (this.props.data) {
+    	return DataManipulationHelper.getDataFromNotation(notation, this.props.data);
+    } else {
+      console.log('There was an error processing hierarchical data on client side (no data).');
+      return [];
+    }
+  }
+  
+  public manipulate(action: string, notation: string, results: any, options: any) {
+    let data = this.getDataFromNotation(notation);
+    switch (action) {
+      case 'insert':
+        for (let result of results) {
+          data.rows.push(result);
         }
-        
-        if (this.state.data) {
-        		return DataManipulationHelper.getDataFromNotation(notation, this.state.data);
-        } else if (this.props.data) {
-        		return DataManipulationHelper.getDataFromNotation(notation, this.props.data);
-        } else {
-            console.log('There was an error processing hierarchical data on client side (no data).');
-            return [];
+        break;
+      case 'update':
+        for (let result of results) {
+          data.rows = data.rows.map((row) => {
+            for (let key in row.keys) {
+              if (row.keys.hasOwnProperty(key)) {
+                if (row.keys[key].value != result.keys[key].value) {
+                  return result;
+                }
+              }
+            }
+            return row;
+          });
         }
+        break;
+      case 'delete':
+        for (let result of results) {
+          data.rows = data.rows.filter((row) => {
+            for (let key in row.keys) {
+              if (row.keys.hasOwnProperty(key)) {
+                if (row.keys[key].value != result.keys[key].value) return true;
+              }
+            }
+            return false;
+          });
+        }
+        break;
+      case 'retrieve':
+        update(results);
+        break;
+      case 'popup':
+        let container = document.createElement('div');
+        ReactDOM.render(React.createElement(DeclarationHelper.get(options.initClass), {data: results}, null), container);
+        document.body.appendChild(container.firstChild);
+        break;
+      case 'navigate':
+        /* handled */
+        break;
     }
-    
-    public manipulate(action: string, results: any) {
-        
-    }
-    
-    protected render() { }
+    update(data);
+  }
+  
+  protected render() { }
 }
 
 DeclarationHelper.declare('Site', 'Components.Base', Base);

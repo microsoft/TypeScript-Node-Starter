@@ -22,7 +22,7 @@ const RenderHelper = {
 			redirect: data
 		});
 	},
-	page: (response: Response, path: string, data: any[]) => {
+	page: (response: Response, path: string, data: any) => {
 	  if (response.headersSent) return;
 	  response.render(path, {
 	    data: JSON.stringify(data)

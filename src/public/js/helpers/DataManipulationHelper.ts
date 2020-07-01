@@ -18,8 +18,9 @@ interface HierarchicalDataTable {
   rows: HierarchicalDataRow[];
 }
 interface HierarchicalDataRow {
-  columns: HierarchicalDataColumn[];
-  relations: HierarchicalDataTable[];
+  keys: {[Identifier: string]: HierarchicalDataColumn};
+  columns: {[Identifier: string]: HierarchicalDataColumn};
+  relations: {[Identifier: string]: HierarchicalDataTable};
 }
 interface HierarchicalDataColumn {
 	name: string;
@@ -37,7 +38,7 @@ const DataManipulationHelper = {
 			fieldManipulatorsInfoDict[guid] = fields;
 		}
 	},
-  request: (guid: string, action: string, callback: any) => {
+  request: (guid: string, action: string, notation: string, options: any, callback: any) => {
   	if (fieldManipulatorsInfoDict[guid]) {
   		const params = {};
   		const fields = fieldManipulatorsInfoDict[guid];
@@ -66,7 +67,7 @@ const DataManipulationHelper = {
 	  				  window.location = json.redirect;
 	  				} else {
 	  				  if (callback) {
-  	  				  callback(action, json.results);
+  	  				  callback(action, notation, json.results, options);
   	  				} else {
   	  				  alert(`There was an error rendering the data on client side (needed component).`);
   	  				}
@@ -83,33 +84,33 @@ const DataManipulationHelper = {
 	  		});
   	}
   },
-  getDataFromKey: (key: string, current: HierarchicalDataRow, searchForFinalResults: boolean=false): any => {
+  getDataFromKey: (key: string, current: HierarchicalDataRow, searchForFinalResults: boolean=false, index: number=0): any => {
 		if (!searchForFinalResults) {
 			// Search HierarchicalDataTable
 			// 
-			let tables = (current.relations || []).filter(table => (table.group == key));
-			if (tables.length > 0 && tables[0].rows && tables[0].rows.length > 0) {
-				return tables[0].rows[0];
+			let table = (current.relations || {})[key];
+			if (table) {
+				return table.rows[index];
 			} else {
 				return null;
 			}
 		} else {
 			// Search HierarchicalDataColumn
 			// 
-			let columns = (current.columns || []).filter(column => (column.name == key));
-			if (columns.length > 0) {
-				return columns[0].value;
+			let column = (current.keys || {})[key] || (current.columns || {})[key];
+			if (column) {
+				return column.value;
 			} else {
-				let tables = (current.relations || []).filter(table => (table.group == key));
-				if (tables.length > 0 && tables[0].rows && tables[0].rows.length > 0) {
-					return tables[0].rows[0].relations;
+				let table = (current.relations || {})[key];
+				if (table) {
+					return table.rows;
 				} else {
 					return null;
 				}
 			}
 		}
   },
-  getDataFromNotation: (notation: string, data: HierarchicalDataTable[]): any => {
+  getDataFromNotation: (notation: string, data: {[Identifier: string]: HierarchicalDataTable}): any => {
     if (!notation) {
       console.log('There was an error processing hierarchical data on client side (missing notation).');
       return [];
@@ -117,13 +118,21 @@ const DataManipulationHelper = {
     
     let splited = notation.split('.');
     let current = {
+			keys: null,
 			columns: null,
 			relations: data
 		};
 		
 		let shifted = splited.shift();
 		while (current && shifted) {
-			current = DataManipulationHelper.getDataFromKey(shifted, current, splited.length == 0);
+		  let tokens = shifted.split('[');
+		  if (tokens.length == 1) {
+			  current = DataManipulationHelper.getDataFromKey(tokens[0], current, splited.length == 0);
+			} else if (tokens.length == 2) {
+			  current = DataManipulationHelper.getDataFromKey(tokens[0], current, false, parseInt(tokens[1].split(']')[0]));
+			} else {
+			  current = null;
+			}
 			shifted = splited.shift();
 		}
 		

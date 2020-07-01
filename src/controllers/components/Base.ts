@@ -71,43 +71,43 @@ class Base {
  		ValidationHelper.validate(data);
   }
   
-  protected async get(data: Input[]): Promise<HierarchicalDataTable[]> {
+  protected async get(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  	  return new Promise((resolve) => {
- 	    resolve([]);
+ 	    resolve({});
  	  });
   }
   
-  protected async post(data: Input[]): Promise<HierarchicalDataTable[]> {
+  protected async post(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		return new Promise((resolve) => {
- 	    resolve([]);
+ 	    resolve({});
  	  });
   }
   
-  protected async put(data: Input[]): Promise<HierarchicalDataTable[]> {
+  protected async put(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		return new Promise((resolve) => {
- 	    resolve([]);
+ 	    resolve({});
  	  });
   }
   
-  protected async delete(data: Input[]): Promise<HierarchicalDataTable[]> {
+  protected async delete(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		return new Promise((resolve) => {
- 	    resolve([]);
+ 	    resolve({});
  	  });
   }
   
-  protected async insert(data: Input[]): Promise<HierarchicalDataRow> {
+  protected async insert(data: Input[]): Promise<HierarchicalDataRow[]> {
  		throw new Error("Not Implemented Error");
   }
   
-  protected async update(data: Input[]): Promise<HierarchicalDataRow> {
+  protected async update(data: Input[]): Promise<HierarchicalDataRow[]> {
  		throw new Error("Not Implemented Error");
   }
   
-  protected async retrieve(data: Input[]): Promise<HierarchicalDataTable> {
+  protected async retrieve(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		throw new Error("Not Implemented Error");
   }
   
-  protected async remove(data: Input[]): Promise<boolean> {
+  protected async remove(data: Input[]): Promise<HierarchicalDataRow[]> {
  		throw new Error("Not Implemented Error");
   }
   
