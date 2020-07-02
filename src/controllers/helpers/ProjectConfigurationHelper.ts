@@ -12,6 +12,9 @@ const ProjectConfigurationHelper = {
 	  return {
 	    tables: data.globalSettings.dataSchema || {}
 	  };
+	},
+	getDotNotationPossibilities: (page: string): any => {
+	  return data.sites[page].notations;
 	}
 };
 
