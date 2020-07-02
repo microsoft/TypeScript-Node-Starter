@@ -17,39 +17,36 @@ class Base {
   	this.template = template;
   	this.pageId = template.split('/').splice(-1, 1)[0].replace(/_/g, '');
   	
-  	SchemaHelper.verifyNotations(
-  	  ProjectConfigurationHelper.getDotNotationPossibilities(this.pageId),
-  	  ProjectConfigurationHelper.getDataSchema()
-  	);
+  	SchemaHelper.verifyNotations(ProjectConfigurationHelper.getDotNotationPossibilities(this.pageId), ProjectConfigurationHelper.getDataSchema());
   }
 	
-	protected perform(action: ActionType, data: Input[]) {
-		this.call(action, data).catch((error) => {
+	protected perform(action: ActionType, schema: DataTableSchema, data: Input[]) {
+		this.call(action, schema, data).catch((error) => {
 			RenderHelper.error(this.response, error);
 		});
 	}
   
-  private async call(action: ActionType, data: Input[]) {
+  private async call(action: ActionType, schema: DataTableSchema, data: Input[]) {
     this.validate(data);
   	
     switch (action) {
       case ActionType.Insert:
-        RenderHelper.json(this.response, await this.insert(data));
+        RenderHelper.json(this.response, await this.insert(data, schema));
         break;
       case ActionType.Update:
-        RenderHelper.json(this.response, await this.update(data));
+        RenderHelper.json(this.response, await this.update(data, schema));
         break;
       case ActionType.Delete:
-        RenderHelper.json(this.response, await this.remove(data));
+        RenderHelper.json(this.response, await this.remove(data, schema));
         break;
       case ActionType.Retrieve:
-        RenderHelper.json(this.response, await this.retrieve(data));
+        RenderHelper.json(this.response, await this.retrieve(data, schema));
         break;
       case ActionType.Popup:
-        RenderHelper.json(this.response, await this.retrieve(data));
+        RenderHelper.json(this.response, await this.retrieve(data, schema));
         break;
       case ActionType.Navigate:
-        RenderHelper.navigate(this.response, await this.navigate(data));
+        RenderHelper.navigate(this.response, await this.navigate(data, schema));
         break;
       case ActionType.Test:
       	RenderHelper.json(this.response, await this.get(data));
@@ -101,23 +98,23 @@ class Base {
  	  });
   }
   
-  protected async insert(data: Input[]): Promise<HierarchicalDataRow[]> {
+  protected async insert(data: Input[], schema: DataTableSchema): Promise<HierarchicalDataRow[]> {
  		throw new Error("Not Implemented Error");
   }
   
-  protected async update(data: Input[]): Promise<HierarchicalDataRow[]> {
+  protected async update(data: Input[], schema: DataTableSchema): Promise<HierarchicalDataRow[]> {
  		throw new Error("Not Implemented Error");
   }
   
-  protected async retrieve(data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> {
+  protected async retrieve(data: Input[], schema: DataTableSchema): Promise<{[Identifier: string]: HierarchicalDataTable}> {
  		throw new Error("Not Implemented Error");
   }
   
-  protected async remove(data: Input[]): Promise<HierarchicalDataRow[]> {
+  protected async remove(data: Input[], schema: DataTableSchema): Promise<HierarchicalDataRow[]> {
  		throw new Error("Not Implemented Error");
   }
   
-  protected async navigate(data: Input[]): Promise<string> {
+  protected async navigate(data: Input[], schema: DataTableSchema): Promise<string> {
  		throw new Error("Not Implemented Error");
   }
 }

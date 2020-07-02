@@ -3,6 +3,7 @@
 
 import {Request} from "express";
 import {SourceType, ActionType, Input} from "./DatabaseHelper.js";
+import {DataTableSchema, SchemaHelper} from "./SchemaHelper.js";
 import {ValidationHelper} from "./ValidationHelper.js";
 
 interface RequestParamInfo {
@@ -66,6 +67,15 @@ const RequestHelper = {
 			default:
 				return null;
 		}
+	},
+	getSchema: (request: Request): DataTableSchema => {
+		const json: any = request.body;
+		
+		if (json == null) {
+			throw new Error("There was an error trying to obtain requesting parameters (missing).");
+		}
+		
+		return SchemaHelper.getDataTableSchemaFromNotation(json.notation, ProjectConfigurationHelper.getDataSchema());
 	},
 	getInput: (request: Request, guid: string): Input => {
 		const json: any = request.body;

@@ -59,6 +59,7 @@ const DataManipulationHelper = {
 	  	}
 	  	
 	  	params['action'] = action;
+	  	params['notation'] = notation;
 	  	
 	  	RequestHelper.post((registeredEndpoint || `${location.protocol}//${location.host}`) + (currentPath || `${location.pathname}`), params)
 	  		.then((json) => {

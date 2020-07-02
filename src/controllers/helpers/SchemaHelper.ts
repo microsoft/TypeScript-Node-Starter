@@ -101,7 +101,7 @@ const SchemaHelper = {
   	  }
 	  }
 	},
-	getSchemaFromKey: (key: string, current: any, data: DataSchema, searchForFinalResults: boolean=false): any => {
+	getSchemaFromKey: (key: string, current: DataTableSchema | DataColumnSchema, data: DataSchema, searchForFinalResults: boolean=false): DataTableSchema | DataColumnSchema => {
 		if (!searchForFinalResults) {
 			// Search DataTableSchema
 			// 
@@ -124,11 +124,11 @@ const SchemaHelper = {
 			}
 		}
   },
-	verifyNotations: (notations: string[], data: DataSchema) => {
+	verifyNotations: (notations: string[], data: DataSchema): void => {
 	  for (const notation of notations) {
 	    const splited = notation.split(".");
-  		let shifted = splited.shift();
-  		let current = null;
+  		let shifted: string = splited.shift();
+  		let current: DataTableSchema | DataColumnSchema = null;
   		
   		while (current && shifted) {
   			current = SchemaHelper.getSchemaFromKey(shifted, current, data, splited.length == 0);
@@ -137,6 +137,23 @@ const SchemaHelper = {
   		
   		if (current == null) throw new Error("There was an error verifying dot notation (a disconnected of dot notation).");
 	  }
+	},
+	getDataTableSchemaFromNotation: (notation: string, data: DataSchema): DataTableSchema => {
+	  if (!notation) return null;
+	  
+    const splited = notation.split(".");
+		let shifted: string = splited.shift();
+		let current: DataTableSchema | DataColumnSchema = null;
+		
+		while (current && shifted) {
+			current = SchemaHelper.getSchemaFromKey(shifted, current, data, splited.length == 0);
+			shifted = splited.shift();
+		}
+		
+		if (current == null) throw new Error("There was an error retreiving data schema (invalid of dot notation).");
+		if ('fieldType' in current) throw new Error("There was an error retreiving data schema (dot notation gave a column instead of a table).");
+		
+		return current;
 	}
 };
 

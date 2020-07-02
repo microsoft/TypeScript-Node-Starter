@@ -3,6 +3,7 @@
 
 import {VolatileMemoryClient, RelationalDatabaseClient, DocumentDatabaseClient, PrioritizedWorkerClient} from "./ConnectionHelper.js";
 import {ValidationInfo} from "./ValidationHelper.js";
+import {DataTableSchema} from "./SchemaHelper.js";
 
 enum SourceType {
   Relational,
@@ -19,6 +20,16 @@ enum ActionType {
   Navigate,
   Test
 }
+enum OperationType {
+  Equal,
+  LessThan,
+  MoreThan,
+  LessThanOrEqual,
+  MoreThanOrEqual,
+  NotEqual,
+  Include,
+  Exclude
+}
 interface HierarchicalDataTable {
 	source: SourceType;
 	group: string;
@@ -33,6 +44,11 @@ interface HierarchicalDataColumn {
 	name: string;
   value: any;
 }
+interface HierarchicalDataFilter {
+  name: string;
+  operation: OperationType;
+  value: any;
+}
 
 interface Input {
   target: SourceType;
@@ -44,12 +60,19 @@ interface Input {
 }
 
 const DatabaseHelper = {
-	prepare: (data: Input[]): HierarchicalDataTable => {
+	prepareRow: (data: Input[], schema: DataTableSchema): HierarchicalDataRow => {
+		/*for (let key in schema.keys) {
+		  if (schema.keys.hasOwnProperty(key)) {
+		    let input = data.filter(item => item.)
+		  }
+		}*/
+	},
+	prepareFilter: (data: Input[], schema: DataTableSchema): HierarchicalDataFilter[] => {
 		return null;
 	},
-	insert: async (data: Input[]): Promise<HierarchicalDataRow[]> => {
+	insert: async (data: Input[], schema: DataTableSchema): Promise<HierarchicalDataRow[]> => {
 		return new Promise((resolve) => {
-			const input: HierarchicalDataTable = DatabaseHelper.prepare(data);
+			const input: HierarchicalDataRow = DatabaseHelper.prepareRow(data, schema);
 			
       switch (input.source) {
       	case SourceType.Relational:
@@ -79,9 +102,9 @@ const DatabaseHelper = {
       }
     });
 	},
-	update: async (data: Input[]): Promise<HierarchicalDataRow[]> => {
+	update: async (data: Input[], schema: DataTableSchema): Promise<HierarchicalDataRow[]> => {
 		return new Promise((resolve) => {
-			const input: HierarchicalDataTable = DatabaseHelper.prepare(data);
+			const input: HierarchicalDataRow = DatabaseHelper.prepareRow(data, schema);
 			
       switch (input.source) {
       	case SourceType.Relational:
@@ -111,9 +134,9 @@ const DatabaseHelper = {
       }
     });
 	},
-	retrieve: async (data: Input[]): Promise<{[Identifier: string]: HierarchicalDataTable}> => {
+	retrieve: async (data: Input[], schema: DataTableSchema): Promise<{[Identifier: string]: HierarchicalDataTable}> => {
 		return new Promise((resolve) => {
-			const input: HierarchicalDataTable = DatabaseHelper.prepare(data);
+			const input: HierarchicalDataFilter[] = DatabaseHelper.prepareFilter(data, schema);
 			
       switch (input.source) {
       	case SourceType.Relational:
@@ -143,9 +166,9 @@ const DatabaseHelper = {
       }
     });
 	},
-	delete: async (data: Input[]): Promise<HierarchicalDataRow[]> => {
+	delete: async (data: Input[], schema: DataTableSchema): Promise<HierarchicalDataRow[]> => {
 		return new Promise((resolve) => {
-			const input: HierarchicalDataTable = DatabaseHelper.prepare(data);
+			const input: HierarchicalDataRow = DatabaseHelper.prepareRow(data, schema);
 			
       switch (input.source) {
       	case SourceType.Relational:
