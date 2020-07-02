@@ -136,7 +136,7 @@ const DataManipulationHelper = {
 			shifted = splited.shift();
 		}
 		
-		return current;
+		return current || [];
   }
 };
 
