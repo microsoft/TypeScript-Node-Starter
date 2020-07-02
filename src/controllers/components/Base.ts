@@ -15,6 +15,12 @@ class Base {
   	this.request = request;
   	this.response = response;
   	this.template = template;
+  	this.pageId = template.split('/').splice(-1, 1)[0].replace(/_/g, '');
+  	
+  	SchemaHelper.verifyNotations(
+  	  ProjectConfigurationHelper.getDotNotationPossibilities(this.pageId),
+  	  ProjectConfigurationHelper.getDataSchema()
+  	);
   }
 	
 	protected perform(action: ActionType, data: Input[]) {
