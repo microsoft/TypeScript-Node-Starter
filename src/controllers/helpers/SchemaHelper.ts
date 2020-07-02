@@ -101,15 +101,13 @@ const SchemaHelper = {
   	  }
 	  }
 	},
-	getSchemaFromKey: (key: string, current: DataTableSchema | DataColumnSchema, data: DataSchema, searchForFinalResults: boolean=false): DataTableSchema | DataColumnSchema => {
+	getSchemaFromKey: (key: string, current: DataTableSchema, data: DataSchema, searchForFinalResults: boolean=false): DataTableSchema | DataColumnSchema => {
 		if (!searchForFinalResults) {
 			// Search DataTableSchema
 			// 
-			const table = (current || data.tables || {})[key];
+			const table = (current && current.relations || data.tables || {})[key];
 			if (table) {
-				return table.relations.map((relation) => {
-				  return data.tables[relation.targetGroup];
-				});
+				return table;
 			} else {
 				return null;
 			}
@@ -124,18 +122,38 @@ const SchemaHelper = {
 			}
 		}
   },
-	verifyNotations: (notations: string[], data: DataSchema): void => {
+  findAllPossibleNotations: (tree: any, accumulatedNotation: string=null, notations: string[]=[]): string[] => {
+    for (let key in tree) {
+      if (tree.hasOwnProperty(key)) {
+        let currentNotation = null;
+        if (accumulatedNotation == null) {
+          currentNotation = key.split('[')[0];
+        } else {
+          currentNotation = accumulatedNotation + '.' + key.split('[')[0];
+        }
+        if (Object.keys(tree[key]) == 0) {
+          notations.push(currentNotation);
+        } else {
+          SchemaHelper.findAllPossibleNotations(tree[key], currentNotation, notations);
+        }
+      }
+    }
+    
+    return notations;
+  },
+	verifyNotations: (tree: any, data: DataSchema) => {
+	  let notations = SchemaHelper.findAllPossibleNotations(tree || {});
 	  for (const notation of notations) {
 	    const splited = notation.split(".");
   		let shifted: string = splited.shift();
   		let current: DataTableSchema | DataColumnSchema = null;
   		
-  		while (current && shifted) {
-  			current = SchemaHelper.getSchemaFromKey(shifted, current, data, splited.length == 0);
-  			shifted = splited.shift();
-  		}
+  		do {
+  		  current = SchemaHelper.getSchemaFromKey(shifted, current, data, splited.length == 0);
+  		  shifted = splited.shift();
+  		} while (current && shifted);
   		
-  		if (current == null) throw new Error("There was an error verifying dot notation (a disconnected of dot notation).");
+  		if (current == null) throw new Error(`There was an error verifying dot notation (disconnected: ${notation}).`);
 	  }
 	},
 	getDataTableSchemaFromNotation: (notation: string, data: DataSchema): DataTableSchema => {

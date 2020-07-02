@@ -5,6 +5,7 @@ import {Request} from "express";
 import {SourceType, ActionType, Input} from "./DatabaseHelper.js";
 import {DataTableSchema, SchemaHelper} from "./SchemaHelper.js";
 import {ValidationHelper} from "./ValidationHelper.js";
+import {ProjectConfigurationHelper} from "./ProjectConfigurationHelper.js";
 
 interface RequestParamInfo {
   target: SourceType;
