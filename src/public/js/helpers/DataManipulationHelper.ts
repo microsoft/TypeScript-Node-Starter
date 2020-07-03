@@ -28,20 +28,26 @@ interface HierarchicalDataColumn {
 }
 
 const fieldManipulatorsInfoDict: any = {};
+const actionManipulatorsInfoDict: any = {};
+const optionsManipulatorsInfoDict: any = {};
 const isDevelopmentMachine = ['localhost:3000', 'develop.stackblend.com', 'staging.stackblend.com', 'www.stackblend.com'].indexOf(location.host) != -1;
 const registeredEndpoint: string = (isDevelopmentMachine) ? window.ENDPOINT || null : null;
 const currentPath: string = (isDevelopmentMachine) ? window.PATH || null : null;
 
 const DataManipulationHelper = {
-	register: (guid: string, fields: string[]) => {
+	register: (guid: string, action: string, fields: string[], options: any) => {
 		if (!fieldManipulatorsInfoDict[guid]) {
 			fieldManipulatorsInfoDict[guid] = fields;
+			actionManipulatorsInfoDict[guid] = action;
+			optionsManipulatorsInfoDict[guid] = options;
 		}
 	},
-  request: (guid: string, action: string, notation: string, options: any, callback: any) => {
+  request: (guid: string, notation: string, event: Event, callback: any) => {
   	if (fieldManipulatorsInfoDict[guid]) {
   		const params = {};
   		const fields = fieldManipulatorsInfoDict[guid];
+  		const action = actionManipulatorsInfoDict[guid];
+  		const options = optionsManipulatorsInfoDict[guid];
   		
 	  	for (const field of fields) {
 	  		let element = HTMLHelper.getElementByAttributeNameAndValue('internal-fsb-guid', field) as any;
