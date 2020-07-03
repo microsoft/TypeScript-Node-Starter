@@ -25,6 +25,7 @@ const ValidationHelper = {
 		input.validation = validationDict[input.guid];
 	},
 	validate: (data: Input[]) => {
+	  if (!data) return;
 	 	for (const item of data) {
 	 		if (item.validation.required &&
 	 			(item.value === null || item.value === undefined || item.value === "")) {
