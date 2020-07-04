@@ -8,7 +8,6 @@ import path from "path";
 import passport from "passport";
 import bluebird from "bluebird";
 import cors from "cors";
-import route from "./route";
 
 // Create Express server
 //
@@ -41,6 +40,22 @@ app.use(
     express.static(path.join(__dirname, "public"), { maxAge: 3600000 })
 );
 
-route(app);
+// For Endpoint Testing of StackBlend Editor
+// 
+import * as endpoint from "./controllers/Endpoint";
+
+if (["staging", "production"].indexOf(process.env.NODE_ENV) == -1) {
+	app.post("/endpoint/update/content", endpoint.updateContent);
+}
+
+// For StackBlend Routings & Controllers
+// 
+try {
+	const route = require("./route");
+	
+	route.default(app);
+} catch (error) {
+	console.log('\x1b[31m', error, '\x1b[0m');
+}
 
 export default app;

@@ -46,7 +46,7 @@ class Base extends React.Component {
   
   protected getDataFromNotation(notation: string): any {
     if (!notation) {
-      console.log('There was an error processing hierarchical data on client side (missing notation).');
+      console.error('There was an error processing hierarchical data on client side (missing notation).');
       return [];
     }
     
@@ -55,7 +55,7 @@ class Base extends React.Component {
     } else if (this.props.data) {
     	return DataManipulationHelper.getDataFromNotation(notation, this.props.data);
     } else {
-      console.log('There was an error processing hierarchical data on client side (no data).');
+      console.error('There was an error processing hierarchical data on client side (no data).');
       return [];
     }
   }
