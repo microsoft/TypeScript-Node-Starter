@@ -10,8 +10,21 @@ import bluebird from "bluebird";
 import cors from "cors";
 
 // Create Express server
-//
 const app = express();
+
+if (["development", "staging", "production"].indexOf(process.env.NODE_ENV) == -1) {
+  const https = require('https');
+  
+  // SSL
+  const sslkey = fs.readFileSync("localhost.key");
+  const sslcert = fs.readFileSync("localhost.crt");
+  const options = {
+      key: sslkey,
+      cert: sslcert
+  };
+  
+  https.createServer(options, app).listen(443);
+}
 
 // Express configuration
 //
