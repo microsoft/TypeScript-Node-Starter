@@ -74,6 +74,8 @@ export const getRecentError = (request: Request, response: Response) => {
   		});
 		}
     
+    clearRecentError();
+    
 }
 
 // <--- Auto[Generating:V1]
