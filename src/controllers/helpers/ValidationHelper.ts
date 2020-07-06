@@ -13,7 +13,7 @@ const validationDict: any = {};
 
 const ValidationHelper = {
 	registerInput: (guid: string, name: string, required: boolean, customMessage: string) => {
-		if (!guid || !name) throw new Error("There was an error trying to retrieve validation info (incomplete schema).");
+		if (!guid || !name) throw new Error("There was an error trying to register validation info (guid or name is empty).");
 		
 		validationDict[guid] = {
 			name: name,

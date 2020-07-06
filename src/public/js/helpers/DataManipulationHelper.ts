@@ -76,15 +76,18 @@ const DataManipulationHelper = {
 	  				  if (callback) {
   	  				  callback(action, notation, json.results, options);
   	  				} else {
-  	  				  alert(`There was an error rendering the data on client side (needed component).`);
+  	  				  console.error("The callback function is null or undefined.");
+  	  				  alert("There is an error occured, please try again.");
   	  				}
 	  				}
 	  			} else {
-	  				alert(json.error);
+	  				console.error(json.error);
+	  				alert("There is an error occured, please try again.");
 	  			}
 	  		})
 	  		.catch((status) => {
-	  			alert(`There was an error connecting to the server (${status}). Please check your internet connection.`);
+	  			console.error(status);
+	  			alert("There is an error occured, please check your internet connection.");
 	  		})
 	  		.finally(() => {
 	  			
@@ -119,7 +122,8 @@ const DataManipulationHelper = {
   },
   getDataFromNotation: (notation: string, data: {[Identifier: string]: HierarchicalDataTable}): any => {
     if (!notation) {
-      console.error('There was an error processing hierarchical data on client side (missing notation).');
+      console.error("The notation is null, undefined or empty.");
+	  	alert("There is an error occured, please try again.");
       return [];
     }
     

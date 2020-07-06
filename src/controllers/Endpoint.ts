@@ -14,7 +14,7 @@ export const updateContent = (request: Request, response: Response) => {
 		try {
 			const json: any = request.body;
 			if (json == null) {
-				throw new Error("There was an error trying to obtain requesting parameters (missing).");
+				throw new Error("There was an error trying to obtain requesting parameters (JSON object is null).");
 			}
 			
 			const dirname = __dirname.replace("/dist/", "/src/");
