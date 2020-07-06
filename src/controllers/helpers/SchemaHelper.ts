@@ -123,13 +123,13 @@ const SchemaHelper = {
 		}
   },
   findAllPossibleNotations: (tree: any, accumulatedNotation: string=null, notations: string[]=[]): string[] => {
-    for (let key in tree) {
+    for (const key in tree) {
       if (tree.hasOwnProperty(key)) {
         let currentNotation = null;
         if (accumulatedNotation == null) {
-          currentNotation = key.split('[')[0];
+          currentNotation = key.split("[")[0];
         } else {
-          currentNotation = accumulatedNotation + '.' + key.split('[')[0];
+          currentNotation = accumulatedNotation + "." + key.split("[")[0];
         }
         if (Object.keys(tree[key]) == 0) {
           notations.push(currentNotation);
@@ -142,7 +142,7 @@ const SchemaHelper = {
     return notations;
   },
 	verifyNotations: (tree: any, data: DataSchema) => {
-	  let notations = SchemaHelper.findAllPossibleNotations(tree || {});
+	  const notations = SchemaHelper.findAllPossibleNotations(tree || {});
 	  for (const notation of notations) {
 	    const splited = notation.split(".");
   		let shifted: string = splited.shift();
@@ -169,13 +169,13 @@ const SchemaHelper = {
 		}
 		
 		if (current == null) throw new Error("There was an error retreiving data schema (invalid of dot notation).");
-		if ('fieldType' in current) throw new Error("There was an error retreiving data schema (dot notation gave a column instead of a table).");
+		if ("fieldType" in current) throw new Error("There was an error retreiving data schema (dot notation gave a column instead of a table).");
 		
 		return current;
 	}
 };
 
-export {DataSchema, DataTableSchema, DataColumnSchema, DataRelationSchema, SchemaHelper};
+export {DataSchema, DataTableSchema, DataColumnSchema, DataRelationSchema, FieldType, SchemaHelper};
 
 // <--- Auto[Generating:V1]
 // PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
