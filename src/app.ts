@@ -45,17 +45,24 @@ app.use(
 import * as endpoint from "./controllers/Endpoint";
 
 if (["staging", "production"].indexOf(process.env.NODE_ENV) == -1) {
+	endpoint.clearRecentError();
 	app.post("/endpoint/update/content", endpoint.updateContent);
+	app.get("/endpoint/recent/error", endpoint.getRecentError);
+	
+	app.use((err, req, res, next) => {
+    endpoint.addRecentError(err);
+    next();
+  });
 }
 
 // For StackBlend Routings & Controllers
 // 
 try {
 	const route = require("./route");
-	
 	route.default(app);
 } catch (error) {
-	console.log('\x1b[31m', error, '\x1b[0m');
+	console.log("\x1b[31m", error, "\x1b[0m");
+	endpoint.addRecentError(error);
 }
 
 export default app;

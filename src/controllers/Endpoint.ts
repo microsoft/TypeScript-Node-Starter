@@ -5,6 +5,14 @@ import fs from "fs";
 import path from "path";
 import {Request, Response} from "express";
 
+let recentError = [];
+export const clearRecentError = () => {
+    recentError = [];
+}
+export const addRecentError = (error: any) => {
+    recentError.push('[back-end]: ' + (error && error.message || error.toString()));
+}
+
 /**
  * POST /endpoint/update/content
  * Update the content of specific file in the repository.
@@ -20,7 +28,7 @@ export const updateContent = (request: Request, response: Response) => {
 			const dirname = __dirname.replace("/dist/", "/src/");
 			const rootPath = path.resolve(dirname, "../../");
 			
-			for (let file of json.files) {
+			for (const file of json.files) {
   			const fullPath = path.resolve(dirname, file.path);
   			if (fullPath.indexOf(rootPath) == -1) {
   				throw new Error(`The specified path isn't under ${rootPath}.`);
@@ -32,12 +40,15 @@ export const updateContent = (request: Request, response: Response) => {
 				error: null,
 				results: true
 			});
+			response.end();
 			
-			for (let file of json.files) {
-  			const fullPath = path.resolve(dirname, file.path);
-  			
-  			fs.writeFileSync(fullPath, file.content, {encoding: "utf8", flag: "w"});
-  	  }
+			setTimeout(() => {
+  			for (const file of json.files) {
+    			const fullPath = path.resolve(dirname, file.path);
+    			
+    			fs.writeFileSync(fullPath, file.content, {encoding: "utf8", flag: "w"});
+    	  }
+			}, 1000);
 		} catch(error) {
 			response.json({
 				success: false,
@@ -47,6 +58,23 @@ export const updateContent = (request: Request, response: Response) => {
 		}
 
 };
+export const getRecentError = (request: Request, response: Response) => {
+    
+    if (recentError.length == 0) {
+      response.json({
+  			success: true,
+  			error: null,
+  			results: null
+  		});
+		} else {
+		  response.json({
+  			success: false,
+  			error: recentError.join('\n'),
+  			results: null
+  		});
+		}
+    
+}
 
 // <--- Auto[Generating:V1]
 // PLEASE DO NOT MODIFY BECUASE YOUR CHANGES MAY BE LOST.
