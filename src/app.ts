@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
 // CORS configuration
 // 
-if (["production"].indexOf(process.env.NODE_ENV) == -1) {
+if (["staging", "production"].indexOf(process.env.NODE_ENV) == -1) {
 	app.use(cors());
 }
 
@@ -66,6 +66,9 @@ if (["staging", "production"].indexOf(process.env.NODE_ENV) == -1) {
     endpoint.addRecentError(err);
     next();
   });
+  process.on('uncaughtException', (err) => {
+  	endpoint.addRecentError(err);
+	});
 }
 
 // For StackBlend Routings & Controllers
