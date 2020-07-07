@@ -9,7 +9,7 @@
     "author": "Bowden Kelly",
     "license": "MIT",
     "scripts": {
-        "start": "npm run serve",
+        "start": "if [ \"$NODE_ENV\" == production ]; then npm run serve; else npm run watch; fi",
         "build": "npm run build-ts && npm run build-bundle && npm run lint && npm run copy-static-assets",
         "serve": "node dist/server.js",
         "watch-node": "nodemon dist/server.js",
