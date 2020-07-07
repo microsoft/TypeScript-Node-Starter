@@ -105,8 +105,12 @@ const SchemaHelper = {
 		if (!searchForFinalResults) {
 			// Search DataTableSchema
 			// 
-			const table = (current && current.relations || data.tables || {})[key];
-			if (table) {
+			const relation = (current && current.relations || {})[key];
+			const table = (data.tables || {})[key];
+			
+			if (relation) {
+				return (data.tables || {})[relation.targetGroup] || null;
+			} else if (table) {
 				return table;
 			} else {
 				return null;
@@ -131,7 +135,7 @@ const SchemaHelper = {
         } else {
           currentNotation = accumulatedNotation + "." + key.split("[")[0];
         }
-        if (Object.keys(tree[key]) == 0) {
+        if (Object.keys(tree[key]).length == 0) {
           notations.push(currentNotation);
         } else {
           SchemaHelper.findAllPossibleNotations(tree[key], currentNotation, notations);
@@ -149,7 +153,7 @@ const SchemaHelper = {
   		let current: DataTableSchema | DataColumnSchema = null;
   		
   		do {
-  		  current = SchemaHelper.getSchemaFromKey(shifted, current, data, splited.length == 0);
+  		  current = SchemaHelper.getSchemaFromKey(shifted, current as DataTableSchema, data, splited.length == 0);
   		  shifted = splited.shift();
   		} while (current && shifted);
   		
@@ -164,7 +168,7 @@ const SchemaHelper = {
 		let current: DataTableSchema | DataColumnSchema = null;
 		
 		while (current && shifted) {
-			current = SchemaHelper.getSchemaFromKey(shifted, current, data, splited.length == 0);
+			current = SchemaHelper.getSchemaFromKey(shifted, current as DataTableSchema, data, splited.length == 0);
 			shifted = splited.shift();
 		}
 		

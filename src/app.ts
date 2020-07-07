@@ -8,6 +8,7 @@ import path from "path";
 import passport from "passport";
 import bluebird from "bluebird";
 import cors from "cors";
+import fs from "fs";
 
 // Create Express server
 const app = express();

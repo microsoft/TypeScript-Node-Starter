@@ -41,6 +41,7 @@
         "express-session": "^1.16.2",
         "express-validator": "^6.2.0",
         "fbgraph": "^1.4.4",
+        "js-hibernate": "^1.0.14",
         "lodash": "^4.17.15",
         "lusca": "^1.6.1",
         "mongodb": "^3.5.9",

@@ -22,7 +22,23 @@ const RequestHelper = {
   					}
   				}
   	    };
-  	    if (responseType) xmlhttp.responseType = responseType;
+  	    switch (responseType) {
+  	    	case 'arraybuffer':
+  	    		xmlhttp.responseType = "arraybuffer";
+  	    		break;
+  	    	case 'blob':
+  	    		xmlhttp.responseType = "blob";
+  	    		break;
+  	    	case 'document':
+  	    		xmlhttp.responseType = "document";
+  	    		break;
+  	    	case 'json':
+  	    		xmlhttp.responseType = "json";
+  	    		break;
+  	    	case 'text':
+  	    		xmlhttp.responseType = "text";
+  	    		break;
+  	    }
   	    xmlhttp.open(method, url, true);
   	    if (body) {
   	    	xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

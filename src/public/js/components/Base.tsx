@@ -60,8 +60,10 @@ class Base extends React.Component {
     }
   }
   
-  public manipulate(action: string, notation: string, results: any, options: any) {
+  public manipulate(guid: string, notation: string, results: any) {
     let data = this.getDataFromNotation(notation);
+    let {action, options} = DataManipulationHelper.getInfo(guid);
+    
     switch (action) {
       case 'insert':
         for (let result of results) {

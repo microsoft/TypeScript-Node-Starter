@@ -5,23 +5,25 @@ import {Request, Response} from "express";
 import {HierarchicalDataTable, HierarchicalDataRow, HierarchicalDataColumn, ActionType, Input} from "../helpers/DatabaseHelper.js";
 import {ValidationHelper} from "../helpers/ValidationHelper.js";
 import {RenderHelper} from "../helpers/RenderHelper.js";
+import {DataTableSchema, SchemaHelper} from "../helpers/SchemaHelper.js";
 import {ProjectConfigurationHelper} from "../helpers/ProjectConfigurationHelper.js";
 
 class Base {
 	protected request: Request;
 	protected response: Response;
 	protected template: string;
+	protected pageId: string;
 	
 	constructor(request: Request, response: Response, template: string) {
   	this.request = request;
   	this.response = response;
   	this.template = template;
   	this.pageId = template.split('/').splice(-1, 1)[0].replace(/_/g, '');
-  	
-  	SchemaHelper.verifyNotations(ProjectConfigurationHelper.getDotNotationPossibilities(this.pageId), ProjectConfigurationHelper.getDataSchema());
   }
 	
 	protected perform(action: ActionType, schema: DataTableSchema, data: Input[]) {
+  	SchemaHelper.verifyNotations(ProjectConfigurationHelper.getDotNotationPossibilities(this.pageId), ProjectConfigurationHelper.getDataSchema());
+  	
 		this.call(action, schema, data).catch((error) => {
 			RenderHelper.error(this.response, error);
 		});

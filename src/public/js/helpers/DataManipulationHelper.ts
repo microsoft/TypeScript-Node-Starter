@@ -42,6 +42,13 @@ const DataManipulationHelper = {
 			optionsManipulatorsInfoDict[guid] = options;
 		}
 	},
+	getInfo: (guid: string): any => {
+		return {
+			fields: fieldManipulatorsInfoDict[guid],
+  		action: actionManipulatorsInfoDict[guid],
+  		options: optionsManipulatorsInfoDict[guid]
+		};
+	},
   request: (guid: string, notation: string, event: Event, callback: any) => {
   	if (fieldManipulatorsInfoDict[guid]) {
   		const params = {};
