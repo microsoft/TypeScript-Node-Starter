@@ -1,5 +1,5 @@
 const RequestHelper = {
-	request: async (method: string, url: string, body: string, responseType: string=null, retryCount: number=5): Promise<any> => {
+	request: async (method: string, url: string, body: string, responseType: string=null, retryCount: number=10): Promise<any> => {
 		return new Promise((resolve, reject) => {
 			const process = (() => {
 			  const xmlhttp = new XMLHttpRequest();
