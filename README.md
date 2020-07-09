@@ -14,13 +14,18 @@ You might clone the repository and run it on your local machine for advanced deb
 4. run "cd boilerplate".
 5. run "git remote rename origin boilerplate".
 6. run "git remote add origin git@github.com:YOUR_ALIAS/YOUR_PROJECT_NAME.git".
-7. run "git checkout develop".
-8. run "git checkout -b feature/YOUR_NEW_FEATURE_NAME".
-9. run "git push --set-upstream origin feature/YOUR_NEW_FEATURE_NAME".
-10. run "npm install".
-11. run "npm run build".
-12. run "npm run watch".
-13. Please take a note of the new branch name.
+7. run "git checkout -b staging".
+8. run "git push --set-upstream origin staging".
+7. run "git checkout -b develop".
+8. run "git push --set-upstream origin develop".
+9. run "git checkout -b feature/YOUR_NEW_FEATURE_NAME".
+10. run "git push --set-upstream origin feature/YOUR_NEW_FEATURE_NAME".
+11. run "npm install".
+12. Please take a note of the new branch name and connect the repository with StackBlend (see the instruction below).
+13. From StackBlend editor, click save button to push changes to feature/YOUR_NEW_FEATURE_NAME" including new auto-generated files.
+14. From the terminal, run "git reset --hard && git pull".
+15. run "npm run build".
+16. run "npm run watch".
 
 ## Running boilerplate on Heroku
 
