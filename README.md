@@ -23,7 +23,7 @@ You might clone the repository and run it on your local machine for advanced deb
 11. run "npm install".
 12. Please take a note of the new branch name and connect the repository with StackBlend (see the instruction below).
 13. From StackBlend editor, click save button to push changes to feature/YOUR_NEW_FEATURE_NAME" including new auto-generated files.
-14. From the terminal, run "git reset --hard && git pull".
+14. From the terminal, run "git reset --hard & git pull".
 15. run "npm run build".
 16. run "npm run watch".
 
