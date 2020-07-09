@@ -3,10 +3,11 @@
 
 import {CodeHelper} from '../helpers/CodeHelper.js';
 import {Project, DeclarationHelper} from '../helpers/DeclarationHelper.js';
-import {HierarchicalDataTable, DataManipulationHelper} from '../helpers/DataManipulationHelper.js';
+import {HierarchicalDataTable} from '../helpers/DataManipulationHelper.js';
 
 declare let React: any;
 declare let ReactDOM: any;
+declare let DataManipulationHelper: any;
 
 interface IBaseProps {
 	data: {[Identifier: string]: HierarchicalDataTable};
