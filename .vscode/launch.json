@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Program",
+            "type": "node",
+            "program": "${workspaceFolder}/dist/server.js",
+            "request": "launch",
+            "preLaunchTask": "npm: build"
+        },
+        {
             "type": "node",
             "request": "attach",
             "name": "Attach by Process ID",
