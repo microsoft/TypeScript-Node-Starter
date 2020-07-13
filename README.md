@@ -420,6 +420,7 @@ This project comes pre-configured with everything you need to get started.
 When you hit `F5` in VS Code, it looks for a top level `.vscode` folder with a `launch.json` file.
 
 You can debug in the following ways:
+* **Launch Program** - transpile typescript to javascript via npm build, then launch the app with the debugger attached on startup
 * **Attach by Process ID** - run the project in debug mode. This is mostly identical to the "Node.js: Attach by Process ID" template with one minor change.
 We added `"protocol": "inspector"` which tells VS Code that we're using the latest version of Node which uses a new debug protocol.
 * **Jest Current File** - have a Jest test file open and active in VSCode, then debug this specific file by setting break point. All tests are not run.
@@ -428,6 +429,13 @@ We added `"protocol": "inspector"` which tells VS Code that we're using the late
 In this file, you can tell VS Code exactly what you want to do:
 ```json
 [
+        {
+            "name": "Launch Program",
+            "type": "node",
+            "program": "${workspaceFolder}/dist/server.js",
+            "request": "launch",
+            "preLaunchTask": "npm: build"
+        },
         {
             "type": "node",
             "request": "attach",
