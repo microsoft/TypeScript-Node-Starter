@@ -3,10 +3,11 @@
 
 import url from "url";
 import redis from "redis";
-import mysql from "mysql";
+import mysql from "mysql2";
 import {MongoClient} from "mongodb";
 import sidekiq from "sidekiq";
-import jsORM from "js-hibernate";
+import {Sequelize} from "sequelize";
+import dotenv from "dotenv";
 
 let VolatileMemoryClient = null;
 let RelationalDatabaseClient = null;
@@ -14,6 +15,10 @@ let RelationalDatabaseORMClient = null;
 let DocumentDatabaseClient = null;
 let PrioritizedWorkerVolatileMemoryClient = null;
 let PrioritizedWorkerClient = null;
+
+if (["staging", "production"].indexOf(process.env.NODE_ENV) == -1) {
+  dotenv.config();
+}
 
 if (process.env.VOLATILE_MEMORY_KEY) {
 	const connectionURL = new URL(process.env[process.env.VOLATILE_MEMORY_KEY]);
@@ -34,7 +39,13 @@ if (process.env.RELATIONAL_DATABASE_KEY) {
 	  database : connectionURL.pathname.split("/")[1]
 	};
 	RelationalDatabaseClient = mysql.createPool(dbconfig);
-	RelationalDatabaseORMClient = jsORM.session(dbconfig);
+	RelationalDatabaseORMClient = new Sequelize(connectionURL.pathname.split("/")[1],
+	  connectionURL.username,
+	  connectionURL.password, {
+      host: connectionURL.host,
+      dialect: "mysql"
+    }
+  );
 }
 if (process.env.DOCUMENT_DATABASE_KEY) {
 	const connectionURL = process.env[process.env.DOCUMENT_DATABASE_KEY];

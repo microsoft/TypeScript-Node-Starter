@@ -83,13 +83,17 @@ const DataManipulationHelper = {
 	  				  if (callback) {
   	  				  callback(action, notation, json.results, options);
   	  				} else {
-  	  				  console.error("The callback function is null or undefined.");
-  	  				  alert("There is an error occured, please try again.");
+  	  				  alert("The submit button should be containing in a react control, so that it can be fetched by using data notations.");
   	  				}
 	  				}
 	  			} else {
-	  				console.error(json.error);
-	  				alert("There is an error occured, please try again.");
+	  				if (json.error) {
+	  					console.log(json.error);
+	  					alert(json.error);
+	  				} else {
+	  					console.error(json);
+	  					alert("There is an error occured, please try again.");
+	  				}
 	  			}
 	  		})
 	  		.catch((status) => {
