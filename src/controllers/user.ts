@@ -206,8 +206,8 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
 };
 
 /**
- * @route   GET /account/unlink/:provider
- * @desc    Unlink OAuth provider.
+ * Unlink OAuth provider.
+ * @route GET /account/unlink/:provider
  */
 export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
     const provider = req.params.provider;
