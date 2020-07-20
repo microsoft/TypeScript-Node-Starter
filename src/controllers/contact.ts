@@ -11,8 +11,8 @@ const transporter = nodemailer.createTransport({
 });
 
 /**
- * GET /contact
  * Contact form page.
+ * @route GET /contact
  */
 export const getContact = (req: Request, res: Response) => {
     res.render("contact", {
@@ -21,8 +21,8 @@ export const getContact = (req: Request, res: Response) => {
 };
 
 /**
- * POST /contact
  * Send a contact form via Nodemailer.
+ * @route POST /contact
  */
 export const postContact = async (req: Request, res: Response) => {
     await check("name", "Name cannot be blank").not().isEmpty().run(req);

@@ -10,8 +10,8 @@ import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
 
 /**
- * GET /login
  * Login page.
+ * @route GET /login
  */
 export const getLogin = (req: Request, res: Response) => {
     if (req.user) {
@@ -23,8 +23,8 @@ export const getLogin = (req: Request, res: Response) => {
 };
 
 /**
- * POST /login
  * Sign in using email and password.
+ * @route POST /login
  */
 export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
     await check("email", "Email is not valid").isEmail().run(req);
@@ -54,8 +54,8 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
 };
 
 /**
- * GET /logout
  * Log out.
+ * @route GET /logout
  */
 export const logout = (req: Request, res: Response) => {
     req.logout();
@@ -63,8 +63,8 @@ export const logout = (req: Request, res: Response) => {
 };
 
 /**
- * GET /signup
  * Signup page.
+ * @route GET /signup
  */
 export const getSignup = (req: Request, res: Response) => {
     if (req.user) {
@@ -76,8 +76,8 @@ export const getSignup = (req: Request, res: Response) => {
 };
 
 /**
- * POST /signup
  * Create a new local account.
+ * @route POST /signup
  */
 export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
     await check("email", "Email is not valid").isEmail().run(req);
@@ -117,8 +117,8 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
 };
 
 /**
- * GET /account
  * Profile page.
+ * @route GET /account
  */
 export const getAccount = (req: Request, res: Response) => {
     res.render("account/profile", {
@@ -127,8 +127,8 @@ export const getAccount = (req: Request, res: Response) => {
 };
 
 /**
- * POST /account/profile
  * Update profile information.
+ * @route POST /account/profile
  */
 export const postUpdateProfile = async (req: Request, res: Response, next: NextFunction) => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
@@ -165,8 +165,8 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
 };
 
 /**
- * POST /account/password
  * Update current password.
+ * @route POST /account/password
  */
 export const postUpdatePassword = async (req: Request, res: Response, next: NextFunction) => {
     await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
@@ -192,8 +192,8 @@ export const postUpdatePassword = async (req: Request, res: Response, next: Next
 };
 
 /**
- * POST /account/delete
  * Delete user account.
+ * @route POST /account/delete
  */
 export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as UserDocument;
@@ -206,8 +206,8 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
 };
 
 /**
- * GET /account/unlink/:provider
  * Unlink OAuth provider.
+ * @route GET /account/unlink/:provider
  */
 export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
     const provider = req.params.provider;
@@ -225,8 +225,8 @@ export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) 
 };
 
 /**
- * GET /reset/:token
  * Reset Password page.
+ * @route GET /reset/:token
  */
 export const getReset = (req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) {
@@ -248,8 +248,8 @@ export const getReset = (req: Request, res: Response, next: NextFunction) => {
 };
 
 /**
- * POST /reset/:token
  * Process the reset password request.
+ * @route POST /reset/:token
  */
 export const postReset = async (req: Request, res: Response, next: NextFunction) => {
     await check("password", "Password must be at least 4 characters long.").isLength({ min: 4 }).run(req);
@@ -310,8 +310,8 @@ export const postReset = async (req: Request, res: Response, next: NextFunction)
 };
 
 /**
- * GET /forgot
  * Forgot Password page.
+ * @route GET /forgot
  */
 export const getForgot = (req: Request, res: Response) => {
     if (req.isAuthenticated()) {
@@ -323,8 +323,8 @@ export const getForgot = (req: Request, res: Response) => {
 };
 
 /**
- * POST /forgot
  * Create a random token, then the send user an email with a reset link.
+ * @route POST /forgot
  */
 export const postForgot = async (req: Request, res: Response, next: NextFunction) => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
