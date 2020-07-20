@@ -192,8 +192,8 @@ export const postUpdatePassword = async (req: Request, res: Response, next: Next
 };
 
 /**
- * @route   POST /account/delete
- * @desc    Delete user account.
+ * Delete user account.
+ * @route POST /account/delete
  */
 export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as UserDocument;
