@@ -127,8 +127,8 @@ export const getAccount = (req: Request, res: Response) => {
 };
 
 /**
- * @route   POST /account/profile
- * @desc    Update profile information.
+ * Update profile information.
+ * @route POST /account/profile
  */
 export const postUpdateProfile = async (req: Request, res: Response, next: NextFunction) => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
