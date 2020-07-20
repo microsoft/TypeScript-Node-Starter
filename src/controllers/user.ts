@@ -76,8 +76,8 @@ export const getSignup = (req: Request, res: Response) => {
 };
 
 /**
- * @route   POST /signup
- * @desc    Create a new local account.
+ * Create a new local account.
+ * @route POST /signup
  */
 export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
     await check("email", "Email is not valid").isEmail().run(req);
