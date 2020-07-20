@@ -63,8 +63,8 @@ export const logout = (req: Request, res: Response) => {
 };
 
 /**
- * @route   GET /signup
- * @desc    Signup page.
+ * Signup page.
+ * @route GET /signup
  */
 export const getSignup = (req: Request, res: Response) => {
     if (req.user) {
