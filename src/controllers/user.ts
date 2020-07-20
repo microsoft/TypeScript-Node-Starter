@@ -54,8 +54,8 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
 };
 
 /**
- * @route   GET /logout
- * @desc    Log out.
+ * Log out.
+ * @route GET /logout
  */
 export const logout = (req: Request, res: Response) => {
     req.logout();
