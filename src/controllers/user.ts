@@ -165,8 +165,8 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
 };
 
 /**
- * @route    POST /account/password
- * @desc     Update current password.
+ * Update current password.
+ * @route POST /account/password
  */
 export const postUpdatePassword = async (req: Request, res: Response, next: NextFunction) => {
     await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
