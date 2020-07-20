@@ -323,8 +323,8 @@ export const getForgot = (req: Request, res: Response) => {
 };
 
 /**
- * @route   POST /forgot
- * @desc    Create a random token, then the send user an email with a reset link.
+ * Create a random token, then the send user an email with a reset link.
+ * @route POST /forgot
  */
 export const postForgot = async (req: Request, res: Response, next: NextFunction) => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
