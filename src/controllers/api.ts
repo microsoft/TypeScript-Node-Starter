@@ -16,8 +16,8 @@ export const getApi = (req: Request, res: Response) => {
 };
 
 /**
- * @route   GET /api/facebook
- * @desc    Facebook API example.
+ * Facebook API example.
+ * @route GET /api/facebook
  */
 export const getFacebook = (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as UserDocument;
