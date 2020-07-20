@@ -23,8 +23,8 @@ export const getLogin = (req: Request, res: Response) => {
 };
 
 /**
- * @route   POST /login
- * @desc    Sign in using email and password.
+ * Sign in using email and password.
+ * @route POST /login
  */
 export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
     await check("email", "Email is not valid").isEmail().run(req);
