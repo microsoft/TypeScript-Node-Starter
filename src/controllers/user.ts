@@ -225,8 +225,8 @@ export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) 
 };
 
 /**
- * @route   GET /reset/:token
- * @desc    Reset Password page.
+ * Reset Password page.
+ * @route GET /reset/:token
  */
 export const getReset = (req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) {
