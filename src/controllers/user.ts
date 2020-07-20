@@ -117,8 +117,8 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
 };
 
 /**
- * @route   GET /account
- * @desc    Profile page.
+ * Profile page.
+ * @route GET /account
  */
 export const getAccount = (req: Request, res: Response) => {
     res.render("account/profile", {
