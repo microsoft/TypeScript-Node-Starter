@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
 /**
- * @route   GET /
- * @desc    Home page.
+ * Home page.
+ * @route GET /
  */
 export const index = (req: Request, res: Response) => {
     res.render("home", {
