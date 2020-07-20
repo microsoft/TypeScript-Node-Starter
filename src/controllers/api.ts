@@ -6,8 +6,8 @@ import { UserDocument } from "../models/User";
 
 
 /**
- * GET /api
  * List of API examples.
+ * @route GET /api
  */
 export const getApi = (req: Request, res: Response) => {
     res.render("api/index", {
@@ -16,8 +16,8 @@ export const getApi = (req: Request, res: Response) => {
 };
 
 /**
- * GET /api/facebook
  * Facebook API example.
+ * @route GET /api/facebook
  */
 export const getFacebook = (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as UserDocument;
