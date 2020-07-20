@@ -10,8 +10,8 @@ import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
 
 /**
- * @route   GET /login
- * @desc    Login page.
+ * Login page.
+ * @route GET /login
  */
 export const getLogin = (req: Request, res: Response) => {
     if (req.user) {
