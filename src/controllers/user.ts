@@ -310,8 +310,8 @@ export const postReset = async (req: Request, res: Response, next: NextFunction)
 };
 
 /**
- * @route   GET /forgot
- * @desc    Forgot Password page.
+ * Forgot Password page.
+ * @route GET /forgot
  */
 export const getForgot = (req: Request, res: Response) => {
     if (req.isAuthenticated()) {
