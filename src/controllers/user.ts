@@ -248,8 +248,8 @@ export const getReset = (req: Request, res: Response, next: NextFunction) => {
 };
 
 /**
- * @route   POST /reset/:token
- * @desc    Process the reset password request.
+ * Process the reset password request.
+ * @route POST /reset/:token
  */
 export const postReset = async (req: Request, res: Response, next: NextFunction) => {
     await check("password", "Password must be at least 4 characters long.").isLength({ min: 4 }).run(req);
