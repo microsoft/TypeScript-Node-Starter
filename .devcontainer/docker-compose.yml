@@ -1,0 +1,38 @@
+version: '3'
+services:
+  web:
+    # Uncomment the next line to use a non-root user for all processes.
+    # See https://aka.ms/vscode-remote/containers/non-root for details.
+    # user: node
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Update VARIANT to pick a node version: 14, 12, 10
+        VARIANT: 12
+        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
+        USER_UID: 1000
+        USER_GID: 1000
+
+
+    volumes:
+      - ..:/workspace:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    links:
+      - mongo
+
+    ports:
+    - 3000:3000
+
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - /data/db
+    ports:
+    - 27017:27017
+
