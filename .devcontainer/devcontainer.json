@@ -8,7 +8,7 @@
 	"workspaceFolder": "/workspace",
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
+	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash"
 	},
 
@@ -24,8 +24,12 @@
 	// "shutdownAction": "none",
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
+	, "postCreateCommand": "yarn install",
 
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	// "remoteUser": "node"
+	// "remoteUser": "node",
+
+	"forwardPorts": [
+		3000
+	]
 }

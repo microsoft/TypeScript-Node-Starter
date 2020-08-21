@@ -25,14 +25,8 @@ services:
     links:
       - mongo
 
-    ports:
-    - 3000:3000
-
   mongo:
     image: mongo
     restart: unless-stopped
     volumes:
       - /data/db
-    ports:
-    - 27017:27017
-
