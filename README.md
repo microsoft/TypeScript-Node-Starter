@@ -17,7 +17,7 @@ It is not a goal to be a comprehensive and definitive guide to making a TypeScri
 - [Pre-reqs](#pre-reqs)
 - [Getting started](#getting-started)
 - [Deploying the app](#deploying-the-app)
-	- [Pre-reqs](#pre-reqs-1)
+	- [Pre-reqs](#Prerequisites)
 	- [Deploying to Azure App Service](#deploying-to-azure-app-service)
 - [TypeScript + Node](#typescript--node)
 	- [Getting TypeScript](#getting-typescript)
@@ -28,7 +28,7 @@ It is not a goal to be a comprehensive and definitive guide to making a TypeScri
 	- [Testing](#testing)
 	- [ESLint](#eslint)
 - [Dependencies](#dependencies)
-	- [`dependencies`](#dependencies-1)
+	- [`dependencies`](#dependencies)
 	- [`devDependencies`](#devdependencies)
 - [Hackathon Starter Project](#hackathon-starter-project)
 
@@ -75,12 +75,12 @@ npm start
 Or, if you're using VS Code, you can use `cmd + shift + b` to run the default build task (which is mapped to `npm run build`), and then you can use the command palette (`cmd + shift + p`) and select `Tasks: Run Task` > `npm: start` to run `npm start` for you.
 
 > **Note on editors!** - TypeScript has great support in [every editor](http://www.typescriptlang.org/index.html#download-links), but this project has been pre-configured for use with [VS Code](https://code.visualstudio.com/).
-Throughout the README We will try to call out specific places where VS Code really shines or where this project has been setup to take advantage of specific features.
+Throughout the README We will try to call out specific places where VS Code really shines or where this project has been set up to take advantage of specific features.
 
 Finally, navigate to `http://localhost:3000` and you should see the template being served and rendered locally!
 
 # Deploying the app
-There are many ways to deploy an Node app, and in general, nothing about the deployment process changes because you're using TypeScript.
+There are many ways to deploy a Node app, and in general, nothing about the deployment process changes because you're using TypeScript.
 In this section, I'll walk you through how to deploy this app to Azure App Service using the extensions available in VS Code because I think it is the easiest and fastest way to get started, as well as the most friendly workflow from a developer's perspective.
 
 ## Prerequisites
@@ -91,11 +91,11 @@ The Azure free tier gives you plenty of resources to play around with including 
 - **Create a cloud database** -
 For local development, running MongoDB on localhost is fine, however once we deploy we need a database with high availability.
 The easiest way to achieve this is by using a managed cloud database.
-There are many different providers, but the easiest one to get started with is [MongoLab](#mlab).
+There are many different providers, but the easiest one to get started with is [MongoLab](#Create a managed MongoDB with MongoLab).
 - **SendGrid Account** -
-If you don't have one, you can sign up for free, we will need it to send emails. There are many different providers that Nodemailer supports ([Well-known services](https://nodemailer.com/smtp/well-known/)), we'll be using [SendGrid](#sendgrid).
+If you don't have one, you can sign up for free, we will need it to send emails. There are many different providers that Nodemailer supports ([Well-known services](https://nodemailer.com/smtp/well-known/)), we'll be using [SendGrid](#SendGrid Account).
 
-### <a name="mlab"></a> Create a managed MongoDB with MongoLab
+### Create a managed MongoDB with MongoLab
 1. Navigate to [MongoLab's Website](https://mlab.com/), sign up for a free account, and then log in.
 2. In the **MongoDB Deployments** section, click the **Create New** button.
 3. Select any provider (I recommend **Microsoft Azure** as it provides an easier path to upgrading to globally distributed instances later).
@@ -114,7 +114,7 @@ You can test that it works locally by updating `MONGODB_URI_LOCAL` to the same c
 After rebuilding/serving, the app should work, but users that were previously created in local testing will not exist in the new database!
 Don't forget to return the `MONGO_URI_LOCAL` to your local test database (if you so desire).
 
-### <a name="sendgrid"></a> SendGrid Account
+### SendGrid Account
 1. Navigate to [SendGrid's Website](https://sendgrid.com/), sign up for a free account, and complete the verification process.
 2. Open your `.env` file and update `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` with your SendGrid username and password respectively.
 
@@ -136,7 +136,7 @@ Deploying from VS Code can be broken into the following steps:
 5. Paste in the code that is on your clipboard.
 6. Go back to VS Code, you should now be signed in.
 You can confirm that everything worked by seeing your Azure subscription listed in the Azure App Service section of the explorer window.
-Additionally you should see the email associated with your account listed in the status bar at the bottom of VS Code.
+Additionally, you should see the email associated with your account listed in the status bar at the bottom of VS Code.
 
 ### Build the app
 Building the app locally is required to generate a zip to deploy because the App Service won't execute build tasks.
@@ -152,10 +152,10 @@ If you haven't changed the name, this will be `TypeScript-Node-Starter`.
 4. Choose the subscription you want this app to be billed to (don't worry, it will be free).
 5. Choose `Create New Web App`
 6. Enter a globally unique name -
-This will be part of the URL that azure generates so it has to be unique, but if you're planning on adding a custom domain later, it's not that important. I usually just add random numbers to the end of the app name, ie. typescript-node-starter-15121214.
+This will be part of the URL that azure generates, so it has to be unique, but if you're planning on adding a custom domain later, it's not that important. I usually just add random numbers to the end of the app name, ie. typescript-node-starter-15121214.
 7. Choose a resource group -
 If you don't know what this is, just create a new one.
-If you have lots of cloud resources that should be logically grouped together (think an app service and a database that supports that app) then you would want to put them in the same resource group.
+If you have lots of cloud resources that should be logically grouped together (think an app service, and a database that supports that app) then you would want to put them in the same resource group.
 This can always be updated later though.
 If you create a new resource group, you'll also be prompted to pick a location for that group.
 Pick something geographically close to where your users are.
@@ -170,7 +170,7 @@ All of this is powered by the [Azure CLI](https://docs.microsoft.com/en-us/cli/a
 This deployment is not the fastest option (but it is the easiest!). We are literally bundling everything in your project (including the massive node_modules folder) and uploading it to our Azure app service. Times will vary, but as a baseline, my deployment took roughly 6 minutes.
 12. Add `NODE_ENV` environment variable - In the App Service section of the explorer window, expand the newly created service, right click on **Application Settings**, select **Add New Settings...**, and add `NODE_ENV` as the key and `production` as the value.
 This setting determines which database to point to.
-If you haven't created a cloud database yet, see [the setup instructions](#mlab).
+If you haven't created a cloud database yet, see [the setup instructions](#Create a managed MongoDB with MongoLab).
 13. Profit! If everything worked you should see a page that looks like this: [TypeScript Node Starter Demo Site](https://typescript-node-starter.azurewebsites.net/)
 
 ### Troubleshooting failed deployments
@@ -178,7 +178,7 @@ Deployment can fail for various reasons, if you get stuck with a page that says 
 
 # TypeScript + Node
 In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
-Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js projects to TypeScript.
+Note that all of this has already been set up for this project, but feel free to use this as a reference for converting other Node.js projects to TypeScript.
 
 ## Getting TypeScript
 TypeScript itself is simple to add to any project with `npm`.
@@ -202,7 +202,7 @@ The full folder structure of this app is explained below:
 | Name | Description |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
 | **.vscode**              | Contains VS Code specific settings                                                            |
-| **.github**              | Contains GitHub settings and configurations, incuding the GitHub Actions workflows            |
+| **.github**              | Contains GitHub settings and configurations, including the GitHub Actions workflows            |
 | **dist**                 | Contains the distributable (or output) from your TypeScript build. This is the code you ship  |
 | **node_modules**         | Contains all your npm dependencies                                                            |
 | **src**                  | Contains your source code that will be compiled to the dist dir                               |
@@ -309,7 +309,7 @@ Below is a list of all the scripts this template has available:
 ## Type Definition (`.d.ts`) Files
 TypeScript uses `.d.ts` files to provide types for JavaScript libraries that were not written in TypeScript.
 This is great because once you have a `.d.ts` file, TypeScript can type check that library and provide you better help in your editor.
-The TypeScript community actively shares all of the most up-to-date `.d.ts` files for popular libraries on a GitHub repository called [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types).
+The TypeScript community actively shares all the most up-to-date `.d.ts` files for popular libraries on a GitHub repository called [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types).
 Making sure that your `.d.ts` files are setup correctly is super important because once they're in place, you get an incredible amount of high quality type checking (and thus bug catching, IntelliSense, and other editor tools) for free.
 
 > **Note!** Because we're using `"noImplicitAny": true`, we are required to have a `.d.ts` file for **every** library we use. While you could set `noImplicitAny` to `false` to silence errors about missing `.d.ts` files, it is a best practice to have a `.d.ts` file for every library. (Even if the `.d.ts` file is [basically empty!](#writing-a-dts-file))
@@ -373,7 +373,7 @@ If you're not interested, [you should tell me why](https://www.surveymonkey.com/
 ### Summary of `.d.ts` management
 In general if you stick to the following steps you should have minimal `.d.ts` issues;
 1. After installing any npm package as a dependency or dev dependency, immediately try to install the `.d.ts` file via `@types`.
-2. If the library has a `.d.ts` file on DefinitelyTyped, the install will succeed and you are done.
+2. If the library has a `.d.ts` file on DefinitelyTyped, the installation will succeed, and you are done.
 If the install fails because the package doesn't exist, continue to step 3.
 3. Make sure you project is [configured for supplying your own `d.ts` files](#setting-up-typescript-to-look-for-dts-files-in-another-folder)
 4. Try to [generate a `.d.ts` file with dts-gen](#using-dts-gen).
@@ -384,8 +384,8 @@ If not, continue to step 5.
 ```ts
 declare module "<some-library>";
 ```
-7. At this point everything should compile with no errors and you can either improve the types in the `.d.ts` file by following this [guide on authoring `.d.ts` files](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) or continue with no types.
-8. If you are still having issues, let me know by sending me an email or pinging me on twitter, I will help you.
+7. At this point everything should compile with no errors, and you can either improve the types in the `.d.ts` file by following this [guide on authoring `.d.ts` files](http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) or continue with no types.
+8. If you are still having issues, let me know by emailing me or pinging me on twitter, I will help you.
 
 ## Debugging
 Debugging TypeScript is exactly like debugging JavaScript with one caveat, you need source maps.
@@ -414,7 +414,7 @@ Because we are writing Node.js code, we don't have to worry about this.
 
 ### Using the debugger in VS Code
 Debugging is one of the places where VS Code really shines over other editors.
-Node.js debugging in VS Code is easy to setup and even easier to use.
+Node.js debugging in VS Code is easy to set up and even easier to use.
 This project comes pre-configured with everything you need to get started.
 
 When you hit `F5` in VS Code, it looks for a top level `.vscode` folder with a `launch.json` file.
@@ -611,4 +611,4 @@ A majority of this quick start's content was inspired or adapted from Sahat's ex
 
 ## License
 Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the [MIT](LICENSE.txt) License.
+Licensed under the [MIT](LICENSE) License.
