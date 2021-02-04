@@ -17,7 +17,7 @@ passport.serializeUser<any, any>((req, user, done) => {
 
 passport.deserializeUser((id, done) => {
     User.findById(id, (err: NativeError, user: UserDocument) => {
-        done(err, user);
+        done(err, user.id);
     });
 });
 
