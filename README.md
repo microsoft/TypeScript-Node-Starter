@@ -497,7 +497,7 @@ Jest's configuration lives in `jest.config.js`, so let's open it up and add the 
 module.exports = {
     globals: {
         'ts-jest': {
-            tsConfigFile: 'tsconfig.json'
+            tsconfigFile: 'tsconfig.json'
         }
     },
     moduleFileExtensions: [
