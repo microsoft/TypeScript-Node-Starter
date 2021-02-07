@@ -1,8 +1,5 @@
-"use strict";
-
 import graph from "fbgraph";
 import { Response, Request, NextFunction } from "express";
-import { UserDocument } from "../models/User";
 
 
 /**
@@ -20,10 +17,9 @@ export const getApi = (req: Request, res: Response) => {
  * @route GET /api/facebook
  */
 export const getFacebook = (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as UserDocument;
-    const token = user.tokens.find((token: any) => token.kind === "facebook");
+    const token = req.user.tokens.find(token => token.kind === "facebook");
     graph.setAccessToken(token.accessToken);
-    graph.get(`${user.facebook}?fields=id,name,email,first_name,last_name,gender,link,locale,timezone`, (err: Error, results: graph.FacebookUser) => {
+    graph.get(`${req.user.facebook}?fields=id,name,email,first_name,last_name,gender,link,locale,timezone`, (err: Error, results: graph.FacebookUser) => {
         if (err) { return next(err); }
         res.render("api/facebook", {
             title: "Facebook API",
