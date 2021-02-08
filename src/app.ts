@@ -19,7 +19,6 @@ import * as userController from "./controllers/user";
 import * as apiController from "./controllers/api";
 import * as contactController from "./controllers/contact";
 
-
 // API keys and Passport configuration
 import * as passportConfig from "./config/passport";
 

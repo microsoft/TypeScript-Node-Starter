@@ -23,32 +23,35 @@ export type UserDocument = mongoose.Document & {
     gravatar: (size: number) => string;
 };
 
-type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
+type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => void) => void;
 
 export interface AuthToken {
     accessToken: string;
     kind: string;
 }
 
-const userSchema = new mongoose.Schema({
-    email: { type: String, unique: true },
-    password: String,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
-
-    facebook: String,
-    twitter: String,
-    google: String,
-    tokens: Array,
-
-    profile: {
-        name: String,
-        gender: String,
-        location: String,
-        website: String,
-        picture: String
-    }
-}, { timestamps: true });
+const userSchema = new mongoose.Schema<UserDocument>(
+    {
+        email: { type: String, unique: true },
+        password: String,
+        passwordResetToken: String,
+        passwordResetExpires: Date,
+    
+        facebook: String,
+        twitter: String,
+        google: String,
+        tokens: Array,
+    
+        profile: {
+            name: String,
+            gender: String,
+            location: String,
+            website: String,
+            picture: String
+        }
+    },
+    { timestamps: true },
+);
 
 /**
  * Password hash middleware.
