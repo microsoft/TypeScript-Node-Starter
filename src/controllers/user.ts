@@ -8,17 +8,18 @@ import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";
 import { check, sanitize, validationResult } from "express-validator";
 import "../config/passport";
+import { CallbackError, NativeError } from "mongoose";
 
 /**
  * Login page.
  * @route GET /login
  */
-export const getLogin = (req: Request, res: Response) => {
+export const getLogin = (req: Request, res: Response): void => {
     if (req.user) {
         return res.redirect("/");
     }
     res.render("account/login", {
-        title: "Login"
+        title: "Login",
     });
 };
 
@@ -26,10 +27,9 @@ export const getLogin = (req: Request, res: Response) => {
  * Sign in using email and password.
  * @route POST /login
  */
-export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
+export const postLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Email is not valid").isEmail().run(req);
     await check("password", "Password cannot be blank").isLength({min: 1}).run(req);
-    // eslint-disable-next-line @typescript-eslint/camelcase
     await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
@@ -57,7 +57,7 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
  * Log out.
  * @route GET /logout
  */
-export const logout = (req: Request, res: Response) => {
+export const logout = (req: Request, res: Response): void => {
     req.logout();
     res.redirect("/");
 };
@@ -66,7 +66,7 @@ export const logout = (req: Request, res: Response) => {
  * Signup page.
  * @route GET /signup
  */
-export const getSignup = (req: Request, res: Response) => {
+export const getSignup = (req: Request, res: Response): void => {
     if (req.user) {
         return res.redirect("/");
     }
@@ -79,11 +79,10 @@ export const getSignup = (req: Request, res: Response) => {
  * Create a new local account.
  * @route POST /signup
  */
-export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
+export const postSignup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Email is not valid").isEmail().run(req);
     await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
     await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);
-    // eslint-disable-next-line @typescript-eslint/camelcase
     await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
@@ -98,7 +97,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
         password: req.body.password
     });
 
-    User.findOne({ email: req.body.email }, (err, existingUser) => {
+    User.findOne({ email: req.body.email }, (err: NativeError, existingUser: UserDocument) => {
         if (err) { return next(err); }
         if (existingUser) {
             req.flash("errors", { msg: "Account with that email address already exists." });
@@ -120,7 +119,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
  * Profile page.
  * @route GET /account
  */
-export const getAccount = (req: Request, res: Response) => {
+export const getAccount = (req: Request, res: Response): void => {
     res.render("account/profile", {
         title: "Account Management"
     });
@@ -130,9 +129,8 @@ export const getAccount = (req: Request, res: Response) => {
  * Update profile information.
  * @route POST /account/profile
  */
-export const postUpdateProfile = async (req: Request, res: Response, next: NextFunction) => {
+export const postUpdateProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
-    // eslint-disable-next-line @typescript-eslint/camelcase
     await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
@@ -143,14 +141,14 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
     }
 
     const user = req.user as UserDocument;
-    User.findById(user.id, (err, user: UserDocument) => {
+    User.findById(user.id, (err: NativeError, user: UserDocument) => {
         if (err) { return next(err); }
         user.email = req.body.email || "";
         user.profile.name = req.body.name || "";
         user.profile.gender = req.body.gender || "";
         user.profile.location = req.body.location || "";
         user.profile.website = req.body.website || "";
-        user.save((err: WriteError) => {
+        user.save((err: WriteError & CallbackError) => {
             if (err) {
                 if (err.code === 11000) {
                     req.flash("errors", { msg: "The email address you have entered is already associated with an account." });
@@ -168,7 +166,7 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
  * Update current password.
  * @route POST /account/password
  */
-export const postUpdatePassword = async (req: Request, res: Response, next: NextFunction) => {
+export const postUpdatePassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
     await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);
 
@@ -180,10 +178,10 @@ export const postUpdatePassword = async (req: Request, res: Response, next: Next
     }
 
     const user = req.user as UserDocument;
-    User.findById(user.id, (err, user: UserDocument) => {
+    User.findById(user.id, (err: NativeError, user: UserDocument) => {
         if (err) { return next(err); }
         user.password = req.body.password;
-        user.save((err: WriteError) => {
+        user.save((err: WriteError & CallbackError) => {
             if (err) { return next(err); }
             req.flash("success", { msg: "Password has been changed." });
             res.redirect("/account");
@@ -195,7 +193,7 @@ export const postUpdatePassword = async (req: Request, res: Response, next: Next
  * Delete user account.
  * @route POST /account/delete
  */
-export const postDeleteAccount = (req: Request, res: Response, next: NextFunction) => {
+export const postDeleteAccount = (req: Request, res: Response, next: NextFunction): void => {
     const user = req.user as UserDocument;
     User.remove({ _id: user.id }, (err) => {
         if (err) { return next(err); }
@@ -209,10 +207,10 @@ export const postDeleteAccount = (req: Request, res: Response, next: NextFunctio
  * Unlink OAuth provider.
  * @route GET /account/unlink/:provider
  */
-export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) => {
+export const getOauthUnlink = (req: Request, res: Response, next: NextFunction): void => {
     const provider = req.params.provider;
     const user = req.user as UserDocument;
-    User.findById(user.id, (err, user: any) => {
+    User.findById(user.id, (err: NativeError, user: any) => {
         if (err) { return next(err); }
         user[provider] = undefined;
         user.tokens = user.tokens.filter((token: AuthToken) => token.kind !== provider);
@@ -228,7 +226,7 @@ export const getOauthUnlink = (req: Request, res: Response, next: NextFunction) 
  * Reset Password page.
  * @route GET /reset/:token
  */
-export const getReset = (req: Request, res: Response, next: NextFunction) => {
+export const getReset = (req: Request, res: Response, next: NextFunction): void => {
     if (req.isAuthenticated()) {
         return res.redirect("/");
     }
@@ -251,7 +249,7 @@ export const getReset = (req: Request, res: Response, next: NextFunction) => {
  * Process the reset password request.
  * @route POST /reset/:token
  */
-export const postReset = async (req: Request, res: Response, next: NextFunction) => {
+export const postReset = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("password", "Password must be at least 4 characters long.").isLength({ min: 4 }).run(req);
     await check("confirm", "Passwords must match.").equals(req.body.password).run(req);
 
@@ -263,7 +261,7 @@ export const postReset = async (req: Request, res: Response, next: NextFunction)
     }
 
     async.waterfall([
-        function resetPassword(done: Function) {
+        function resetPassword(done: (err: any, user: UserDocument) => void) {
             User
                 .findOne({ passwordResetToken: req.params.token })
                 .where("passwordResetExpires").gt(Date.now())
@@ -284,7 +282,7 @@ export const postReset = async (req: Request, res: Response, next: NextFunction)
                     });
                 });
         },
-        function sendResetPasswordEmail(user: UserDocument, done: Function) {
+        function sendResetPasswordEmail(user: UserDocument, done: (err: Error) => void) {
             const transporter = nodemailer.createTransport({
                 service: "SendGrid",
                 auth: {
@@ -313,7 +311,7 @@ export const postReset = async (req: Request, res: Response, next: NextFunction)
  * Forgot Password page.
  * @route GET /forgot
  */
-export const getForgot = (req: Request, res: Response) => {
+export const getForgot = (req: Request, res: Response): void => {
     if (req.isAuthenticated()) {
         return res.redirect("/");
     }
@@ -326,9 +324,8 @@ export const getForgot = (req: Request, res: Response) => {
  * Create a random token, then the send user an email with a reset link.
  * @route POST /forgot
  */
-export const postForgot = async (req: Request, res: Response, next: NextFunction) => {
+export const postForgot = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
-    // eslint-disable-next-line @typescript-eslint/camelcase
     await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
@@ -339,14 +336,14 @@ export const postForgot = async (req: Request, res: Response, next: NextFunction
     }
 
     async.waterfall([
-        function createRandomToken(done: Function) {
+        function createRandomToken(done: (err: Error, token: string) => void) {
             crypto.randomBytes(16, (err, buf) => {
                 const token = buf.toString("hex");
                 done(err, token);
             });
         },
-        function setRandomToken(token: AuthToken, done: Function) {
-            User.findOne({ email: req.body.email }, (err, user: any) => {
+        function setRandomToken(token: AuthToken, done: (err: NativeError | WriteError, token?: AuthToken, user?: UserDocument) => void) {
+            User.findOne({ email: req.body.email }, (err: NativeError, user: any) => {
                 if (err) { return done(err); }
                 if (!user) {
                     req.flash("errors", { msg: "Account with that email address does not exist." });
@@ -359,7 +356,7 @@ export const postForgot = async (req: Request, res: Response, next: NextFunction
                 });
             });
         },
-        function sendForgotPasswordEmail(token: AuthToken, user: UserDocument, done: Function) {
+        function sendForgotPasswordEmail(token: AuthToken, user: UserDocument, done: (err: Error) => void) {
             const transporter = nodemailer.createTransport({
                 service: "SendGrid",
                 auth: {
