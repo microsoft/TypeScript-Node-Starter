@@ -91,28 +91,35 @@ The Azure free tier gives you plenty of resources to play around with including 
 - **Create a cloud database** -
 For local development, running MongoDB on localhost is fine, however once we deploy we need a database with high availability.
 The easiest way to achieve this is by using a managed cloud database.
-There are many different providers, but the easiest one to get started with is [MongoLab](#Create a managed MongoDB with MongoLab).
+There are many different providers, but the easiest one to get started with is [MongoDB Atlas](#create-a-managed-mongodb-with-atlas).
 - **SendGrid Account** -
-If you don't have one, you can sign up for free, we will need it to send emails. There are many different providers that Nodemailer supports ([Well-known services](https://nodemailer.com/smtp/well-known/)), we'll be using [SendGrid](#SendGrid Account).
+If you don't have one, you can sign up for free, we will need it to send emails. There are many different providers that Nodemailer supports ([Well-known services](https://nodemailer.com/smtp/well-known/)), we'll be using [SendGrid](#sendgrid-account).
 
-### Create a managed MongoDB with MongoLab
-1. Navigate to [MongoLab's Website](https://mlab.com/), sign up for a free account, and then log in.
-2. In the **MongoDB Deployments** section, click the **Create New** button.
-3. Select any provider (I recommend **Microsoft Azure** as it provides an easier path to upgrading to globally distributed instances later).
-4. Select **Sandbox** to keep it free unless you know what you're doing, and hit **Continue**.
-5. Select a region (I recommend the region geographically closest to your app's users).
-6. Add a name, click **Continue** again, and finally **Submit Order**.
-7. Once your new database is created, select it from the **MongoDB Deployments** section.
-8. Create a user by selecting the **User** tab, clicking the **Add database user** button, adding a username and password, and then clicking **Create**.
+### Create a managed MongoDB with Atlas
+1. Navigate to [MongoDB's website](https://www.mongodb.com/cloud/atlas), sign up for a free account, and then log in.
+2. After creating the account, enter the organization name, project name, and select your preferred language (JavaScript).
+3. Select the **Shared Cluster** to get a free version with up to 512 MB storage which is great for development purposes.
+4. On the "Create a Starter Cluster" page you can select cloud provider, region, region, cluster tier, and
+MongoDB settings, like version and backup frequency (Note: there is no option to create backups in the free tier).
+5. If you already know to which cloud provider and region you want to deploy later, you should select the same here for best performance. Otherwise select a region close to the location where you plan to deploy the application later.
+6. Select **M0 Sandbox** as the Cluster Tier, give your cluster a name, and then click the "Create Cluster" button.
+7. It will now take a couple of minutes to create the cluster and you will be redirected to the MongoDB Atlas Admin interface.
+8. Now you must configure access and security before you can use the database.
+9. To whitelist an IP address, go to the **Network Access** section and click the "Add IP Address" button. For local development you can select your current IP address.
+10. Create a user by selecting the **Add New Database User** in Database Access, adding a username and password (Password Authentication method) and give him read and write access to any database within the cluster.
 A user account is required to connect to the database, so remember these values because you will need them as part of your connection string.
-9. Copy the connection string from the top of the page, it should look like this: `mongodb://<dbuser>:<dbpassword>@ds036069.mlab.com:36069/test-asdf`
-and replace `<dbUser>` and `<dbpassword>` with the credentials you just created.
+11. Within the Clusters section, click the **Connect** button in your cluster to connect to the database.
+12. You could now connect to the cluster using [MongoDB Compass](https://www.mongodb.com/products/compass), which is a graphical interface (GUI) to interact with the database.
+13. But we need to select **Connect your application** to get the connection string, it should look like this: `mongodb+srv://<username>:<password>@your-cluster.12abc.mongodb.net/your-database?retryWrites=true&w=majority`
+and replace `<username>` and `<password>` with the credentials you just created.
 Back in your project, open your `.env` file and update `MONGODB_URI` with your new connection string.
     > NOTE! - If you don't have an `.env` file yet, rename `.env.example` to `.env` and follow the comments to update the values in that file.
-10. **Success!**
+14. **Success!**
 You can test that it works locally by updating `MONGODB_URI_LOCAL` to the same connection string you just updated in `MONGO_URI`.
 After rebuilding/serving, the app should work, but users that were previously created in local testing will not exist in the new database!
 Don't forget to return the `MONGO_URI_LOCAL` to your local test database (if you so desire).
+
+You can find **more information** about how to get started with Atlas [here](https://docs.atlas.mongodb.com/getting-started/).
 
 ### SendGrid Account
 1. Navigate to [SendGrid's Website](https://sendgrid.com/), sign up for a free account, and complete the verification process.
