@@ -6,7 +6,7 @@ import { User, UserDocument, AuthToken } from "../models/User";
 import { Request, Response, NextFunction } from "express";
 import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";
-import { check, sanitize, validationResult } from "express-validator";
+import { body, check, validationResult } from "express-validator";
 import "../config/passport";
 import { CallbackError, NativeError } from "mongoose";
 
@@ -30,7 +30,7 @@ export const getLogin = (req: Request, res: Response): void => {
 export const postLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Email is not valid").isEmail().run(req);
     await check("password", "Password cannot be blank").isLength({min: 1}).run(req);
-    await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
+    await body("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
 
@@ -83,7 +83,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     await check("email", "Email is not valid").isEmail().run(req);
     await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
     await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);
-    await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
+    await body("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
 
@@ -131,7 +131,7 @@ export const getAccount = (req: Request, res: Response): void => {
  */
 export const postUpdateProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
-    await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
+    await body("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
 
@@ -326,7 +326,7 @@ export const getForgot = (req: Request, res: Response): void => {
  */
 export const postForgot = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     await check("email", "Please enter a valid email address.").isEmail().run(req);
-    await sanitize("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
+    await body("email").normalizeEmail({ gmail_remove_dots: false }).run(req);
 
     const errors = validationResult(req);
 
