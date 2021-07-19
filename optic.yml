@@ -1,0 +1,17 @@
+name: "express-typescript-starter"
+# Start your api with Optic by running 'api run <taskname>'
+tasks:
+  start:
+    command: "echo \"Setup A Valid Command to Start your API!\""
+    inboundUrl: http://localhost:4000
+  # Use the test command to test your API in your CI build pipeline 
+  test:
+    command: "echo \"Error: no test command specified\" && exit 1"
+    useTask: start
+
+# Capture traffic from a deployed api by running 'api intercept <environment-name>'
+# pass '--chrome' to capture from your browser's network tab
+environments:
+  production:
+    host: https://api.github.com # the hostname of the API we should record traffic from
+    webUI: https://api.github.com/repos/opticdev/optic # the url that should open when a browser flag is passed
