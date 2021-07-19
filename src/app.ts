@@ -9,6 +9,7 @@ import path from "path";
 import mongoose from "mongoose";
 import passport from "passport";
 import bluebird from "bluebird";
+import { OpticMiddleware } from "@useoptic/express-middleware";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 
 // Controllers (route handlers)
@@ -41,6 +42,9 @@ app.set("view engine", "pug");
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(OpticMiddleware({
+    enabled: process.env.NODE_ENV !== "production",
+}));
 app.use(session({
     resave: true,
     saveUninitialized: true,

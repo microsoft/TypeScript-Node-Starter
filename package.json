@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@types/mongodb": "3.6.5",
+        "@useoptic/express-middleware": "^0.0.3",
         "async": "3.2.0",
         "bcrypt-nodejs": "0.0.3",
         "bluebird": "3.7.2",
