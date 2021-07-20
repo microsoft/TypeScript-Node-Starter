@@ -43,7 +43,7 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(OpticMiddleware({
-    enabled: process.env.NODE_ENV !== "production",
+    enabled: Boolean(process.env.NODE_ENV !== "production"),
 }));
 app.use(session({
     resave: true,
