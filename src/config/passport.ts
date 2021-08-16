@@ -1,7 +1,7 @@
 import passport from "passport";
 import passportLocal from "passport-local";
 import passportFacebook from "passport-facebook";
-import _ from "lodash";
+import { find } from "lodash";
 
 // import { User, UserType } from '../models/User';
 import { User, UserDocument } from "../models/User";
@@ -133,7 +133,7 @@ export const isAuthorized = (req: Request, res: Response, next: NextFunction) =>
     const provider = req.path.split("/").slice(-1)[0];
 
     const user = req.user as UserDocument;
-    if (_.find(user.tokens, { kind: provider })) {
+    if (find(user.tokens, { kind: provider })) {
         next();
     } else {
         res.redirect(`/auth/${provider}`);
