@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  app:
+    container_name: node-app
+    restart: always
+    build: .
+    environment:
+      - MONGODB_URI_LOCAL=mongodb://mongo:27017
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo-db
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongo-data:
