@@ -27,7 +27,6 @@
         "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"npm run watch-node\""
     },
     "dependencies": {
-        "@types/mongodb": "3.6.5",
         "async": "3.2.0",
         "bcrypt-nodejs": "0.0.3",
         "bluebird": "3.7.2",
@@ -68,6 +67,7 @@
         "@types/jquery": "3.5.5",
         "@types/lodash": "^4.14.170",
         "@types/lusca": "1.6.2",
+        "@types/mongodb": "3.6.5",
         "@types/node": "14.14.25",
         "@types/nodemailer": "6.4.0",
         "@types/passport": "1.0.5",
