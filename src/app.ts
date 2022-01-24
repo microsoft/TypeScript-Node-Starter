@@ -20,6 +20,9 @@ import * as contactController from "./controllers/contact";
 // API keys and Passport configuration
 import * as passportConfig from "./config/passport";
 
+// Custom types
+import * as sessionTypes from "./types/express-session-types";
+
 // Create Express server
 const app = express();
 
