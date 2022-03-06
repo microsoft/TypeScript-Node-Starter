@@ -29,7 +29,7 @@ It is not a goal to be a comprehensive and definitive guide to making a TypeScri
 	- [`dependencies`](#dependencies)
 	- [`devDependencies`](#devdependencies)
 - [Hackathon Starter Project](#hackathon-starter-project)
-- [VSCode Dev containers]()
+- [VSCode Dev containers](#vscode-dev-containers)
 
 # Pre-reqs
 To build and run this app locally you will need a few things:
