@@ -49,7 +49,10 @@ app.use(session({
         mongoUrl,
         mongoOptions: {
             autoReconnect: true
-        }
+        },
+        ttl: 24 * 60 * 60 * 1000,
+        autoRemove: "interval",
+        autoRemoveInterval: 10
     })
 }));
 app.use(passport.initialize());

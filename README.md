@@ -29,6 +29,7 @@ It is not a goal to be a comprehensive and definitive guide to making a TypeScri
 	- [`dependencies`](#dependencies)
 	- [`devDependencies`](#devdependencies)
 - [Hackathon Starter Project](#hackathon-starter-project)
+- [VSCode Dev containers](#vscode-dev-containers)
 
 # Pre-reqs
 To build and run this app locally you will need a few things:
@@ -559,6 +560,7 @@ To enhance your development experience while working in VSCode we also provide y
 - [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 - [Azure Cosmos DB](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb)
 - [Azure App Service](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice)
+- [Remote Development pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
 # Dependencies
 Dependencies are managed through `package.json`.
@@ -611,8 +613,53 @@ In that file you'll find two sections:
 
 To install or update these dependencies you can use `npm install` or `npm update`.
 
-# Hackathon Starter Project
+## Hackathon Starter Project
 A majority of this quick start's content was inspired or adapted from Sahat's excellent [Hackathon Starter project](https://github.com/sahat/hackathon-starter).
+
+## VSCode Dev containers
+
+If you are using VSCode, you can open this project to docker-compose containers, provided in the` .devcontainer folder`. The default container is the Node.js src and the secondary container, `mongo` is detailed in the `docker-compose.yml` file to provide the MongoDB database. The containers open privately to the VSCode terminal.
+
+### Prerequisites
+
+[System requirements](https://code.visualstudio.com/docs/remote/containers#_getting-started) for using VSCode Dev Containers include:
+* Docker installed and running on the local computer
+* [**Remote Development** extension pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+
+### Accessing the containers
+
+The web container temporarily forwards to port 3000, as noted in the `devcontainer.json` file. The allows you to connect to the web site with `https://localhost:3000`. The web container is the primary container and will be available from a terminal window:
+
+```
+root@da12b45f6323:/# mongo
+```
+
+The database does not have a port open for security purposes. You can either:
+* add a port yourself to the docker-compose.yml, using the following syntax in the mongo section
+
+
+    ```yml
+    mongo:
+        # other settings...
+        image: mongo
+        restart: unless-stopped
+        volumes:
+          - /data/db
+
+        # open port
+        ports: 27017:27017
+    ```
+
+* or you can **attach to** the Mongo container in a separate instance of VSCode and use the Mongo shell from a terminal in that separate instance.
+
+### Tips for using Dev Containers
+
+The following tips make using Dev Containers easier:
+
+* To manage Docker and understand what the Remote Development extension pack is doing, when the containers are starting up, select the **Starting with Dev Container** message in the lower-right section of VSCode to see the Docker commands used, then when the containers are up, use a separate terminal such as [Windows Terminal](https://aka.ms/terminal), to watch the state of the running containers.
+    ![](./media/start-dev-container.png)
+* Use the Remote connection's status bar quick control, the far left green connector `><`.
+* Use the Command Palette (F1) to see the full list of commands in context.
 
 ## License
 Copyright (c) Microsoft Corporation. All rights reserved.
